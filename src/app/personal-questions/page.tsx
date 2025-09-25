@@ -157,24 +157,24 @@ export default function PersonalQuestionsPage() {
         <div className="bg-[#EEEEEE] rounded-[30px] pt-[33px] pb-[35px] px-[38px] space-y-8">
           {questions.map((question, index) => (
             <div key={question.id}>
-              <div className="text-center mb-2">
+              <div className="text-center mb-[20px]">
                 <span className="text-[#003DA5] text-[15px] font-semibold">{String(index + 5).padStart(2, '0')}</span>
                 <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">{question.title}</h3>
               </div>
 
               {/* 동그란 배지 형태의 옵션들 */}
-              <div className={`flex ${question.id === 'playPattern' ? 'flex-col space-y-3' : 'flex-wrap gap-3 justify-center'}`}>
+              <div className={`flex ${question.id === 'playPattern' ? 'flex-col space-y-[10px] items-center' : 'flex-wrap gap-2 justify-center'}`}>
                 {question.options.map((option) => (
                   <button
                     key={option.id}
                     onClick={() => setFormData(prev => ({ ...prev, [question.id]: option.id }))}
                     className={`
-                      px-[22px] py-[10px] rounded-full text-[13px] font-medium transition-all text-center
+                      px-[18px] py-[10px] rounded-full text-[13px] font-medium transition-all text-center
                       ${formData[question.id as keyof PersonalQuestionsData] === option.id
                         ? 'bg-[#003DA5] text-white shadow-lg'
-                        : 'bg-white text-[#000000] font-medium hover:text-[#003DA5]'
+                        : 'bg-white text-[#000000] hover:text-[#003DA5]'
                       }
-                      ${question.id === 'playPattern' ? 'w-full text-left' : 'whitespace-nowrap'}
+                      ${question.id === 'playPattern' ? '' : 'whitespace-nowrap'}
                     `}
                   >
                     {option.label}
