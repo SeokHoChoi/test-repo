@@ -158,8 +158,8 @@ export default function PersonalQuestionsPage() {
           {questions.map((question, index) => (
             <div key={question.id}>
               <div className="text-center mb-4">
-                <span className="text-[#003DA5] text-[17px] font-bold font-aggro">{String(index + 5).padStart(2, '0')}</span>
-                <h3 className="text-[#003DA5] text-[17px] font-bold font-aggro">{question.title}</h3>
+                <span className="text-[#003DA5] text-[15px] font-semibold">{String(index + 5).padStart(2, '0')}</span>
+                <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">{question.title}</h3>
               </div>
 
               {/* 동그란 배지 형태의 옵션들 */}

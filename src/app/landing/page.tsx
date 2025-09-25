@@ -139,22 +139,24 @@ export default function LandingPage() {
         </div>
 
         {/* TODO: 공통 컴포넌트는 추후 적용 */}
-        <div className="mb-5 text-center">
+        <div className="mb-5 text-center space-y-3">
           <div>
             <Button
               href="/basic-questions"
               fullWidth={false}
               roundedClass="rounded-[50px]"
               size="none"
-              className="inline-flex items-center justify-center px-[80px] py-[10px] text-[15px] font-semibold"
+              className="inline-flex items-center justify-center px-[80px] py-[10px] text-[15px] font-semibold min-w-[255px]"
             >
               테스트 시작하기
             </Button>
           </div>
           <div>
-            <Button variant="secondary" shareAction className="inline-flex items-center gap-1 text-[#343434] text-[15px] font-medium">
-              테스트 공유하기 <Upload size={19} />
-            </Button>
+            <div className="inline-block">
+              <Button variant="secondary" shareAction className="inline-flex items-center gap-1 text-[#343434] text-[15px] font-medium py-1 px-2">
+                테스트 공유하기 <Upload size={19} />
+              </Button>
+            </div>
           </div>
         </div>
       </div>

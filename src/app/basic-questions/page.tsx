@@ -31,19 +31,19 @@ export default function BasicQuestionsPage() {
       id: 'low',
       label: '저활동 (Low activity)',
       description: '일일 활동 시간: 30분 미만',
-      detail: '하루 대부분을 실내에서 보내며, 운동량이 적은 경우. 주로 앉아있거나 누워있는 시간이 많음'
+      detail: '하루 대부분 실내에서 보내고 운동량이 적음'
     },
     {
       id: 'moderate',
       label: '보통 활동 (Moderate activity)',
       description: '일일 활동 시간: 30분 ~ 1시간',
-      detail: '규칙적인 산책과 적당한 활동을 하는 경우. 실내외 활동이 골고루 있음'
+      detail: '규칙적인 산책과 적당한 활동을 함'
     },
     {
       id: 'high',
       label: '고활동 (High activity)',
       description: '일일 활동 시간: 1시간 이상',
-      detail: '활발한 운동과 장시간 야외 활동을 하는 경우. 달리기/점프/놀이 등 활발한 신체 활동이 많음'
+      detail: '달리기 등 활발하고 장시간 신체활동이 많음'
     }
   ];
 
@@ -90,12 +90,12 @@ export default function BasicQuestionsPage() {
         <Header />
 
         {/* 질문 폼 */}
-        <div className="bg-gray-50 rounded-2xl p-6 space-y-8">
+        <div className="bg-[#EEEEEE] rounded-[30px] pt-[33px] pb-[35px] px-[38px] space-y-8">
           {/* 01. 강아지 이름 */}
           <div>
             <div className="text-center mb-4">
-              <span className="text-[#003DA5] text-[17px] font-bold font-aggro">01</span>
-              <h3 className="text-[#003DA5] text-[17px] font-bold font-aggro">반려견의 이름을 알려주세요!</h3>
+              <span className="text-[#003DA5] text-[15px] font-semibold">01</span>
+              <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">반려견의 이름을 알려주세요!</h3>
             </div>
             <input
               type="text"
@@ -109,8 +109,8 @@ export default function BasicQuestionsPage() {
           {/* 02. 생년월일 */}
           <div>
             <div className="text-center mb-4">
-              <span className="text-[#003DA5] text-[17px] font-bold font-aggro">02</span>
-              <h3 className="text-[#003DA5] text-[17px] font-bold font-aggro">(추정) 생년월일을 알려주세요!</h3>
+              <span className="text-[#003DA5] text-[15px] font-semibold">02</span>
+              <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">(추정) 생년월일을 알려주세요!</h3>
             </div>
             <Button
               variant="input"
@@ -127,9 +127,9 @@ export default function BasicQuestionsPage() {
 
           {/* 03. BCS 선택 */}
           <div>
-            <div className="text-center mb-4">
-              <span className="text-[#003DA5] text-[17px] font-bold font-aggro">03</span>
-              <h3 className="text-[#003DA5] text-[17px] font-bold font-aggro">BCS를 선택해주세요!</h3>
+            <div className="text-center mb-2">
+              <span className="text-[#003DA5] text-[15px] font-semibold">03</span>
+              <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">BCS를 선택해주세요!</h3>
             </div>
             <p className="text-[#343434] text-[11px] font-normal text-center mb-4">
               옆에서 아이를 관찰하고 아래 이미지 중<br />
@@ -137,115 +137,128 @@ export default function BasicQuestionsPage() {
             </p>
 
             {/* BCS 이미지 버튼들 */}
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                onClick={() => setFormData(prev => ({ ...prev, bcs: 'skinny' }))}
-                className={`relative rounded-xl overflow-hidden transition-all ${formData.bcs === 'skinny'
-                  ? 'ring-4 ring-blue-500 shadow-lg'
-                  : 'hover:shadow-md'
-                  }`}
+            <div className="flex justify-center">
+              <div
+                className="grid gap-[12px]"
+                style={{
+                  gridTemplateColumns: '127px 127px',
+                  gridTemplateRows: '127px 127px'
+                }}
               >
-                <Image
-                  src="/img/basic-questions/skinny.png"
-                  alt="저체중 (Skinny)"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto"
-                />
-                {formData.bcs === 'skinny' && (
-                  <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setFormData(prev => ({ ...prev, bcs: 'skinny' }))}
+                  className={`relative rounded-xl overflow-hidden transition-all bg-white ${formData.bcs === 'skinny'
+                    ? 'ring-3 ring-blue-500 shadow-lg'
+                    : 'hover:shadow-md'
+                    }`}
+                >
+                  <Image
+                    src="/img/basic-questions/skinny.png"
+                    alt="저체중 (Skinny)"
+                    width={127}
+                    height={127}
+                    className="w-[127px] h-[127px] object-contain mx-auto"
+                  />
+                  {formData.bcs === 'skinny' && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm">✓</span>
+                    </div>
+                  )}
+                </button>
 
-              <button
-                onClick={() => setFormData(prev => ({ ...prev, bcs: 'just-right' }))}
-                className={`relative rounded-xl overflow-hidden transition-all ${formData.bcs === 'just-right'
-                  ? 'ring-4 ring-blue-500 shadow-lg'
-                  : 'hover:shadow-md'
-                  }`}
-              >
-                <Image
-                  src="/img/basic-questions/just-right.png"
-                  alt="적정 체중 (Just Right)"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto"
-                />
-                {formData.bcs === 'just-right' && (
-                  <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setFormData(prev => ({ ...prev, bcs: 'just-right' }))}
+                  className={`relative rounded-xl overflow-hidden transition-all bg-white ${formData.bcs === 'just-right'
+                    ? 'ring-3 ring-blue-500 shadow-lg'
+                    : 'hover:shadow-md'
+                    }`}
+                >
+                  <Image
+                    src="/img/basic-questions/just-right.png"
+                    alt="적정 체중 (Just Right)"
+                    width={127}
+                    height={127}
+                    className="w-[127px] h-[127px] object-contain mx-auto"
+                  />
+                  {formData.bcs === 'just-right' && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm">✓</span>
+                    </div>
+                  )}
+                </button>
 
-              <button
-                onClick={() => setFormData(prev => ({ ...prev, bcs: 'husky' }))}
-                className={`relative rounded-xl overflow-hidden transition-all ${formData.bcs === 'husky'
-                  ? 'ring-4 ring-blue-500 shadow-lg'
-                  : 'hover:shadow-md'
-                  }`}
-              >
-                <Image
-                  src="/img/basic-questions/husky.png"
-                  alt="과체중 (Husky)"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto"
-                />
-                {formData.bcs === 'husky' && (
-                  <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setFormData(prev => ({ ...prev, bcs: 'husky' }))}
+                  className={`relative rounded-xl overflow-hidden transition-all bg-white ${formData.bcs === 'husky'
+                    ? 'ring-3 ring-blue-500 shadow-lg'
+                    : 'hover:shadow-md'
+                    }`}
+                >
+                  <Image
+                    src="/img/basic-questions/husky.png"
+                    alt="과체중 (Husky)"
+                    width={127}
+                    height={127}
+                    className="w-[127px] h-[127px] object-contain mx-auto"
+                  />
+                  {formData.bcs === 'husky' && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm">✓</span>
+                    </div>
+                  )}
+                </button>
 
-              <button
-                onClick={() => setFormData(prev => ({ ...prev, bcs: 'chubby' }))}
-                className={`relative rounded-xl overflow-hidden transition-all ${formData.bcs === 'chubby'
-                  ? 'ring-4 ring-blue-500 shadow-lg'
-                  : 'hover:shadow-md'
-                  }`}
-              >
-                <Image
-                  src="/img/basic-questions/chubby.png"
-                  alt="비만 (Chubby)"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto"
-                />
-                {formData.bcs === 'chubby' && (
-                  <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setFormData(prev => ({ ...prev, bcs: 'chubby' }))}
+                  className={`relative rounded-xl overflow-hidden transition-all bg-white ${formData.bcs === 'chubby'
+                    ? 'ring-3 ring-blue-500 shadow-lg'
+                    : 'hover:shadow-md'
+                    }`}
+                >
+                  <Image
+                    src="/img/basic-questions/chubby.png"
+                    alt="비만 (Chubby)"
+                    width={127}
+                    height={127}
+                    className="w-[127px] h-[127px] object-contain mx-auto"
+                  />
+                  {formData.bcs === 'chubby' && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm">✓</span>
+                    </div>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
           {/* 04. 활동 수준 */}
           <div>
             <div className="text-center mb-4">
-              <span className="text-[#003DA5] text-[17px] font-bold font-aggro">04</span>
-              <h3 className="text-[#003DA5] text-[17px] font-bold font-aggro">활동 수준을 알려주세요!</h3>
+              <span className="text-[#003DA5] text-[15px] font-semibold">04</span>
+              <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">활동 수준을 알려주세요!</h3>
             </div>
             <div className="space-y-3">
               {activityLevels.map((level) => (
                 <div
                   key={level.id}
                   className={`
-                    bg-white rounded-xl p-4 border-2 cursor-pointer transition-all
+                    relative bg-white rounded-xl p-4 cursor-pointer transition-all
                     ${formData.activityLevel === level.id
-                      ? 'border-blue-500 shadow-lg'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'ring-3 ring-blue-500 shadow-lg'
+                      : 'hover:shadow-md'
                     }
                   `}
                   onClick={() => setFormData(prev => ({ ...prev, activityLevel: level.id }))}
                 >
-                  <h4 className="text-[#000000] text-[13px] font-semibold text-center mb-1">{level.label}</h4>
-                  <p className="text-[#000000] text-[13px] font-normal text-center mb-2">{level.description}</p>
+                  <h4 className="text-[#000000] text-[13px] font-semibold text-center">{level.label}</h4>
+                  <p className="text-[#000000] text-[13px] font-normal text-center">{level.description}</p>
                   <p className="text-[#000000] text-[13px] font-normal text-center">{level.detail}</p>
+                  {formData.activityLevel === level.id && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-sm">✓</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -253,11 +266,14 @@ export default function BasicQuestionsPage() {
         </div>
 
         {/* 다음 버튼 */}
-        <div className="mt-8">
+        <div className="mt-8 text-center">
           <Button
             onClick={handleNext}
             disabled={!isFormValid}
-            className={!isFormValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}
+            fullWidth={false}
+            roundedClass="rounded-[50px]"
+            size="none"
+            className={`inline-flex items-center justify-center px-[80px] py-[10px] text-[15px] font-semibold min-w-[255px] ${!isFormValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}
           >
             다음 질문
           </Button>
