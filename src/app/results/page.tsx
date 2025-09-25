@@ -1,0 +1,269 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/Button';
+import { Header } from '@/components/Header';
+import { NBTIResultCard } from '@/components/NBTIResultCard';
+import { InfoCard } from '@/components/InfoCard';
+import { ShareCard } from '@/components/ShareCard';
+import { generateShareUrl, type NBTIResult } from '@/lib/utils';
+import Image from 'next/image';
+
+export default function ResultsPage() {
+  const router = useRouter();
+  const [result, setResult] = useState<NBTIResult | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const resultData = sessionStorage.getItem('nbtiResult');
+    if (resultData) {
+      setResult(JSON.parse(resultData));
+    } else {
+      // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
+      router.push('/landing');
+    }
+    setLoading(false);
+  }, [router]);
+
+  const handleShare = () => {
+    // URL에 결과 데이터를 담아서 공유 페이지로 이동
+    if (result) {
+      const shareUrl = generateShareUrl(result);
+      router.push(shareUrl);
+    }
+  };
+
+  const handleCheckFood = () => {
+    window.open('https://www.jellyu-univ.com', '_blank');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="px-4 py-8 max-w-md mx-auto">
+          <Header />
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">결과를 불러오고 있어요...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!result) {
+    return (
+      <div className="min-h-screen bg-white">
+        <div className="px-4 py-8 max-w-md mx-auto">
+          <Header />
+          <div className="flex items-center justify-center py-12">
+            <div className="text-center">
+              <p className="text-gray-600 mb-4">결과를 찾을 수 없습니다.</p>
+              <Button href="/landing" size="sm" className="!w-auto inline-flex">
+                메인으로 돌아가기
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      <div className="px-4 py-8 max-w-md mx-auto">
+        <Header />
+
+        {/* 결과 카드 */}
+        <NBTIResultCard
+          dogName={result.dogName}
+          dogImage="/img/results/dog-1.png"
+        >
+          <div className="text-center mb-3">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm">🏆</span>
+              </div>
+              <h3 className="text-gray-900 font-bold text-lg font-aggro">{result.nbti.name}</h3>
+            </div>
+            <p className="text-gray-600 text-sm">{result.nbti.type}</p>
+          </div>
+
+          <div className="text-center mb-4">
+            <p className="text-blue-600 font-medium text-sm">
+              "{result.nbti.description}"
+            </p>
+          </div>
+
+          <div className="text-gray-700 text-sm leading-relaxed">
+            <p className="mb-2">{result.nbti.detail.split('!')[0]}!</p>
+            <p>{result.nbti.detail.split('!')[1]}</p>
+          </div>
+        </NBTIResultCard>
+
+        {/* 결과 공유하기 텍스트 */}
+        <div className="text-center mb-6">
+          <Button
+            onClick={handleShare}
+            variant="secondary"
+            size="sm"
+            className="!w-auto inline-flex gap-1"
+          >
+            결과 공유하기 ↗
+          </Button>
+        </div>
+
+        {/* 영양관리 팁 카드 */}
+        <InfoCard>
+          <div className="text-center mb-4">
+            <span className="text-2xl mb-2 block">💡</span>
+            <h3 className="text-gray-900 font-semibold text-lg">우리 아이 영양관리 팁</h3>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="text-green-500 text-lg">☑️</span>
+              <p className="text-gray-700 text-sm">
+                성장 중이면서 매우 활발한 활동을 하는 건강한 아이로, 하루 종일 뛰어놀아도 적정 체중을 유지하고 있어 현재 급여량과 사료가 잘 맞는 상태예요.
+              </p>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <span className="text-green-500 text-lg">☑️</span>
+              <p className="text-gray-700 text-sm">
+                성장 속도에 맞춰 단백질과 칼슘 함량이 높은 퍼피 사료의 지속적인 급여가 필요하지만, 빠른 식사 속도로 인한 소화불량을 방지하기 위해 슬로우 피더나 퍼즐 피더 사용을 권장해요.
+              </p>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <span className="text-green-500 text-lg">☑️</span>
+              <p className="text-gray-700 text-sm">
+                사교적 성향에 맞게 퍼피 소셜라이징 클래스나 강아지 놀이터에서 다양한 친구들과 뛰어놀며 건강한 사회성을 기를 수 있도록 도와주세요!
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
+            <span className="text-2xl mb-2 block">🤔</span>
+            <h4 className="text-gray-900 font-semibold text-lg mb-2">잠깐, 내가 먹이고 있는 사료 얼마나 안전할까요?</h4>
+            <p className="text-gray-600 text-sm mb-4">
+              서울대∙한국수의영양학회 임원 수의사가 설계한<br />
+              AI가 30초 만에 분석해드려요!
+            </p>
+            <Button
+              onClick={handleCheckFood}
+              variant="primary"
+              size="md"
+              className="rounded-xl mx-auto !w-auto"
+            >
+              더 알아보기
+            </Button>
+          </div>
+        </InfoCard>
+
+        {/* 궁합 섹션 */}
+        <div className="mb-6">
+          <h3 className="text-gray-900 font-semibold text-lg text-center mb-4">
+            만약 한 아이를<br />
+            더 식구로 맞이한다면..!
+          </h3>
+
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <ShareCard className="p-4">
+              <div className="text-center">
+                <div className="bg-white border border-[#003DA5] text-[#003DA5] text-xs px-3 py-1 rounded-full inline-block mb-3">
+                  잘 맞는 유형
+                </div>
+                <div className="mb-3">
+                  <Image
+                    src="/img/results/dog-1.png"
+                    alt="강아지"
+                    width={80}
+                    height={80}
+                    className="w-20 h-20 object-contain mx-auto"
+                  />
+                </div>
+                <h3 className="text-gray-900 font-bold text-sm mb-1">꿈 많은 탐험가</h3>
+                <p className="text-gray-600 text-xs">IHP-EA 적극적 사교형 탐험가</p>
+              </div>
+            </ShareCard>
+
+            <ShareCard className="p-4">
+              <div className="text-center">
+                <div className="bg-white border border-[#F7623E] text-[#F7623E] text-xs px-3 py-1 rounded-full inline-block mb-3">
+                  안 맞는 유형
+                </div>
+                <div className="mb-3">
+                  <Image
+                    src="/img/results/dog-1.png"
+                    alt="강아지"
+                    width={80}
+                    height={80}
+                    className="w-20 h-20 object-contain mx-auto"
+                  />
+                </div>
+                <h3 className="text-gray-900 font-bold text-sm mb-1">꿈 많은 탐험가</h3>
+                <p className="text-gray-600 text-xs">IHP-EA 적극적 사고가</p>
+              </div>
+            </ShareCard>
+          </div>
+        </div>
+
+        {/* 친구 궁합 카드 */}
+        <ShareCard>
+          <div className="text-center">
+            <span className="text-2xl mb-2 block">🐶</span>
+            <h3 className="text-gray-900 font-semibold text-lg mb-2">
+              {result.dogName}와 친구의 궁합이 궁금하다면?
+            </h3>
+            <p className="text-gray-600 text-sm mb-4">
+              지금 테스트를 공유해 우리아이와<br />
+              찰떡 궁합인 친구를 찾아보세요!
+            </p>
+            <div className="space-y-3">
+              <Button onClick={handleShare}>
+                테스트 공유하기
+              </Button>
+              <Button variant="outline" onClick={handleShare}>
+                결과 공유하기
+              </Button>
+            </div>
+          </div>
+        </ShareCard>
+
+        {/* NBTI 설명 카드 */}
+        <ShareCard>
+          <div className="text-center">
+            <span className="text-2xl mb-2 block">🐕</span>
+            <h3 className="text-gray-900 font-semibold text-lg mb-2">NBTI란?</h3>
+            <p className="text-gray-500 text-sm mb-2">(Nutritional Body & Type Index)</p>
+            <p className="text-gray-700 text-sm leading-relaxed mb-4">
+              반려견의 건강 상태를 32가지 유형으로 나누고<br />
+              어떻게 하면 영양학적으로 더 건강하게 지낼 수<br />
+              있을지 알려주는 지표에요.
+            </p>
+            <Button variant="outline" onClick={() => router.push('/basic-questions')}>
+              다시 테스트하기
+            </Button>
+          </div>
+        </ShareCard>
+
+        {/* 푸터 로고 */}
+        <footer className="py-8 text-center">
+          <div className="w-16 h-16 mx-auto mb-2">
+            <Image
+              src="/img/jellyu-logo.png"
+              alt="Jelly Univ Logo"
+              width={64}
+              height={64}
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
