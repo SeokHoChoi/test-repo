@@ -195,7 +195,7 @@ export default function PersonalQuestionsPage() {
             size="none"
             className={`inline-flex items-center justify-center px-[80px] py-[10px] text-[15px] font-semibold min-w-[255px] ${!isFormValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}
           >
-            결과 확인하기
+            결과 보기
           </Button>
         </div>
       </div>
