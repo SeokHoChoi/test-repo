@@ -154,10 +154,10 @@ export default function PersonalQuestionsPage() {
         <Header />
 
         {/* 질문 폼 */}
-        <div className="bg-[#EEEEEE] rounded-2xl p-6 space-y-8">
+        <div className="bg-[#EEEEEE] rounded-[30px] pt-[33px] pb-[35px] px-[38px] space-y-8">
           {questions.map((question, index) => (
             <div key={question.id}>
-              <div className="text-center mb-4">
+              <div className="text-center mb-2">
                 <span className="text-[#003DA5] text-[15px] font-semibold">{String(index + 5).padStart(2, '0')}</span>
                 <h3 className="text-[#003DA5] text-[15px] font-semibold -mt-1">{question.title}</h3>
               </div>
@@ -186,13 +186,16 @@ export default function PersonalQuestionsPage() {
         </div>
 
         {/* 결과 보기 버튼 */}
-        <div className="mt-8">
+        <div className="mt-8 text-center">
           <Button
             onClick={handleSubmit}
             disabled={!isFormValid}
-            className={!isFormValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}
+            fullWidth={false}
+            roundedClass="rounded-[50px]"
+            size="none"
+            className={`inline-flex items-center justify-center px-[80px] py-[10px] text-[15px] font-semibold min-w-[255px] ${!isFormValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : ''}`}
           >
-            결과 보기
+            결과 확인하기
           </Button>
         </div>
       </div>
