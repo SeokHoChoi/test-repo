@@ -124,39 +124,42 @@ export default function ResultsPage() {
         </div>
 
         {/* 영양관리 팁 카드 */}
-        <InfoCard className="!mb-6">
-          <div className="text-center mb-4">
+        <InfoCard className="mb-6" customPadding="pt-[24px] px-[30px] pb-[32.69px]">
+          <div className="text-center mb-[21px]">
             <span className="text-2xl mb-2 block">💡</span>
-            <h3 className="text-gray-900 font-semibold text-lg">우리 아이 영양관리 팁</h3>
+            <h3 className="text-[#003DA5] font-semibold text-[22px]">우리 아이 영양관리 팁</h3>
           </div>
 
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <span className="text-green-500 text-lg">☑️</span>
-              <p className="text-gray-700 text-sm">
+          <div className="space-y-[22px]">
+            <div className="flex items-start gap-[20px]">
+              <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
+              <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
                 성장 중이면서 매우 활발한 활동을 하는 건강한 아이로, 하루 종일 뛰어놀아도 적정 체중을 유지하고 있어 현재 급여량과 사료가 잘 맞는 상태예요.
               </p>
             </div>
 
-            <div className="flex items-start gap-3">
-              <span className="text-green-500 text-lg">☑️</span>
-              <p className="text-gray-700 text-sm">
+            <div className="flex items-start gap-[20px]">
+              <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
+              <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
                 성장 속도에 맞춰 단백질과 칼슘 함량이 높은 퍼피 사료의 지속적인 급여가 필요하지만, 빠른 식사 속도로 인한 소화불량을 방지하기 위해 슬로우 피더나 퍼즐 피더 사용을 권장해요.
               </p>
             </div>
 
-            <div className="flex items-start gap-3">
-              <span className="text-green-500 text-lg">☑️</span>
-              <p className="text-gray-700 text-sm">
+            <div className="flex items-start gap-[20px]">
+              <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
+              <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
                 사교적 성향에 맞게 퍼피 소셜라이징 클래스나 강아지 놀이터에서 다양한 친구들과 뛰어놀며 건강한 사회성을 기를 수 있도록 도와주세요!
               </p>
             </div>
           </div>
 
-          <div className="mt-6 text-center">
-            <span className="text-2xl mb-2 block">🤔</span>
-            <h4 className="text-gray-900 font-semibold text-lg mb-2">잠깐, 내가 먹이고 있는 사료 얼마나 안전할까요?</h4>
-            <p className="text-gray-600 text-sm mb-4">
+          <div className="mt-[41px] text-center">
+            <span className="text-[20px] w-[20px] h-[20px] mb-[11px] block flex items-center justify-center mx-auto">🤔</span>
+            <h4 className="text-[#003DA5] font-semibold text-[20px] mb-2 text-center">
+              잠깐, 내가 먹이고 있는 사료<br />
+              얼마나 안전할까요?
+            </h4>
+            <p className="text-[#000000] font-normal text-[13px] mb-[20px]" style={{ marginTop: '15px' }}>
               서울대∙한국수의영양학회 임원 수의사가 설계한<br />
               AI가 30초 만에 분석해드려요!
             </p>
@@ -164,7 +167,10 @@ export default function ResultsPage() {
               onClick={handleCheckFood}
               variant="primary"
               size="md"
-              className="rounded-xl mx-auto !w-auto"
+              fullWidth={false}
+              roundedClass="rounded-[50px]"
+              customPadding="px-[46px] py-[12px]"
+              className="mx-auto min-w-[161px] bg-[#003DA5] text-[#FFFFFF] font-semibold text-[15px]"
             >
               더 알아보기
             </Button>
