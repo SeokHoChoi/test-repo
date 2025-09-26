@@ -83,10 +83,8 @@ export default function ResultsPage() {
           dogImage="/img/results/dog-1.png"
         >
           <div className="text-center mb-3">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">🏆</span>
-              </div>
+            <div className="flex items-center justify-center gap-[4px] mb-2">
+              <span className="text-lg" style={{ fontSize: '18px', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🏆</span>
               <h3 className="font-medium" style={{ fontFamily: 'Gumi-Romance', color: '#212121', fontSize: '20px' }}>{result.nbti.name}</h3>
             </div>
             <p className="text-gray-600 text-sm">{result.nbti.type}</p>
