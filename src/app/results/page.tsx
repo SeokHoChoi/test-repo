@@ -212,7 +212,12 @@ export default function ResultsPage() {
         {/* 친구 궁합 카드 */}
         <InfoDisplayCard
           emoji="🐶"
-          title={`${result.dogName}와 친구의 궁합이 궁금하다면?`}
+          title={
+            <>
+              {result.dogName}와 친구의 궁합이<br />
+              궁금하다면?
+            </>
+          }
           description={
             <>
               지금 테스트를 공유해 우리아이와<br />
@@ -223,6 +228,7 @@ export default function ResultsPage() {
             { text: "테스트 공유하기", onClick: handleShare },
             { text: "결과 공유하기", variant: "outline", onClick: handleShare }
           ]}
+          customPadding="px-[30px] pt-[23.5px] pb-[28.5px]"
           noMargin
         />
 
@@ -243,10 +249,11 @@ export default function ResultsPage() {
           buttons={[
             { text: "다시 테스트하기", variant: "outline", onClick: () => router.push('/basic-questions') }
           ]}
+          customPadding="px-[36.5px] py-[26.85px]"
         />
 
         {/* 푸터 로고 */}
-        <footer className="py-8 text-center">
+        <footer className="pt-[30px] pb-[15px] text-center">
           <div className="w-16 h-16 mx-auto mb-2">
             <Image
               src="/img/jellyu-logo.png"

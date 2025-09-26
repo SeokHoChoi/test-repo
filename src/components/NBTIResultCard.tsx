@@ -15,10 +15,10 @@ export function NBTIResultCard({
   return (
     <div className="bg-[#003DA5] px-[31px] py-[28px] relative overflow-hidden rounded-[30px]">
       <div className="text-center mb-4">
-        <h2 className="text-white text-[30px] font-medium mb-0 font-gumi">
+        <h2 className="text-white text-[30px] font-medium mb-0 font-gumi leading-[31px]">
           {dogName}의 NBTI는
         </h2>
-        <p className="text-[#FFFFFF] font-medium text-[15px] -mt-px">@젤리대학교</p>
+        <p className="text-[#FFFFFF] font-medium text-[15px] mt-2">@젤리대학교</p>
       </div>
 
       <div className="flex justify-center mb-9">
