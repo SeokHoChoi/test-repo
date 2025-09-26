@@ -8,6 +8,7 @@ import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { InfoCard } from '@/components/InfoCard';
 import { ShareCard } from '@/components/ShareCard';
 import { generateShareUrl, type NBTIResult } from '@/lib/utils';
+import { Upload } from 'lucide-react';
 import Image from 'next/image';
 
 export default function ResultsPage() {
@@ -109,19 +110,21 @@ export default function ResultsPage() {
         </NBTIResultCard>
 
         {/* 결과 공유하기 텍스트 */}
-        <div className="text-center mb-6">
+        <div className="text-center mt-[15px] mb-[30px]">
           <Button
             onClick={handleShare}
             variant="secondary"
             size="sm"
-            className="!w-auto inline-flex gap-1"
+            fullWidth={false}
+            customPadding="py-1 px-2"
+            className="inline-flex items-center gap-1 !text-[#000000] !text-[15px] font-medium"
           >
-            결과 공유하기 ↗
+            결과 공유하기 <Upload size={19} strokeWidth={1.5} />
           </Button>
         </div>
 
         {/* 영양관리 팁 카드 */}
-        <InfoCard>
+        <InfoCard className="!mb-6">
           <div className="text-center mb-4">
             <span className="text-2xl mb-2 block">💡</span>
             <h3 className="text-gray-900 font-semibold text-lg">우리 아이 영양관리 팁</h3>

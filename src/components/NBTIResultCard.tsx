@@ -13,7 +13,7 @@ export function NBTIResultCard({
   children
 }: NBTIResultCardProps) {
   return (
-    <div className="bg-[#003DA5] px-[31px] py-[28px] mb-6 relative overflow-hidden rounded-[30px]">
+    <div className="bg-[#003DA5] px-[31px] py-[28px] relative overflow-hidden rounded-[30px]">
       <div className="text-center mb-4">
         <h2 className="text-white text-[30px] font-medium mb-0 font-gumi">
           {dogName}의 NBTI는
