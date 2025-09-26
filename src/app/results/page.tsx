@@ -98,7 +98,7 @@ export default function ResultsPage() {
           </div>
 
           {/* 요약 텍스트 */}
-          <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[20px]">
+          <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
             <p className="break-keep">{result.nbti.detail.split('!')[0]}!</p>
           </div>
 
