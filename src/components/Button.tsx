@@ -11,6 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   shareAction?: boolean;
   fullWidth?: boolean; // default true: w-full, false: w-auto
   roundedClass?: string; // default 'rounded-xl'
+  customPadding?: string; // custom padding override (e.g., "py-1 px-2")
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -22,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   shareAction = false,
   fullWidth = true,
   roundedClass = 'rounded-xl',
+  customPadding,
   onClick,
   ...props
 }) => {
@@ -66,9 +68,12 @@ export const Button: React.FC<ButtonProps> = ({
     }
   };
 
+  const finalSizeClasses = customPadding ? '' : sizeClasses[size];
+  const paddingClasses = customPadding || '';
+
   return (
     <button
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${finalSizeClasses} ${paddingClasses} ${className}`}
       onClick={handleClick}
       {...props}
     >

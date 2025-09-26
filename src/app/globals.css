@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Gumi-Romance';
+  src: url('/fonts/gumi-romance/Gumi-Romance.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -12,6 +20,8 @@
   --font-mono: var(--font-geist-mono);
   --font-aggro: var(--font-aggro);
   --font-pretendard: var(--font-pretendard);
+  --font-gumi: 'Gumi-Romance';
+  --font-family-gumi: 'Gumi-Romance';
   --color-brand-blue: #003DA5;
 }
 

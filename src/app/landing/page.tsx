@@ -154,7 +154,7 @@ export default function LandingPage() {
           <div>
             <div className="inline-block">
               <Button variant="secondary" shareAction className="inline-flex items-center gap-1 text-[#343434] text-[15px] font-medium py-1 px-2">
-                테스트 공유하기 <Upload size={19} />
+                테스트 공유하기 <Upload size={19} strokeWidth={1.5} />
               </Button>
             </div>
           </div>
