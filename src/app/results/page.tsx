@@ -82,23 +82,29 @@ export default function ResultsPage() {
           dogName={result.dogName}
           dogImage="/img/results/dog-1.png"
         >
-          <div className="text-center mb-3">
-            <div className="flex items-center justify-center gap-[4px] mb-2">
-              <span className="text-lg" style={{ fontSize: '18px', width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>🏆</span>
-              <h3 className="font-medium" style={{ fontFamily: 'Gumi-Romance', color: '#212121', fontSize: '20px' }}>{result.nbti.name}</h3>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-[4px] leading-none m-0">
+              <span className="text-[18px] w-[18px] h-[18px] flex items-center justify-center leading-none">🏆</span>
+              <h3 className="font-medium text-[20px] leading-none m-0" style={{ fontFamily: 'Gumi-Romance', color: '#212121' }}>{result.nbti.name}</h3>
             </div>
-            <p className="text-gray-600 text-sm">{result.nbti.type}</p>
+            <p className="font-normal text-[13px] leading-none my-[5px]" style={{ color: '#8B8B8B' }}>{result.nbti.type}</p>
+            <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
           </div>
 
-          <div className="text-center mb-4">
-            <p className="text-blue-600 font-medium text-sm">
+          <div className="text-center mt-[13px] mb-[10px]">
+            <p className="text-[#003DA5] font-semibold text-[13px]">
               "{result.nbti.description}"
             </p>
           </div>
 
-          <div className="text-gray-700 text-sm leading-relaxed">
-            <p className="mb-2">{result.nbti.detail.split('!')[0]}!</p>
-            <p>{result.nbti.detail.split('!')[1]}</p>
+          {/* 요약 텍스트 */}
+          <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[20px]">
+            <p className="break-keep">{result.nbti.detail.split('!')[0]}!</p>
+          </div>
+
+          {/* 상세 설명 텍스트 */}
+          <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed">
+            <p className="break-keep">{result.nbti.detail.split('!')[1]}</p>
           </div>
         </NBTIResultCard>
 
