@@ -178,8 +178,8 @@ export default function ResultsPage() {
         </InfoCard>
 
         {/* 궁합 섹션 */}
-        <div className="mb-6">
-          <h3 className="text-gray-900 font-semibold text-lg text-center mb-4">
+        <div className="mb-6" style={{ marginTop: '41px' }}>
+          <h3 className="text-[#343434] font-aggro font-semibold text-[22px] text-center mb-[30.23px]">
             만약 한 아이를<br />
             더 식구로 맞이한다면..!
           </h3>
