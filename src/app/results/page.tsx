@@ -7,6 +7,8 @@ import { Header } from '@/components/Header';
 import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { InfoCard } from '@/components/InfoCard';
 import { ShareCard } from '@/components/ShareCard';
+import { MatchingCard } from '@/components/MatchingCard';
+import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import { generateShareUrl, type NBTIResult } from '@/lib/utils';
 import { Upload } from 'lucide-react';
 import Image from 'next/image';
@@ -178,109 +180,70 @@ export default function ResultsPage() {
         </InfoCard>
 
         {/* 궁합 섹션 */}
-        <div className="mb-6" style={{ marginTop: '41px' }}>
+        <div className="mb-[28.77px]" style={{ marginTop: '41px' }}>
           <h3 className="text-[#343434] font-aggro font-semibold text-[22px] text-center mb-[30.23px]">
             만약 한 아이를<br />
             더 식구로 맞이한다면..!
           </h3>
 
-          <div className="flex justify-center gap-[13px] mb-6">
-            <ShareCard
-              className="rounded-[20px] w-[165px] h-[229px]"
-              customPadding="px-[12px] py-[15px]"
-              customStyle={{
-                boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
-              }}
-            >
-              <div className="text-center">
-                <div className="bg-white border border-[#003DA5] text-[#003DA5] font-semibold text-[13px] px-3 py-1 rounded-full inline-block mb-[7px] min-w-[96px] min-h-[28px] flex items-center justify-center">
-                  잘 맞는 유형
-                </div>
-                <div className="mb-[5px] min-w-[130px] min-h-[120px] flex items-center justify-center">
-                  <Image
-                    src="/img/results/dog-1.png"
-                    alt="강아지"
-                    width={80}
-                    height={70}
-                    className="w-20 h-[70px] object-contain"
-                  />
-                </div>
-                <h3 className="text-[#212121] font-gumi text-[13px] mb-[2px] flex items-center justify-center gap-[4px]">
-                  <span className="text-[12px] flex items-center justify-center">🔭</span>
-                  꿈 많은 탐험가
-                </h3>
-                <p className="text-[#8B8B8B] font-normal text-[10px]">IHP-EA 적극적 사교형 탐험가</p>
-              </div>
-            </ShareCard>
+          <div className="flex justify-center gap-[13px]">
+            <MatchingCard
+              type="good"
+              badgeText="잘 맞는 유형"
+              imageSrc="/img/results/dog-1.png"
+              imageAlt="강아지"
+              title="꿈 많은 탐험가"
+              emoji="🔭"
+              description="IHP-EA 적극적 사교형 탐험가"
+            />
 
-            <ShareCard
-              className="rounded-[20px] w-[165px] h-[229px]"
-              customPadding="px-[12px] py-[15px]"
-              customStyle={{
-                boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
-              }}
-            >
-              <div className="text-center">
-                <div className="bg-white border border-[#F7623E] text-[#F7623E] font-semibold text-[13px] px-3 py-1 rounded-full inline-block mb-[7px] min-w-[96px] min-h-[28px] flex items-center justify-center">
-                  안 맞는 유형
-                </div>
-                <div className="mb-[5px] min-w-[130px] min-h-[120px] flex items-center justify-center">
-                  <Image
-                    src="/img/results/dog-1.png"
-                    alt="강아지"
-                    width={80}
-                    height={70}
-                    className="w-20 h-[70px] object-contain"
-                  />
-                </div>
-                <h3 className="text-[#212121] font-gumi text-[13px] mb-[2px] flex items-center justify-center gap-[4px]">
-                  <span className="text-[12px] flex items-center justify-center">🔭</span>
-                  꿈 많은 탐험가
-                </h3>
-                <p className="text-[#8B8B8B] font-normal text-[10px]">IHP-EA 적극적 사고가</p>
-              </div>
-            </ShareCard>
+            <MatchingCard
+              type="bad"
+              badgeText="안 맞는 유형"
+              imageSrc="/img/results/dog-1.png"
+              imageAlt="강아지"
+              title="꿈 많은 탐험가"
+              emoji="🔭"
+              description="IHP-EA 적극적 사고가"
+            />
           </div>
         </div>
 
         {/* 친구 궁합 카드 */}
-        <ShareCard>
-          <div className="text-center">
-            <span className="text-2xl mb-2 block">🐶</span>
-            <h3 className="text-gray-900 font-semibold text-lg mb-2">
-              {result.dogName}와 친구의 궁합이 궁금하다면?
-            </h3>
-            <p className="text-gray-600 text-sm mb-4">
+        <InfoDisplayCard
+          emoji="🐶"
+          title={`${result.dogName}와 친구의 궁합이 궁금하다면?`}
+          description={
+            <>
               지금 테스트를 공유해 우리아이와<br />
               찰떡 궁합인 친구를 찾아보세요!
-            </p>
-            <div className="space-y-3">
-              <Button onClick={handleShare}>
-                테스트 공유하기
-              </Button>
-              <Button variant="outline" onClick={handleShare}>
-                결과 공유하기
-              </Button>
-            </div>
-          </div>
-        </ShareCard>
+            </>
+          }
+          buttons={[
+            { text: "테스트 공유하기", onClick: handleShare },
+            { text: "결과 공유하기", variant: "outline", onClick: handleShare }
+          ]}
+          noMargin
+        />
+
+        <div className="mb-[29px]"></div>
 
         {/* NBTI 설명 카드 */}
-        <ShareCard>
-          <div className="text-center">
-            <span className="text-2xl mb-2 block">🐕</span>
-            <h3 className="text-gray-900 font-semibold text-lg mb-2">NBTI란?</h3>
-            <p className="text-gray-500 text-sm mb-2">(Nutritional Body & Type Index)</p>
-            <p className="text-gray-700 text-sm leading-relaxed mb-4">
+        <InfoDisplayCard
+          emoji="🐕"
+          title="NBTI란?"
+          subtitle="(Nutritional Body & Type Index)"
+          description={
+            <>
               반려견의 건강 상태를 32가지 유형으로 나누고<br />
               어떻게 하면 영양학적으로 더 건강하게 지낼 수<br />
               있을지 알려주는 지표에요.
-            </p>
-            <Button variant="outline" onClick={() => router.push('/basic-questions')}>
-              다시 테스트하기
-            </Button>
-          </div>
-        </ShareCard>
+            </>
+          }
+          buttons={[
+            { text: "다시 테스트하기", variant: "outline", onClick: () => router.push('/basic-questions') }
+          ]}
+        />
 
         {/* 푸터 로고 */}
         <footer className="py-8 text-center">
