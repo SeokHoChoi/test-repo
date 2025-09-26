@@ -87,7 +87,7 @@ export default function ResultsPage() {
               <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
                 <span className="text-white text-sm">🏆</span>
               </div>
-              <h3 className="text-gray-900 font-bold text-lg font-aggro">{result.nbti.name}</h3>
+              <h3 className="font-medium" style={{ fontFamily: 'Gumi-Romance', color: '#212121', fontSize: '20px' }}>{result.nbti.name}</h3>
             </div>
             <p className="text-gray-600 text-sm">{result.nbti.type}</p>
           </div>
