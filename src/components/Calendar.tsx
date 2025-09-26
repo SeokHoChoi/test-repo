@@ -58,7 +58,7 @@ export function Calendar({ isOpen, onClose, onSelectDate, selectedDate }: Calend
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.3)' }}>
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/30">
       <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-6">

@@ -87,7 +87,7 @@ export default function ResultsPage() {
               <span className="text-[18px] w-[18px] h-[18px] flex items-center justify-center leading-none">🏆</span>
               <h3 className="font-medium text-[20px] leading-none m-0 font-gumi text-[#212121]">{result.nbti.name}</h3>
             </div>
-            <p className="font-normal text-[13px] leading-none my-[5px]" style={{ color: '#8B8B8B' }}>{result.nbti.type}</p>
+            <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.type}</p>
             <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
           </div>
 
