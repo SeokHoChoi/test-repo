@@ -184,8 +184,13 @@ export default function ResultsPage() {
             더 식구로 맞이한다면..!
           </h3>
 
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <ShareCard className="p-4">
+          <div className="flex justify-center gap-[13px] mb-6">
+            <ShareCard
+              className="p-4 rounded-[20px] w-[165px] h-[229px]"
+              customStyle={{
+                boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
+              }}
+            >
               <div className="text-center">
                 <div className="bg-white border border-[#003DA5] text-[#003DA5] text-xs px-3 py-1 rounded-full inline-block mb-3">
                   잘 맞는 유형
@@ -204,7 +209,12 @@ export default function ResultsPage() {
               </div>
             </ShareCard>
 
-            <ShareCard className="p-4">
+            <ShareCard
+              className="p-4 rounded-[20px] w-[165px] h-[229px]"
+              customStyle={{
+                boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
+              }}
+            >
               <div className="text-center">
                 <div className="bg-white border border-[#F7623E] text-[#F7623E] text-xs px-3 py-1 rounded-full inline-block mb-3">
                   안 맞는 유형
