@@ -186,50 +186,58 @@ export default function ResultsPage() {
 
           <div className="flex justify-center gap-[13px] mb-6">
             <ShareCard
-              className="p-4 rounded-[20px] w-[165px] h-[229px]"
+              className="rounded-[20px] w-[165px] h-[229px]"
+              customPadding="px-[12px] py-[15px]"
               customStyle={{
                 boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
               }}
             >
               <div className="text-center">
-                <div className="bg-white border border-[#003DA5] text-[#003DA5] text-xs px-3 py-1 rounded-full inline-block mb-3">
+                <div className="bg-white border border-[#003DA5] text-[#003DA5] font-semibold text-[13px] px-3 py-1 rounded-full inline-block mb-[7px] min-w-[96px] min-h-[28px] flex items-center justify-center">
                   잘 맞는 유형
                 </div>
-                <div className="mb-3">
+                <div className="mb-[5px] min-w-[130px] min-h-[120px] flex items-center justify-center">
                   <Image
                     src="/img/results/dog-1.png"
                     alt="강아지"
                     width={80}
-                    height={80}
-                    className="w-20 h-20 object-contain mx-auto"
+                    height={70}
+                    className="w-20 h-[70px] object-contain"
                   />
                 </div>
-                <h3 className="text-gray-900 font-bold text-sm mb-1">꿈 많은 탐험가</h3>
-                <p className="text-gray-600 text-xs">IHP-EA 적극적 사교형 탐험가</p>
+                <h3 className="text-[#212121] font-gumi text-[13px] mb-[2px] flex items-center justify-center gap-[4px]">
+                  <span className="text-[12px] flex items-center justify-center">🔭</span>
+                  꿈 많은 탐험가
+                </h3>
+                <p className="text-[#8B8B8B] font-normal text-[10px]">IHP-EA 적극적 사교형 탐험가</p>
               </div>
             </ShareCard>
 
             <ShareCard
-              className="p-4 rounded-[20px] w-[165px] h-[229px]"
+              className="rounded-[20px] w-[165px] h-[229px]"
+              customPadding="px-[12px] py-[15px]"
               customStyle={{
                 boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
               }}
             >
               <div className="text-center">
-                <div className="bg-white border border-[#F7623E] text-[#F7623E] text-xs px-3 py-1 rounded-full inline-block mb-3">
+                <div className="bg-white border border-[#F7623E] text-[#F7623E] font-semibold text-[13px] px-3 py-1 rounded-full inline-block mb-[7px] min-w-[96px] min-h-[28px] flex items-center justify-center">
                   안 맞는 유형
                 </div>
-                <div className="mb-3">
+                <div className="mb-[5px] min-w-[130px] min-h-[120px] flex items-center justify-center">
                   <Image
                     src="/img/results/dog-1.png"
                     alt="강아지"
                     width={80}
-                    height={80}
-                    className="w-20 h-20 object-contain mx-auto"
+                    height={70}
+                    className="w-20 h-[70px] object-contain"
                   />
                 </div>
-                <h3 className="text-gray-900 font-bold text-sm mb-1">꿈 많은 탐험가</h3>
-                <p className="text-gray-600 text-xs">IHP-EA 적극적 사고가</p>
+                <h3 className="text-[#212121] font-gumi text-[13px] mb-[2px] flex items-center justify-center gap-[4px]">
+                  <span className="text-[12px] flex items-center justify-center">🔭</span>
+                  꿈 많은 탐험가
+                </h3>
+                <p className="text-[#8B8B8B] font-normal text-[10px]">IHP-EA 적극적 사고가</p>
               </div>
             </ShareCard>
           </div>
