@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { NBTIResultCard } from '@/components/NBTIResultCard';
+import { ShareCard } from '@/components/ShareCard';
 import {
   getResultFromUrlOrStorage,
   generateShareUrl,
@@ -103,42 +104,46 @@ export default function SharePage() {
       <div className="px-4 py-8 max-w-md mx-auto">
         <Header />
 
-        {/* 공유 안내 */}
-        <p className="text-gray-700 text-sm text-center mb-8">
-          아래 이미지를 길게 눌러 저장 후, 채널을 선택해 공유할 수 있어요.
-        </p>
+        <ShareCard
+          customStyle={{
+            boxShadow: '5px 2.5px 5px 0px rgba(0, 0, 0, 0.1)'
+          }}
+        >
+          {/* 공유 안내 */}
+          <p className="text-gray-700 text-sm text-center mb-8">
+            아래 이미지를 길게 눌러 저장 후, 채널을 선택해 공유할 수 있어요.
+          </p>
 
-        {/* 공유용 결과 카드 */}
-        <div className="share-card">
-          <NBTIResultCard
-            dogName={result.dogName}
-            dogImage="/img/results/dog-1.png"
-          >
-            <div className="text-center mb-3">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">🏆</span>
+          {/* 공유용 결과 카드 */}
+          <div className="share-card mb-8">
+            <NBTIResultCard
+              dogName={result.dogName}
+              dogImage="/img/results/dog-1.png"
+            >
+              <div className="text-center mb-3">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm">🏆</span>
+                  </div>
+                  <h3 className="text-gray-900 font-bold text-lg font-aggro">{result.nbti.name}</h3>
                 </div>
-                <h3 className="text-gray-900 font-bold text-lg font-aggro">{result.nbti.name}</h3>
+                <p className="text-gray-600 text-sm">{result.nbti.type}</p>
               </div>
-              <p className="text-gray-600 text-sm">{result.nbti.type}</p>
-            </div>
 
-            <div className="text-center mb-4">
-              <p className="text-blue-600 font-medium text-sm">
-                "{result.nbti.description}"
-              </p>
-            </div>
+              <div className="text-center mb-4">
+                <p className="text-blue-600 font-medium text-sm">
+                  "{result.nbti.description}"
+                </p>
+              </div>
 
-            <div className="text-gray-700 text-sm leading-relaxed">
-              <p className="mb-2">{result.nbti.detail.split('!')[0]}!</p>
-              <p>{result.nbti.detail.split('!')[1]}</p>
-            </div>
-          </NBTIResultCard>
-        </div>
+              <div className="text-gray-700 text-sm leading-relaxed">
+                <p className="mb-2">{result.nbti.detail.split('!')[0]}!</p>
+                <p>{result.nbti.detail.split('!')[1]}</p>
+              </div>
+            </NBTIResultCard>
+          </div>
 
-        {/* 공유 버튼들 */}
-        <div className="mb-8">
+          {/* 공유 버튼들 */}
           <div className="flex justify-center gap-[10px]">
             <button onClick={handleInstagramShare} title="인스타그램 공유" className="w-[30px] h-[30px]">
               <img src="/img/results/share/insta.png" alt="인스타그램" className="w-[30px] h-[30px] object-contain" />
@@ -153,7 +158,7 @@ export default function SharePage() {
               <img src="/img/results/share/link.png" alt="링크 복사" className="w-[30px] h-[30px] object-contain" />
             </button>
           </div>
-        </div>
+        </ShareCard>
 
         {/* 사료 안전성 체크 */}
         <div className="bg-blue-600 rounded-2xl p-6 mb-6">
