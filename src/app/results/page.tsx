@@ -10,6 +10,8 @@ import { ShareCard } from '@/components/ShareCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import { generateShareUrl, type NBTIResult } from '@/lib/utils';
+import { getCompatibilityByPrefix, getPuppyImagePathByTitle } from '@/lib/nbti';
+import { getArchetypeImagePath } from '@/lib/nbti';
 import { Upload } from 'lucide-react';
 import Image from 'next/image';
 
@@ -83,7 +85,11 @@ export default function ResultsPage() {
         {/* 결과 카드 */}
         <NBTIResultCard
           dogName={result.dogName}
-          dogImage="/img/results/dog-1.png"
+          dogImage={(() => {
+            const id = result.nbti.id || '';
+            const displayPrefix = id.split('-')[0] || '';
+            return getArchetypeImagePath(displayPrefix);
+          })()}
         >
           <div className="text-center">
             <div className="flex items-center justify-center gap-[4px] leading-none m-0">
@@ -187,25 +193,40 @@ export default function ResultsPage() {
           </h3>
 
           <div className="flex justify-center gap-[13px]">
-            <MatchingCard
-              type="good"
-              badgeText="잘 맞는 유형"
-              imageSrc="/img/results/dog-1.png"
-              imageAlt="강아지"
-              title="꿈 많은 탐험가"
-              emoji="🔭"
-              description="IHP-EA 적극적 사교형 탐험가"
-            />
-
-            <MatchingCard
-              type="bad"
-              badgeText="안 맞는 유형"
-              imageSrc="/img/results/dog-1.png"
-              imageAlt="강아지"
-              title="꿈 많은 탐험가"
-              emoji="🔭"
-              description="IHP-EA 적극적 사고가"
-            />
+            {(() => {
+              const id = result.nbti.id || '';
+              const [displayPrefix, currentPair] = id.split('-');
+              const comp = getCompatibilityByPrefix(displayPrefix || '');
+              const pairKorean: Record<string, string> = { EA: '적극적 사교형', EI: '적극적 독립형', CA: '신중한 사교형', CI: '신중한 독립형' };
+              const opposite: Record<string, string> = { EA: 'CI', EI: 'CA', CA: 'EI', CI: 'EA' };
+              const puppyPrefix = `${(displayPrefix || '').slice(0, 2)}P`;
+              const bestPair = (currentPair as keyof typeof pairKorean) || 'EA';
+              const worstPair = (opposite[bestPair] as keyof typeof pairKorean) || 'CI';
+              const bestSubtitle = `${puppyPrefix}-${bestPair} ${pairKorean[bestPair]} ${comp.best.title}`;
+              const worstSubtitle = `${puppyPrefix}-${worstPair} ${pairKorean[worstPair]} ${comp.worst.title}`;
+              return (
+                <>
+                  <MatchingCard
+                    type="good"
+                    badgeText="잘 맞는 유형"
+                    imageSrc={getPuppyImagePathByTitle(comp.best.title)}
+                    imageAlt="강아지"
+                    title={comp.best.title}
+                    emoji="🔭"
+                    description={bestSubtitle}
+                  />
+                  <MatchingCard
+                    type="bad"
+                    badgeText="안 맞는 유형"
+                    imageSrc={getPuppyImagePathByTitle(comp.worst.title)}
+                    imageAlt="강아지"
+                    title={comp.worst.title}
+                    emoji="🔭"
+                    description={worstSubtitle}
+                  />
+                </>
+              );
+            })()}
           </div>
         </div>
 
