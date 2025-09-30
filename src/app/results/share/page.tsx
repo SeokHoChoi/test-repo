@@ -18,6 +18,7 @@ import {
   type NBTIResult
 } from '@/lib/utils';
 import Image from 'next/image';
+import { getArchetypeImagePath } from '@/lib/nbti';
 
 
 export default function SharePage() {
@@ -231,7 +232,11 @@ export default function SharePage() {
             >
               <NBTIResultCard
                 dogName={result.dogName}
-                dogImage="/img/results/dog-1.png"
+                dogImage={(() => {
+                  const id = result.nbti.id || '';
+                  const displayPrefix = id.split('-')[0] || '';
+                  return getArchetypeImagePath(displayPrefix);
+                })()}
                 preferPlainImg
               >
                 <div className="text-center">

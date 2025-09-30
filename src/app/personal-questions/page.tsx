@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
+import { calculateNBTIFromAnswers } from '@/lib/nbti';
 
 interface PersonalQuestionsData {
   mealEnjoyment: string | null;
@@ -80,7 +81,20 @@ export default function PersonalQuestionsPage() {
     const basic = JSON.parse(basicData);
 
     // NBTI 계산
-    const result = calculateNBTI({ basic, personal: formData });
+    const result = calculateNBTIFromAnswers(
+      {
+        dogName: basic.dogName,
+        birthDate: basic.birthDate,
+        bcs: basic.bcs,
+        activityLevel: basic.activityLevel,
+      },
+      {
+        mealEnjoyment: formData.mealEnjoyment as any,
+        eatingSpeed: formData.eatingSpeed as any,
+        walkReaction: formData.walkReaction as any,
+        playPattern: (formData.playPattern === 'observer' ? 'independent' : formData.playPattern) as any,
+      }
+    );
 
     // 결과를 세션 스토리지에 저장
     sessionStorage.setItem('nbtiResult', JSON.stringify(result));
@@ -89,62 +103,7 @@ export default function PersonalQuestionsPage() {
     router.push('/results');
   };
 
-  const calculateNBTI = (data: any) => {
-    // 간단한 NBTI 계산 로직 (실제로는 더 복잡한 알고리즘이 필요)
-    const { basic, personal } = data;
-
-    // 생애주기 분류 - 날짜 객체로 변환
-    const birthDate = new Date(basic.birthDate);
-    const age = new Date().getFullYear() - birthDate.getFullYear();
-    let lifeStage = 'adult';
-    if (age <= 1) lifeStage = 'puppy';
-    else if (age >= 7) lifeStage = 'senior';
-
-    // BCS 분류
-    let bcsCategory = 'normal';
-    if (basic.bcs === 'skinny') bcsCategory = 'underweight';
-    else if (basic.bcs === 'husky' || basic.bcs === 'chubby') bcsCategory = 'overweight';
-
-    // 활동 패턴 분류
-    let activityPattern = 'moderate';
-    if (personal.walkReaction === 'excited' && personal.playPattern === 'social') {
-      activityPattern = 'social';
-    } else if (personal.walkReaction === 'reluctant' && personal.playPattern === 'independent') {
-      activityPattern = 'independent';
-    }
-
-    // 식사 패턴 분류
-    let eatingPattern = 'normal';
-    if (personal.eatingSpeed === 'fast') eatingPattern = 'fast';
-    else if (personal.eatingSpeed === 'slow') eatingPattern = 'slow';
-
-    // NBTI 타입 결정 (간단한 예시)
-    const nbtiTypes = [
-      { id: 'energetic-puppy', name: '에너지 퍼피', type: '활발한 어린이', description: '끊임없이 뛰어다니는 에너지 뭉치', detail: '항상 활발하고 놀기를 좋아하는 강아지예요! 충분한 운동과 다양한 놀이가 필요해요.', tips: ['매일 충분한 산책', '다양한 장난감 제공', '정기적인 건강 체크'] },
-      { id: 'calm-senior', name: '차분한 시니어', type: '지혜로운 어른', description: '차분하고 안정적인 성격의 강아지', detail: '조용하고 안정적인 성격으로 가족과 함께 있는 시간을 소중히 여겨요.', tips: ['편안한 환경 조성', '적당한 운동', '영양 관리'] },
-      { id: 'food-lover', name: '푸드 러버', type: '식탐쟁이', description: '음식에 대한 사랑이 넘치는 강아지', detail: '음식을 매우 좋아하고 식사 시간을 기다리는 강아지예요. 적절한 식사량 관리가 중요해요.', tips: ['정해진 시간에 식사', '적절한 사료량', '간식 조절'] }
-    ];
-
-    // 간단한 매칭 로직
-    let selectedType = nbtiTypes[0]; // 기본값
-    if (lifeStage === 'senior' && personal.playPattern === 'calm') {
-      selectedType = nbtiTypes[1];
-    } else if (personal.mealEnjoyment === 'excited' && personal.eatingSpeed === 'fast') {
-      selectedType = nbtiTypes[2];
-    }
-
-    return {
-      dogName: basic.dogName,
-      nbti: selectedType,
-      basicInfo: {
-        lifeStage,
-        bcsCategory,
-        activityLevel: basic.activityLevel,
-        activityPattern,
-        eatingPattern
-      }
-    };
-  };
+  // 기존 임시 계산 함수는 유틸로 대체됨
 
   const isFormValid = questions.every(q => formData[q.id as keyof PersonalQuestionsData]);
 

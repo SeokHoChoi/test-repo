@@ -46,21 +46,24 @@ export function InfoDisplayCard({
         </div>
         {buttons.length > 0 && (
           <div className={buttons.length === 2 ? "flex gap-[10px] justify-center" : "space-y-3"}>
-            {buttons.map((button, index) => (
-              <Button
-                key={index}
-                variant={button.variant || 'primary'}
-                onClick={button.onClick}
-                fullWidth={false}
-                roundedClass="rounded-[50px]"
-                className={`font-semibold text-[15px] px-[17.5px] ${buttons.length === 2
-                  ? index === 0 ? "flex-1 min-w-0" : "flex-1 min-w-0"
-                  : "min-w-[161px] max-w-[161px] min-h-[41.31px]"
-                  }`}
-              >
-                {button.text}
-              </Button>
-            ))}
+            {buttons.map((button, index) => {
+              const baseBtnClass = 'font-semibold text-[15px] px-[17.5px]';
+              const multiBtnClass = 'flex-1 min-w-0';
+              const singleBtnClass = 'min-w-[161px] max-w-[161px] min-h-[41.31px]';
+              const resolvedBtnClass = buttons.length === 2 ? multiBtnClass : singleBtnClass;
+              return (
+                <Button
+                  key={index}
+                  variant={button.variant || 'primary'}
+                  onClick={button.onClick}
+                  fullWidth={false}
+                  roundedClass="rounded-[50px]"
+                  className={`${baseBtnClass} ${resolvedBtnClass}`}
+                >
+                  {button.text}
+                </Button>
+              );
+            })}
           </div>
         )}
       </div>
