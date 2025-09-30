@@ -94,7 +94,6 @@ export async function copyToClipboard(text: string): Promise<boolean> {
   if (navigator.clipboard && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(text);
-      alert('링크가 복사되었습니다!');
       return true;
     } catch (err) {
       console.error('클립보드 API 실패:', err);
@@ -116,14 +115,12 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     document.body.removeChild(textArea);
 
     if (successful) {
-      alert('링크가 복사되었습니다!');
       return true;
     } else {
       throw new Error('복사 명령 실행 실패');
     }
   } catch (err) {
     console.error('폴백 복사 실패:', err);
-    alert('링크 복사에 실패했습니다. 수동으로 복사해주세요.');
     return false;
   }
 }
@@ -140,8 +137,11 @@ export function shareToKakao(result: NBTIResult, shareUrl: string): void {
  * X (트위터) 공유 (나중에 구현 예정)
  */
 export function shareToX(result: NBTIResult, shareUrl: string): void {
-  // TODO: X 공유 기능 구현
-  alert('X 공유 기능은 추후 구현 예정입니다.');
+  if (typeof window === 'undefined') return;
+  const text = encodeURIComponent(`${result.dogName}의 NBTI는 ${result.nbti.name}!`);
+  const url = encodeURIComponent(shareUrl);
+  const intent = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+  window.open(intent, '_blank');
 }
 
 /**

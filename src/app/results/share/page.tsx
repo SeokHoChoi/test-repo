@@ -28,6 +28,7 @@ export default function SharePage() {
   const [saveMessage, setSaveMessage] = useState<string>('');
   const [renderedImageUrl, setRenderedImageUrl] = useState<string | null>(null);
   const [rendering, setRendering] = useState<boolean>(false);
+  const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
     const resultData = getResultFromUrlOrStorage();
@@ -135,7 +136,12 @@ export default function SharePage() {
   };
 
   const handleCopyLink = () => {
-    copyToClipboard(shareUrl);
+    copyToClipboard(shareUrl).then((ok) => {
+      if (ok) {
+        setToast('링크가 복사되었어요!');
+        setTimeout(() => setToast(''), 2200);
+      }
+    });
   };
 
   if (loading) {
@@ -179,6 +185,16 @@ export default function SharePage() {
     <div className="min-h-screen bg-white">
       <div className="px-4 pt-8 pb-0 max-w-md mx-auto">
         <Header />
+        {/* OpenGraph/Twitter 카드 메타 */}
+        <head>
+          <meta property="og:title" content={`${result?.dogName || ''}의 NBTI`} />
+          <meta property="og:description" content={result?.nbti?.description || '우리 아이의 NBTI 결과'} />
+          <meta property="og:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?result=${encodeURIComponent(new URLSearchParams(window.location.search).get('result') || '')}`} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={`${result?.dogName || ''}의 NBTI`} />
+          <meta name="twitter:description" content={result?.nbti?.description || '우리 아이의 NBTI 결과'} />
+          <meta name="twitter:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?result=${encodeURIComponent(new URLSearchParams(window.location.search).get('result') || '')}`} />
+        </head>
 
         <ShareCard
           customStyle={{
@@ -369,6 +385,36 @@ export default function SharePage() {
           />
         </div>
       </footer>
+      {/* Toast */}
+      {toast && (
+        <div
+          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50"
+          style={{ pointerEvents: 'none' }}
+        >
+          <div
+            className="text-white text-[14px] font-semibold rounded-full px-4 py-2"
+            style={{
+              background: 'linear-gradient(180deg, #0A5BD7 0%, #003DA5 100%)',
+              border: '1px solid rgba(255,255,255,0.75)',
+              boxShadow: '0 10px 24px rgba(0,61,165,0.35)',
+              animation: 'toastIn 200ms ease-out, toastOut 350ms ease-in 1600ms forwards'
+            }}
+          >
+            {toast}
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes toastIn {
+          from { transform: translateY(12px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes toastOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 }
