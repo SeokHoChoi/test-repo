@@ -179,22 +179,12 @@ export default function SharePage() {
   }
 
   // URL에 결과 데이터를 담은 공유 URL 생성
-  const shareUrl = result ? generateShareUrl(result) : `${window.location.origin}/results/share`;
+  const shareUrl = result ? generateShareUrl(result) : (typeof window !== 'undefined' ? `${window.location.origin}/results/share` : '/results/share');
 
   return (
     <div className="min-h-screen bg-white">
       <div className="px-4 pt-8 pb-0 max-w-md mx-auto">
         <Header />
-        {/* OpenGraph/Twitter 카드 메타 */}
-        <head>
-          <meta property="og:title" content={`${result?.dogName || ''}의 NBTI`} />
-          <meta property="og:description" content={result?.nbti?.description || '우리 아이의 NBTI 결과'} />
-          <meta property="og:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?code=${encodeURIComponent(new URLSearchParams(window.location.search).get('code') || '')}`} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={`${result?.dogName || ''}의 NBTI`} />
-          <meta name="twitter:description" content={result?.nbti?.description || '우리 아이의 NBTI 결과'} />
-          <meta name="twitter:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?code=${encodeURIComponent(new URLSearchParams(window.location.search).get('code') || '')}`} />
-        </head>
 
         <ShareCard
           customStyle={{
@@ -266,7 +256,7 @@ export default function SharePage() {
 
                 <div className="text-center mt-[13px] mb-[10px]">
                   <p className="text-[#003DA5] font-semibold text-[13px]">
-                    "{result.nbti.description}"
+                    &ldquo;{result.nbti.description}&rdquo;
                   </p>
                 </div>
 

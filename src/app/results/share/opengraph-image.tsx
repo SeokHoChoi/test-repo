@@ -74,6 +74,7 @@ export default async function Image({
             src={dogImage}
             width={360}
             height={360}
+            alt=""
             style={{ objectFit: 'contain', borderRadius: 16 }}
           />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>

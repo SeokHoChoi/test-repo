@@ -102,7 +102,7 @@ export default function ResultsPage() {
 
           <div className="text-center mt-[13px] mb-[10px]">
             <p className="text-[#003DA5] font-semibold text-[13px]">
-              "{result.nbti.description}"
+              &ldquo;{result.nbti.description}&rdquo;
             </p>
           </div>
 
