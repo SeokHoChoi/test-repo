@@ -189,11 +189,11 @@ export default function SharePage() {
         <head>
           <meta property="og:title" content={`${result?.dogName || ''}의 NBTI`} />
           <meta property="og:description" content={result?.nbti?.description || '우리 아이의 NBTI 결과'} />
-          <meta property="og:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?result=${encodeURIComponent(new URLSearchParams(window.location.search).get('result') || '')}`} />
+          <meta property="og:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?code=${encodeURIComponent(new URLSearchParams(window.location.search).get('code') || '')}`} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={`${result?.dogName || ''}의 NBTI`} />
           <meta name="twitter:description" content={result?.nbti?.description || '우리 아이의 NBTI 결과'} />
-          <meta name="twitter:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?result=${encodeURIComponent(new URLSearchParams(window.location.search).get('result') || '')}`} />
+          <meta name="twitter:image" content={`${typeof window !== 'undefined' ? window.location.origin : ''}/results/share/opengraph-image?code=${encodeURIComponent(new URLSearchParams(window.location.search).get('code') || '')}`} />
         </head>
 
         <ShareCard

@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { decodeResultFromUrl, type NBTIResult } from '@/lib/utils';
-import { getArchetypeImagePath } from '@/lib/nbti';
+import { getArchetypeImagePath, buildResultFromCode } from '@/lib/nbti';
 
 export const runtime = 'edge';
 
@@ -12,9 +12,17 @@ export const size = {
 export const contentType = 'image/png';
 
 function getResultFromSearch(searchParams: URLSearchParams): NBTIResult | null {
+  const encodedCode = searchParams.get('code');
+  if (encodedCode) {
+    try {
+      const [code, dogName] = decodeURIComponent(encodedCode).split('|');
+      const built = buildResultFromCode(code, dogName);
+      if (built) return built;
+    } catch { }
+  }
   const encoded = searchParams.get('result');
-  if (!encoded) return null;
-  return decodeResultFromUrl(encoded);
+  if (encoded) return decodeResultFromUrl(encoded);
+  return null;
 }
 
 export default async function Image({

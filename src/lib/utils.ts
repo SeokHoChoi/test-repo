@@ -153,8 +153,9 @@ export function shareToX(result: NBTIResult, shareUrl: string): void {
   if (typeof window === 'undefined') return;
   const text = encodeURIComponent(`${result.dogName}의 NBTI는 ${result.nbti.name}!`);
   const url = encodeURIComponent(shareUrl);
-  const intent = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-  window.open(intent, '_blank');
+  const hashtags = encodeURIComponent('NBTI,강아지,유형,젤리유니브');
+  const intent = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
+  window.open(intent, '_blank', 'noopener,noreferrer');
 }
 
 /**
