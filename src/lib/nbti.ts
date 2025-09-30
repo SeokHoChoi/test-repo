@@ -206,51 +206,51 @@ export function getCompatibilityByPrefix(prefix: string): CompatibilityPair {
 
 // ===== 이미지 매핑 =====
 export function getArchetypeImagePath(displayPrefix: string): string {
-  const adultBase = '/img/nbti-dog/어덜트';
-  const seniorBase = '/img/nbti-dog/시니어';
+  const adultBase = '/img/nbti-dog/adult';
+  const seniorBase = '/img/nbti-dog/senior';
 
   const adultMap: Record<string, string> = {
-    ILA: `${adultBase}/[어덜트] 완벽한 룸메이트_배경없음.png`,
-    IMA: `${adultBase}/[어덜트] 활력충전 퍼트너_배경없음.png`,
-    IHA: `${adultBase}/[어덜트] 철인삼종 챔피언_배경없음.png`,
-    ULA: `${adultBase}/[어덜트] 도그 모델_배경없음.png`,
-    UMA: `${adultBase}/[어덜트] 날렵한 치타_배경없음.png`,
-    UHA: `${adultBase}/[어덜트] 울트라 러너_배경없음.png`,
-    OLA: `${adultBase}/[어덜트] 트릿 킹_배경없음.png`,
-    OMA: `${adultBase}/[성견] 행복한 미식가.png`,
-    OHA: `${adultBase}/[성견] 중량급 보디빌더-배경없음.png`,
+    ILA: `${adultBase}/perfect-roommate.png`,
+    IMA: `${adultBase}/energy-partner.png`,
+    IHA: `${adultBase}/triathlon-champion.png`,
+    ULA: `${adultBase}/dog-model.png`,
+    UMA: `${adultBase}/swift-cheetah.png`,
+    UHA: `${adultBase}/ultra-runner.png`,
+    OLA: `${adultBase}/treat-king.png`,
+    OMA: `${adultBase}/happy-gourmet.png`,
+    OHA: `${adultBase}/heavyweight-bodybuilder.png`,
   };
 
   const seniorMap: Record<string, string> = {
-    ULS: `${seniorBase}/[시니어] 온화한 수호자_배경없음.png`,
-    UMS: `${seniorBase}/[시니어] 의지의 파이터_배경없음.png`,
-    UHS: `${seniorBase}/[시니어] 전설의 러너_배경없음.png`,
-    OLS: `${seniorBase}/[시니어] 펫페어 큰손_배경없음.png`,
-    OMS: `${seniorBase}/[시니어] 노련한 놀이꾼2_배경없음.png`,
-    OHS: `${seniorBase}/[시니어] 황혼의 개그맨2_배경없음.png`,
+    ULS: `${seniorBase}/gentle-guardian.png`,
+    UMS: `${seniorBase}/willful-fighter.png`,
+    UHS: `${seniorBase}/legendary-runner.png`,
+    OLS: `${seniorBase}/petfair-vip.png`,
+    OMS: `${seniorBase}/seasoned-player.png`,
+    OHS: `${seniorBase}/dusk-comedian.png`,
   };
 
-  if (displayPrefix.endsWith('A')) return adultMap[displayPrefix] || `${adultBase}/[어덜트] 완벽한 룸메이트_배경없음.png`;
-  if (displayPrefix.endsWith('S')) return seniorMap[displayPrefix] || `${seniorBase}/[시니어] 온화한 수호자_배경없음.png`;
-  // 퍼피(P)는 현재 아키타입 이미지가 표준화되어 있지 않아 어덜트 이미지로 폴백
-  return adultMap[displayPrefix.replace(/P$/, 'A')] || `${adultBase}/[어덜트] 완벽한 룸메이트_배경없음.png`;
+  if (displayPrefix.endsWith('A')) return adultMap[displayPrefix] || `${adultBase}/perfect-roommate.png`;
+  if (displayPrefix.endsWith('S')) return seniorMap[displayPrefix] || `${seniorBase}/gentle-guardian.png`;
+  // 퍼피(P)는 UI 주 이미지가 성견/시니어 스타일과 동일하므로 어덜트 이미지로 폴백
+  return adultMap[displayPrefix.replace(/P$/, 'A')] || `${adultBase}/perfect-roommate.png`;
 }
 
 export function getPuppyImagePathByTitle(title: string): string {
-  const base = '/img/nbti-dog/퍼피(성장기)';
+  const base = '/img/nbti-dog/puppy';
   const map: Record<string, string> = {
-    '꿈꾸는 작은 요정': `${base}/[퍼피] 꿈꾸는 작은 요정.png`,
-    '엄친견': `${base}/[퍼피] 엄친견.png`,
-    '꿈 많은 탐험가': `${base}/[퍼피] 꿈 많은 탐험가.png`,
-    '꼬마 로켓': `${base}/[퍼피] 꼬마 로켓.png`,
-    '꼬마 대식가': `${base}/[퍼피] 꼬마 대식가.png`,
-    '꼬마 먹방러': `${base}/[퍼피] 꼬마 먹방러.png`,
-    '꼬마 엔터테이너': `${base}/[퍼피] 꼬마 엔터테이너.png`,
-    '눕방 꿈나무': `${base}/[퍼피] 눕방 꿈나무.png`,
-    '성견의 탈을 쓴 쪼꼬미': `${base}/[퍼피] 성견의 탈을 쓴 쪼꼬미.png`,
-    '식도락 모험가': `${base}/[퍼피] 식도락 모험가.png`,
+    '꿈꾸는 작은 요정': `${base}/little-dreamer.png`,
+    '엄친견': `${base}/top-dog.png`,
+    '꿈 많은 탐험가': `${base}/dream-explorer.png`,
+    '꼬마 로켓': `${base}/little-rocket.png`,
+    '꼬마 대식가': `${base}/little-big-eater.png`,
+    '꼬마 먹방러': `${base}/little-foodie.png`,
+    '꼬마 엔터테이너': `${base}/little-entertainer.png`,
+    '눕방 꿈나무': `${base}/couch-kid.png`,
+    '성견의 탈을 쓴 쪼꼬미': `${base}/mini-adult.png`,
+    '식도락 모험가': `${base}/foodie-adventurer.png`,
   };
-  return map[title] || `${base}/[퍼피] 꿈꾸는 작은 요정.png`;
+  return map[title] || `${base}/little-dreamer.png`;
 }
 
 
