@@ -6,6 +6,7 @@ import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { ShareCard } from '@/components/ShareCard';
+import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import {
   getResultFromUrlOrStorage,
   generateShareUrl,
@@ -175,7 +176,7 @@ export default function SharePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="px-4 py-8 max-w-md mx-auto">
+      <div className="px-4 pt-8 pb-0 max-w-md mx-auto">
         <Header />
 
         <ShareCard
@@ -279,7 +280,7 @@ export default function SharePage() {
 
         {/* 사료 안전성 체크 */}
         <div
-          className="bg-[#003DA5] rounded-[20px] px-[30px] py-[21.85px] mb-6 max-w-[342px] w-full mx-auto"
+          className="bg-[#003DA5] rounded-[20px] px-[30px] py-[21.85px] mb-[37px] w-full mx-auto"
           style={{ boxShadow: '10px 5px 10px 0 rgba(0, 0, 0, 0.15)' }}
         >
           <div className="text-center">
@@ -306,47 +307,54 @@ export default function SharePage() {
           </div>
         </div>
 
-        {/* 궁합 체크 */}
-        <div className="bg-white rounded-2xl p-6 mb-6">
-          <div className="text-center">
-            <span className="text-2xl mb-2 block">🐕</span>
-            <h3 className="text-blue-600 font-semibold text-lg mb-2">
-              {result.dogName}와 친구의 궁합이 궁금하다면?
-            </h3>
-            <p className="text-gray-700 text-sm mb-4">
-              지금 테스트를 공유해 우리아이와 찰떡 궁합인 친구를 찾아보세요!
-            </p>
-            <Button
-              size="md"
-              onClick={() => window.open('https://www.jellyu-univ.com', '_blank')}
-            >
-              테스트 공유하기
-            </Button>
-          </div>
+        {/* 친구 궁합 카드 (결과페이지와 동일) */}
+        <div className="mb-[37px]">
+          <InfoDisplayCard
+            emoji="🐶"
+            title={
+              <>
+                {result.dogName}와 친구의 궁합이<br />
+                궁금하다면?
+              </>
+            }
+            description={
+              <>
+                지금 테스트를 공유해 우리아이와<br />
+                찰떡 궁합인 친구를 찾아보세요!
+              </>
+            }
+            buttons={[
+              { text: "테스트 공유하기", variant: 'primary', onClick: () => router.push(generateShareUrl(result)) }
+            ]}
+            customPadding="px-[30px] pt-[23.5px] pb-[28.5px]"
+            noMargin
+          />
         </div>
 
-        {/* NBTI 설명 */}
-        <div className="bg-white rounded-2xl p-6 mb-8">
-          <div className="text-center">
-            <span className="text-2xl mb-2 block">🐕</span>
-            <h3 className="text-blue-600 font-semibold text-lg mb-2">NBTI란?</h3>
-            <p className="text-gray-500 text-sm mb-2">(Nutritional Body & Type Index)</p>
-            <p className="text-gray-700 text-sm leading-relaxed mb-4">
-              반려견의 건강 상태를 32가지 유형으로 나누고 어떻게 하면 영양학적으로 더 건강하게 지낼 수 있을지 알려주는 지표에요.
-            </p>
-            <Button
-              variant="outline"
-              size="md"
-              onClick={handleRetakeTest}
-            >
-              다시 테스트하기
-            </Button>
-          </div>
+        {/* NBTI 설명 카드 (결과페이지와 동일) */}
+        <div className="mb-[37px]">
+          <InfoDisplayCard
+            emoji="🐕"
+            title="NBTI란?"
+            subtitle="(Nutritional Body & Type Index)"
+            description={
+              <>
+                반려견의 건강 상태를 32가지 유형으로 나누고<br />
+                어떻게 하면 영양학적으로 더 건강하게 지낼 수<br />
+                있을지 알려주는 지표에요.
+              </>
+            }
+            buttons={[
+              { text: "다시 테스트하기", variant: "primary", onClick: () => router.push('/basic-questions') }
+            ]}
+            customPadding="px-[36.5px] py-[26.85px]"
+            noMargin
+          />
         </div>
       </div>
 
-      <footer className="py-8 text-center">
-        <div className="w-16 h-16 mx-auto">
+      <footer className="pt-0 pb-[15px] text-center">
+        <div className="w-16 h-16 mx-auto mb-2">
           <Image
             src="/img/jellyu-logo.png"
             alt="Jelly Univ Logo"
