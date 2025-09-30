@@ -13,6 +13,7 @@ import {
   shareToX,
   shareToInstagram,
   copyToClipboard,
+  renderNBTIImageDataUrl,
   type NBTIResult
 } from '@/lib/utils';
 import Image from 'next/image';
@@ -22,6 +23,9 @@ export default function SharePage() {
   const router = useRouter();
   const [result, setResult] = useState<NBTIResult | null>(null);
   const [loading, setLoading] = useState(true);
+  const [saveMessage, setSaveMessage] = useState<string>('');
+  const [renderedImageUrl, setRenderedImageUrl] = useState<string | null>(null);
+  const [rendering, setRendering] = useState<boolean>(false);
 
   useEffect(() => {
     const resultData = getResultFromUrlOrStorage();
@@ -33,6 +37,75 @@ export default function SharePage() {
     }
     setLoading(false);
   }, [router]);
+
+  // 결과 카드 이미지를 PNG로 렌더링하여 <img>로 표시 (모바일 길게 눌러 저장 가능)
+  useEffect(() => {
+    // 캡쳐용 @font-face 직접 주입 (Next.js 폰트 최적화 우회)
+    const injectCaptureStyles = () => {
+      const style = document.createElement('style');
+      style.setAttribute('data-capture-fonts', 'true');
+      style.textContent = `
+@font-face {
+  font-family: 'SB-Aggro-Capture';
+  src: url('/fonts/sb-aggro/SB-AggroOTF-M.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gumi-Capture';
+  src: url('/fonts/gumi-romance/Gumi-Romance.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
+.share-card .font-aggro,
+.share-card h3.font-aggro {
+  font-family: 'SB-Aggro-Capture', var(--font-aggro), system-ui !important;
+}
+.share-card .font-gumi,
+.share-card h2.font-gumi {
+  font-family: 'Gumi-Capture', 'Gumi-Romance', system-ui !important;
+}
+`;
+      document.head.appendChild(style);
+      return style;
+    };
+
+    const preloadImg = (src: string) => {
+      return new Promise<void>((resolve) => {
+        const img = document.createElement('img');
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
+        img.src = src;
+      });
+    };
+
+    const renderImage = async () => {
+      if (!result) return;
+      setRendering(true);
+
+      // 1. 폰트 스타일 주입
+      const fontStyle = injectCaptureStyles();
+
+      // 2. 강아지 이미지 프리로드
+      await preloadImg('/img/results/dog-1.png');
+
+      // 3. 폰트 로드 대기
+      await new Promise((r) => setTimeout(r, 2000));
+
+      // 4. 캡쳐 실행
+      const url = await renderNBTIImageDataUrl();
+      setRenderedImageUrl(url);
+      if (!url) {
+        setSaveMessage('❌ 이미지 생성에 실패했습니다. 새로고침 후 다시 시도해주세요.');
+        setTimeout(() => setSaveMessage(''), 5000);
+      }
+      setRendering(false);
+
+      // 5. 정리
+      try { document.head.removeChild(fontStyle); } catch { }
+    };
+    renderImage();
+  }, [result]);
 
   const handleRetakeTest = () => {
     // 세션 스토리지 클리어
@@ -46,12 +119,12 @@ export default function SharePage() {
   };
 
   // 공유 기능들
-  const handleKakaoShare = () => {
-    if (result) shareToKakao(result, shareUrl);
-  };
-
   const handleInstagramShare = () => {
     shareToInstagram();
+  };
+
+  const handleKakaoShare = () => {
+    if (result) shareToKakao(result, shareUrl);
   };
 
   const handleXShare = () => {
@@ -108,40 +181,80 @@ export default function SharePage() {
           customStyle={{
             boxShadow: '5px 2.5px 5px 0px rgba(0, 0, 0, 0.1)'
           }}
+          customPadding="px-[18.5px] py-[17px]"
         >
           {/* 공유 안내 */}
-          <p className="text-gray-700 text-sm text-center mb-8">
-            아래 이미지를 길게 눌러 저장 후, 채널을 선택해 공유할 수 있어요.
+          <p className="text-[#343434] text-[15px] font-medium text-center mb-6">
+            아래 이미지를 길게 눌러 저장 후,<br />
+            채널을 선택해 공유할 수 있어요.
           </p>
 
-          {/* 공유용 결과 카드 */}
-          <div className="share-card mb-8">
-            <NBTIResultCard
-              dogName={result.dogName}
-              dogImage="/img/results/dog-1.png"
+          {/* 이미지 렌더링 상태 */}
+          {rendering && (
+            <div className="mb-6 text-center text-sm text-gray-500">이미지를 준비하고 있어요...</div>
+          )}
+
+          {/* 저장 메시지 (오류 노출) */}
+          {saveMessage && (
+            <div className={`
+              p-4 rounded-lg text-sm font-medium text-center mb-6 whitespace-pre-line
+              ${saveMessage.includes('❌')
+                ? 'bg-red-100 text-red-800 border border-red-200'
+                : 'bg-green-100 text-green-800 border border-green-200'
+              }
+            `}>
+              {saveMessage}
+            </div>
+          )}
+
+          {/* 공유용 결과 카드 (캡처 대상) 또는 렌더된 이미지 */}
+          {renderedImageUrl ? (
+            <div className="mb-5 select-none" style={{ WebkitTouchCallout: 'default' }}>
+              <img
+                src={renderedImageUrl}
+                alt="NBTI 결과 이미지"
+                className="w-full h-auto rounded-2xl shadow"
+              />
+            </div>
+          ) : (
+            <div
+              className="share-card mb-5 select-none"
+              style={{
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                WebkitTouchCallout: 'default'
+              }}
             >
-              <div className="text-center mb-3">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">🏆</span>
+              <NBTIResultCard
+                dogName={result.dogName}
+                dogImage="/img/results/dog-1.png"
+                preferPlainImg
+              >
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-[4px] leading-none m-0">
+                    <span className="text-[18px] w-[18px] h-[18px] flex items-center justify-center leading-none">🏆</span>
+                    <h3 className="font-medium text-[20px] leading-none m-0 font-gumi text-[#212121]">{result.nbti.name}</h3>
                   </div>
-                  <h3 className="text-gray-900 font-bold text-lg font-aggro">{result.nbti.name}</h3>
+                  <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.type}</p>
+                  <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
                 </div>
-                <p className="text-gray-600 text-sm">{result.nbti.type}</p>
-              </div>
 
-              <div className="text-center mb-4">
-                <p className="text-blue-600 font-medium text-sm">
-                  "{result.nbti.description}"
-                </p>
-              </div>
+                <div className="text-center mt-[13px] mb-[10px]">
+                  <p className="text-[#003DA5] font-semibold text-[13px]">
+                    "{result.nbti.description}"
+                  </p>
+                </div>
 
-              <div className="text-gray-700 text-sm leading-relaxed">
-                <p className="mb-2">{result.nbti.detail.split('!')[0]}!</p>
-                <p>{result.nbti.detail.split('!')[1]}</p>
-              </div>
-            </NBTIResultCard>
-          </div>
+                <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
+                  <p className="break-keep">{result.nbti.detail.split('!')[0]}!</p>
+                </div>
+
+                <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed">
+                  <p className="break-keep">{result.nbti.detail.split('!')[1]}</p>
+                </div>
+              </NBTIResultCard>
+            </div>
+          )}
 
           {/* 공유 버튼들 */}
           <div className="flex justify-center gap-[10px]">
@@ -159,6 +272,7 @@ export default function SharePage() {
             </button>
           </div>
         </ShareCard>
+
 
         {/* 사료 안전성 체크 */}
         <div className="bg-blue-600 rounded-2xl p-6 mb-6">
