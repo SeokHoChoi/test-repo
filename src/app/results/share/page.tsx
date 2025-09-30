@@ -183,6 +183,8 @@ export default function SharePage() {
             boxShadow: '5px 2.5px 5px 0px rgba(0, 0, 0, 0.1)'
           }}
           customPadding="px-[18.5px] py-[17px]"
+          noMargin
+          className="mb-[37px]"
         >
           {/* 공유 안내 */}
           <p className="text-[#343434] text-[15px] font-medium text-center mb-6">
@@ -277,7 +279,7 @@ export default function SharePage() {
 
         {/* 사료 안전성 체크 */}
         <div
-          className="bg-[#003DA5] rounded-[20px] px-[30px] py-[21.85px] mb-6"
+          className="bg-[#003DA5] rounded-[20px] px-[30px] py-[21.85px] mb-6 max-w-[342px] w-full mx-auto"
           style={{ boxShadow: '10px 5px 10px 0 rgba(0, 0, 0, 0.15)' }}
         >
           <div className="text-center">
