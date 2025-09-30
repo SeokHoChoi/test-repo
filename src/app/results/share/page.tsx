@@ -114,6 +114,7 @@ export default function SharePage() {
     router.push('/basic-questions');
   };
 
+  // TODO: 이동 경로 검토
   const handleOtherTests = () => {
     window.open('https://www.jellyu-univ.com', '_blank');
   };
@@ -275,19 +276,28 @@ export default function SharePage() {
 
 
         {/* 사료 안전성 체크 */}
-        <div className="bg-blue-600 rounded-2xl p-6 mb-6">
+        <div
+          className="bg-[#003DA5] rounded-[20px] px-[30px] py-[21.85px] mb-6"
+          style={{ boxShadow: '10px 5px 10px 0 rgba(0, 0, 0, 0.15)' }}
+        >
           <div className="text-center">
-            <span className="text-4xl mb-2 block">😟</span>
-            <h3 className="text-white font-semibold text-lg mb-2">
-              지금 먹이는 사료 계속 먹여도 안전할까요?
+            <span className="text-[20px] mb-[6px] block mx-auto">🤔</span>
+            <h3 className="text-[#FFFFFF] font-semibold text-[20px] leading-[26px] mb-[15px]">
+              지금 먹이는 사료<br />
+              계속 먹여도 안전할까요?
             </h3>
-            <p className="text-blue-100 text-sm mb-4">
-              서울대·한국수의영양학회 임원 수의사가 설계한 AI가 30초 만에 분석해드려요!
+            <p className="text-[#FFFFFF] font-normal text-[13px] mb-[19.5px]">
+              서울대∙한국수의영양학회 임원 수의사가 설계한<br />
+              AI가 30초 만에 분석해드려요!
             </p>
             <Button
               variant="ghost"
               size="md"
               onClick={handleOtherTests}
+              fullWidth={false}
+              customPadding="px-[39.5px] py-[10px]"
+              roundedClass="rounded-[50px]"
+              className="mx-auto min-w-[161px] min-h-[41.31px] font-semibold text-[15px] !text-[#003DA5]"
             >
               바로 알아보기
             </Button>
