@@ -253,4 +253,66 @@ export function getPuppyImagePathByTitle(title: string): string {
   return map[title] || `${base}/little-dreamer.png`;
 }
 
+// ===== Compact Code → Result (for short URLs) =====
+export function buildResultFromCode(code: string, dogName: string): NBTIResult | null {
+  if (!code || !/^[UIO][LMH][PAS]-[EC][AI]$/.test(code)) return null;
+  const [displayPrefix, pair] = code.split('-') as [string, 'EA' | 'EI' | 'CA' | 'CI'];
+
+  const prefixNameMap: Record<string, string> = {
+    ILA: '완벽한 룸메이트',
+    IMA: '활력충전 파트너',
+    IHA: '철인삼종 챔피언',
+    ULA: '도그모델',
+    UMA: '날렵한 치타',
+    UHA: '울트라 러너',
+    OLA: '여유로운 휘게족',
+    OMA: '행복한 미식가',
+    OHA: '중량급 보디빌더',
+    ULS: '온화한 수호자',
+    UMS: '의지의 파이터',
+    UHS: '전설의 러너',
+    OLS: '펫페어 큰손',
+    OMS: '노련한 놀이꾼',
+    OHS: '황혼의 개그맨',
+  };
+  const archetype = prefixNameMap[displayPrefix] || displayPrefix;
+
+  const pairKorean: Record<'EA' | 'EI' | 'CA' | 'CI', string> = {
+    EA: '적극적 사교형', EI: '적극적 독립형', CA: '신중한 사교형', CI: '신중한 독립형'
+  };
+
+  const base = contentForPair(pair);
+  const secondSentenceMap: Record<'EA' | 'EI' | 'CA' | 'CI', string> = {
+    EA: '사교적 활동과 규칙적인 식사 루틴을 함께 유지해요.',
+    EI: '퍼즐/탐색 놀이로 성취감을 높이고, 휴식 시간도 보장해요.',
+    CA: '무리 활동을 즐기되 식사 환경은 안정적으로 유지해요.',
+    CI: '조용한 환경에서 천천히 교감하고 스스로 탐색할 시간을 주세요.',
+  };
+  const detail = `${base.detailStart}! ${secondSentenceMap[pair]}`;
+
+  const lifeStage = displayPrefix.endsWith('P') ? 'puppy' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
+  const bcsCategory = displayPrefix[0] === 'U' ? 'underweight' : displayPrefix[0] === 'I' ? 'ideal' : 'overweight';
+  const activityLevel = displayPrefix[1] === 'L' ? 'low' : displayPrefix[1] === 'H' ? 'high' : 'medium';
+
+  return {
+    dogName,
+    nbti: {
+      id: `${displayPrefix}-${pair}`,
+      name: archetype,
+      type: `${displayPrefix}-${pair} (${pairKorean[pair]} ${archetype})`,
+      description: base.description,
+      detail,
+      dogImage: '/img/results/dog-1.png',
+      tips: base.tips,
+    },
+    basicInfo: {
+      lifeStage,
+      bcsCategory,
+      activityLevel,
+      activityPattern: pair[1] === 'A' ? 'social' : 'independent',
+      eatingPattern: pair[0] === 'E' ? 'enthusiastic' : 'cautious',
+    },
+  };
+}
+
 

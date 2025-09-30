@@ -52,8 +52,10 @@ export function decodeResultFromUrl(encodedResult: string): NBTIResult | null {
  */
 export function generateShareUrl(result: NBTIResult, baseUrl?: string): string {
   const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '');
-  const encodedResult = encodeResultToUrl(result);
-  return `${origin}/results/share?result=${encodedResult}`;
+  // Compact code로 단축: IHA-EA 형태 + 개 명만 포함
+  const compact = `${result.nbti.id}|${result.dogName}`;
+  const encoded = encodeURIComponent(compact);
+  return `${origin}/results/share?code=${encoded}`;
 }
 
 /**
@@ -65,8 +67,19 @@ export function getResultFromUrlOrStorage(): NBTIResult | null {
 
   // URL 파라미터에서 결과 데이터 읽기
   const urlParams = new URLSearchParams(window.location.search);
-  const encodedResult = urlParams.get('result');
+  const encodedCode = urlParams.get('code');
+  if (encodedCode) {
+    try {
+      const [code, dogName] = decodeURIComponent(encodedCode).split('|');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const { buildResultFromCode } = require('@/lib/nbti');
+      const built = buildResultFromCode(code, dogName);
+      if (built) return built;
+    } catch { }
+  }
 
+  const encodedResult = urlParams.get('result');
   if (encodedResult) {
     const decodedResult = decodeResultFromUrl(encodedResult);
     if (decodedResult) return decodedResult;
