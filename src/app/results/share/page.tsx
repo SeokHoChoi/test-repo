@@ -28,6 +28,7 @@ export default function SharePage() {
   const [saveMessage, setSaveMessage] = useState<string>('');
   const [renderedImageUrl, setRenderedImageUrl] = useState<string | null>(null);
   const [rendering, setRendering] = useState<boolean>(false);
+  const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
     const resultData = getResultFromUrlOrStorage();
@@ -135,7 +136,12 @@ export default function SharePage() {
   };
 
   const handleCopyLink = () => {
-    copyToClipboard(shareUrl);
+    copyToClipboard(shareUrl).then((ok) => {
+      if (ok) {
+        setToast('링크가 복사되었어요!');
+        setTimeout(() => setToast(''), 2200);
+      }
+    });
   };
 
   if (loading) {
@@ -173,7 +179,7 @@ export default function SharePage() {
   }
 
   // URL에 결과 데이터를 담은 공유 URL 생성
-  const shareUrl = result ? generateShareUrl(result) : `${window.location.origin}/results/share`;
+  const shareUrl = result ? generateShareUrl(result) : (typeof window !== 'undefined' ? `${window.location.origin}/results/share` : '/results/share');
 
   return (
     <div className="min-h-screen bg-white">
@@ -250,7 +256,7 @@ export default function SharePage() {
 
                 <div className="text-center mt-[13px] mb-[10px]">
                   <p className="text-[#003DA5] font-semibold text-[13px]">
-                    "{result.nbti.description}"
+                    &ldquo;{result.nbti.description}&rdquo;
                   </p>
                 </div>
 
@@ -369,6 +375,36 @@ export default function SharePage() {
           />
         </div>
       </footer>
+      {/* Toast */}
+      {toast && (
+        <div
+          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50"
+          style={{ pointerEvents: 'none' }}
+        >
+          <div
+            className="text-white text-[14px] font-semibold rounded-full px-4 py-2"
+            style={{
+              background: 'linear-gradient(180deg, #0A5BD7 0%, #003DA5 100%)',
+              border: '1px solid rgba(255,255,255,0.75)',
+              boxShadow: '0 10px 24px rgba(0,61,165,0.35)',
+              animation: 'toastIn 200ms ease-out, toastOut 350ms ease-in 1600ms forwards'
+            }}
+          >
+            {toast}
+          </div>
+        </div>
+      )}
+
+      <style jsx>{`
+        @keyframes toastIn {
+          from { transform: translateY(12px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes toastOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+      `}</style>
     </div>
   );
 }

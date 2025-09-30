@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { calculateNBTIFromAnswers } from '@/lib/nbti';
+import type { PersonalAnswers } from '@/lib/nbti';
 
 interface PersonalQuestionsData {
   mealEnjoyment: string | null;
@@ -81,6 +82,14 @@ export default function PersonalQuestionsPage() {
     const basic = JSON.parse(basicData);
 
     // NBTI 계산
+    const personalAnswers: PersonalAnswers = {
+      mealEnjoyment: formData.mealEnjoyment as 'excited' | 'normal' | 'indifferent',
+      eatingSpeed: formData.eatingSpeed as 'fast' | 'normal' | 'slow',
+      walkReaction: formData.walkReaction as 'excited' | 'normal' | 'reluctant',
+      // 'observer'는 내부 로직에서 독립형(I)으로 처리되므로 그대로 전달
+      playPattern: formData.playPattern as 'social' | 'independent' | 'observer',
+    };
+
     const result = calculateNBTIFromAnswers(
       {
         dogName: basic.dogName,
@@ -88,12 +97,7 @@ export default function PersonalQuestionsPage() {
         bcs: basic.bcs,
         activityLevel: basic.activityLevel,
       },
-      {
-        mealEnjoyment: formData.mealEnjoyment as any,
-        eatingSpeed: formData.eatingSpeed as any,
-        walkReaction: formData.walkReaction as any,
-        playPattern: (formData.playPattern === 'observer' ? 'independent' : formData.playPattern) as any,
-      }
+      personalAnswers
     );
 
     // 결과를 세션 스토리지에 저장

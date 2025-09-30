@@ -1,5 +1,43 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { buildResultFromCode } from '@/lib/nbti';
+// html-to-image는 타입 내보내기가 일정치 않아 any로 안전 처리
+type HtmlToImageOptions = {
+  cacheBust?: boolean;
+  pixelRatio?: number;
+};
+
+// ===== Kakao SDK 최소 타입 =====
+type KakaoLinkObjectType = 'feed';
+interface KakaoLinkContentLink {
+  mobileWebUrl: string;
+  webUrl: string;
+}
+interface KakaoLinkContent {
+  title: string;
+  description?: string;
+  imageUrl?: string;
+  link: KakaoLinkContentLink;
+}
+interface KakaoLinkButton {
+  title: string;
+  link: KakaoLinkContentLink;
+}
+interface KakaoShareAPI {
+  sendDefault: (params: {
+    objectType: KakaoLinkObjectType;
+    content: KakaoLinkContent;
+    buttons?: KakaoLinkButton[];
+  }) => void;
+}
+interface KakaoSDK {
+  init: (key: string) => void;
+  isInitialized?: () => boolean;
+  Share?: KakaoShareAPI;
+}
+declare global {
+  interface Window { Kakao?: KakaoSDK }
+}
 
 // ===== CSS 클래스 유틸리티 =====
 export function cn(...inputs: ClassValue[]) {
@@ -52,8 +90,10 @@ export function decodeResultFromUrl(encodedResult: string): NBTIResult | null {
  */
 export function generateShareUrl(result: NBTIResult, baseUrl?: string): string {
   const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '');
-  const encodedResult = encodeResultToUrl(result);
-  return `${origin}/results/share?result=${encodedResult}`;
+  // Compact code로 단축: IHA-EA 형태 + 개 명만 포함
+  const compact = `${result.nbti.id}|${result.dogName}`;
+  const encoded = encodeURIComponent(compact);
+  return `${origin}/results/share?code=${encoded}`;
 }
 
 /**
@@ -65,8 +105,16 @@ export function getResultFromUrlOrStorage(): NBTIResult | null {
 
   // URL 파라미터에서 결과 데이터 읽기
   const urlParams = new URLSearchParams(window.location.search);
-  const encodedResult = urlParams.get('result');
+  const encodedCode = urlParams.get('code');
+  if (encodedCode) {
+    try {
+      const [code, dogName] = decodeURIComponent(encodedCode).split('|');
+      const built = buildResultFromCode(code, dogName);
+      if (built) return built;
+    } catch { }
+  }
 
+  const encodedResult = urlParams.get('result');
   if (encodedResult) {
     const decodedResult = decodeResultFromUrl(encodedResult);
     if (decodedResult) return decodedResult;
@@ -94,7 +142,6 @@ export async function copyToClipboard(text: string): Promise<boolean> {
   if (navigator.clipboard && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(text);
-      alert('링크가 복사되었습니다!');
       return true;
     } catch (err) {
       console.error('클립보드 API 실패:', err);
@@ -116,14 +163,12 @@ export async function copyToClipboard(text: string): Promise<boolean> {
     document.body.removeChild(textArea);
 
     if (successful) {
-      alert('링크가 복사되었습니다!');
       return true;
     } else {
       throw new Error('복사 명령 실행 실패');
     }
   } catch (err) {
     console.error('폴백 복사 실패:', err);
-    alert('링크 복사에 실패했습니다. 수동으로 복사해주세요.');
     return false;
   }
 }
@@ -131,17 +176,114 @@ export async function copyToClipboard(text: string): Promise<boolean> {
 /**
  * 카카오톡 공유 (나중에 구현 예정)
  */
-export function shareToKakao(result: NBTIResult, shareUrl: string): void {
-  // TODO: 카카오톡 공유 기능 구현
-  alert('카카오톡 공유 기능은 추후 구현 예정입니다.');
+export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
+  // 런타임에서만 동작
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+  const jsKey = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+  if (!jsKey) {
+    alert('카카오 JavaScript 키가 설정되지 않았습니다. 환경변수를 확인해주세요.');
+    return;
+  }
+
+  // SDK 로드 함수
+  const loadSdk = (): Promise<KakaoSDK> => {
+    return new Promise((resolve, reject) => {
+      const w = window as Window;
+      if (w.Kakao && w.Kakao.isInitialized && w.Kakao.isInitialized()) {
+        resolve(w.Kakao);
+        return;
+      }
+      if (w.Kakao && !w.Kakao.isInitialized?.()) {
+        try {
+          w.Kakao.init(jsKey);
+          resolve(w.Kakao);
+          return;
+        } catch (_e) {
+          // fallthrough to reload script
+        }
+      }
+      const existing = document.querySelector('script[data-kakao-sdk]') as HTMLScriptElement | null;
+      if (existing) {
+        existing.addEventListener('load', () => {
+          try {
+            const w2 = window as Window;
+            if (w2.Kakao && !w2.Kakao.isInitialized?.()) {
+              w2.Kakao.init(jsKey);
+            }
+            resolve(w2.Kakao as KakaoSDK);
+          } catch (err) { reject(err); }
+        }, { once: true });
+        existing.addEventListener('error', () => reject(new Error('Kakao SDK load error')), { once: true });
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+      script.async = true;
+      script.defer = true;
+      script.setAttribute('data-kakao-sdk', 'true');
+      script.onload = () => {
+        try {
+          const w2 = window as Window;
+          if (w2.Kakao && !w2.Kakao.isInitialized?.()) {
+            w2.Kakao.init(jsKey);
+          }
+          resolve(w2.Kakao as KakaoSDK);
+        } catch (err) { reject(err); }
+      };
+      script.onerror = () => reject(new Error('Kakao SDK load error'));
+      document.head.appendChild(script);
+    });
+  };
+
+  // 실제 공유 실행
+  (async () => {
+    try {
+      const Kakao = await loadSdk();
+      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
+      const compact = `${_result.nbti.id}|${_result.dogName}`;
+      const version = Date.now();
+      const imageUrl = origin ? `${origin}/results/share/opengraph-image?code=${encodeURIComponent(compact)}&v=${version}` : 'https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/brand/favicon/kakaocorp_favicon.ico';
+
+      Kakao.Share?.sendDefault?.({
+        objectType: 'feed',
+        content: {
+          title: '🐶 우리 아이 건강 MBTI 테스트',
+          description: '너의 갱얼쥐 NBTI가 뭐야? 🐾',
+          imageUrl,
+          link: {
+            mobileWebUrl: _shareUrl,
+            webUrl: _shareUrl,
+          },
+        },
+        buttons: [
+          {
+            title: '자세히 보기',
+            link: { mobileWebUrl: _shareUrl, webUrl: _shareUrl },
+          },
+          {
+            title: '테스트 하기',
+            link: { mobileWebUrl: `${origin}/basic-questions`, webUrl: `${origin}/basic-questions` },
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('카카오톡 공유 실패:', error);
+      alert('카카오톡 공유 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  })();
 }
 
 /**
  * X (트위터) 공유 (나중에 구현 예정)
  */
 export function shareToX(result: NBTIResult, shareUrl: string): void {
-  // TODO: X 공유 기능 구현
-  alert('X 공유 기능은 추후 구현 예정입니다.');
+  if (typeof window === 'undefined') return;
+  const text = encodeURIComponent(`${result.dogName}의 NBTI는 ${result.nbti.name}!`);
+  const url = encodeURIComponent(shareUrl);
+  const hashtags = encodeURIComponent('NBTI,강아지,유형,젤리유니브');
+  const intent = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
+  window.open(intent, '_blank', 'noopener,noreferrer');
 }
 
 /**
@@ -264,7 +406,7 @@ export async function captureElementAsImage(element: HTMLElement, filename: stri
     console.error('이미지 캡처 실패:', error);
     return false;
   } finally {
-    try { removeTempStyle && removeTempStyle(); } catch { }
+    try { removeTempStyle?.(); } catch { }
   }
 }
 
@@ -283,13 +425,13 @@ export async function renderElementToDataUrl(element: HTMLElement): Promise<stri
     // 1) 시도: html-to-image
     try {
       const h2i = await import('html-to-image');
-      const url = await h2i.toPng(element, {
+      const options: HtmlToImageOptions = {
         cacheBust: true,
         pixelRatio: 2,
-        // foreignObjectRendering은 내부적으로 사용되며, 스타일은 이미 주입됨
-      } as any);
+      };
+      const url = await h2i.toPng(element, options);
       if (url) return url as string;
-    } catch (err) {
+    } catch {
       // html-to-image 실패 시 html2canvas로 폴백
     }
 
@@ -310,7 +452,7 @@ export async function renderElementToDataUrl(element: HTMLElement): Promise<stri
     console.error('이미지 렌더링 실패:', error);
     return null;
   } finally {
-    try { removeTempStyle && removeTempStyle(); } catch { }
+    try { removeTempStyle?.(); } catch { }
   }
 }
 
@@ -347,8 +489,9 @@ async function waitForAssets(root: HTMLElement, timeoutMs: number = 4000): Promi
   const promises: Promise<void>[] = [];
 
   // 폰트 로드
-  if (document && (document as any).fonts && typeof (document as any).fonts.ready?.then === 'function') {
-    promises.push((document as any).fonts.ready.catch(() => { }));
+  const fonts = (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts;
+  if (fonts?.ready && typeof fonts.ready.then === 'function') {
+    promises.push(fonts.ready.then(() => undefined).catch(() => undefined));
   }
 
   // 이미지 로드
