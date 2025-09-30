@@ -225,8 +225,8 @@ export default function ResultsPage() {
             </>
           }
           buttons={[
-            { text: "테스트 공유하기", onClick: handleShare },
-            { text: "결과 공유하기", variant: "outline", onClick: handleShare }
+            { text: "테스트 공유하기", variant: 'primary', onClick: handleShare },
+            { text: "결과 공유하기", variant: 'outline', onClick: handleShare }
           ]}
           customPadding="px-[30px] pt-[23.5px] pb-[28.5px]"
           noMargin
@@ -247,7 +247,7 @@ export default function ResultsPage() {
             </>
           }
           buttons={[
-            { text: "다시 테스트하기", variant: "outline", onClick: () => router.push('/basic-questions') }
+            { text: "다시 테스트하기", variant: "primary", onClick: () => router.push('/basic-questions') }
           ]}
           customPadding="px-[36.5px] py-[26.85px]"
         />

@@ -10,7 +10,7 @@ export function InfoCard({ children, className = '', customPadding }: InfoCardPr
   const paddingClass = customPadding || 'p-6';
 
   return (
-    <div className={`bg-[#EEEEEE] ${paddingClass} mb-6 border border-gray-200 shadow-md rounded-[30px] ${className}`}>
+    <div className={`bg-[#FFC466] ${paddingClass} mb-6 border border-gray-200 shadow-md rounded-[30px] ${className}`}>
       {children}
     </div>
   );

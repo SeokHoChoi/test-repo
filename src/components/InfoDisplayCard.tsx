@@ -51,10 +51,11 @@ export function InfoDisplayCard({
                 key={index}
                 variant={button.variant || 'primary'}
                 onClick={button.onClick}
+                fullWidth={false}
                 roundedClass="rounded-[50px]"
                 className={`font-semibold text-[15px] px-[17.5px] ${buttons.length === 2
                   ? index === 0 ? "flex-1 min-w-0" : "flex-1 min-w-0"
-                  : "min-w-[161px]"
+                  : "min-w-[161px] max-w-[161px] min-h-[41.31px]"
                   }`}
               >
                 {button.text}
