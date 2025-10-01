@@ -34,7 +34,7 @@ export default function BasicQuestionsPage() {
       detail: '하루 대부분 실내에서 보내고 운동량이 적음'
     },
     {
-      id: 'moderate',
+      id: 'medium',
       label: '보통 활동 (Moderate activity)',
       description: '일일 활동 시간: 30분 ~ 1시간',
       detail: '규칙적인 산책과 적당한 활동을 함'
@@ -102,7 +102,7 @@ export default function BasicQuestionsPage() {
               placeholder="강아지 이름을 입력해주세요"
               value={formData.dogName}
               onChange={(e) => setFormData(prev => ({ ...prev, dogName: e.target.value }))}
-              className="w-full px-4 py-3 bg-white rounded-xl border border-gray-200 focus:border-blue-500 focus:outline-none"
+              className="w-full h-[48px] px-4 bg-white rounded-xl border border-gray-200 focus:border-[#003DA5] focus:ring-[#003DA5] focus:outline-none text-[#343434] text-[clamp(0.875rem,3.5vw,1rem)] placeholder:text-gray-400 placeholder:text-[clamp(0.875rem,3.5vw,1rem)]"
             />
           </div>
 
@@ -116,7 +116,7 @@ export default function BasicQuestionsPage() {
               variant="input"
               size="md"
               onClick={() => setShowCalendar(true)}
-              className="text-left"
+              className={`text-left !h-[48px] w-full px-4 border border-gray-200 rounded-xl ${formData.birthDate ? '!text-[#343434]' : '!text-gray-400'}`}
             >
               {formData.birthDate
                 ? format(formData.birthDate, 'yyyy년 M월 d일', { locale: ko })
