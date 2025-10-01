@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, addYears, subYears, setYear, setMonth } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 interface CalendarProps {
@@ -12,7 +12,7 @@ interface CalendarProps {
 }
 
 export function Calendar({ isOpen, onClose, onSelectDate, selectedDate }: CalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(selectedDate || new Date());
 
   // 모달이 열릴 때 배경 스크롤 방지
   useEffect(() => {
@@ -57,6 +57,21 @@ export function Calendar({ isOpen, onClose, onSelectDate, selectedDate }: Calend
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
+  const handleYearSelect = (year: number) => {
+    setCurrentMonth(setYear(currentMonth, year));
+  };
+
+  const handleMonthSelect = (month: number) => {
+    setCurrentMonth(setMonth(currentMonth, month));
+  };
+
+  // 연도 옵션 생성 (현재 연도 기준 ±20년)
+  const currentYear = new Date().getFullYear();
+  const yearOptions = Array.from({ length: 41 }, (_, i) => currentYear - 20 + i);
+
+  // 월 옵션 생성
+  const monthOptions = Array.from({ length: 12 }, (_, i) => i);
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-black/30">
       <div className="bg-white rounded-2xl p-6 w-full max-w-sm">
@@ -71,9 +86,37 @@ export function Calendar({ isOpen, onClose, onSelectDate, selectedDate }: Calend
             </svg>
           </button>
 
-          <h3 className="text-lg font-semibold text-gray-900">
-            {format(currentMonth, 'yyyy년 M월', { locale: ko })}
-          </h3>
+          <div className="flex items-center gap-2">
+            {/* 연도 셀렉트 */}
+            <select
+              value={format(currentMonth, 'yyyy')}
+              onChange={(e) => handleYearSelect(parseInt(e.target.value))}
+              size={1}
+              className="px-3 py-2 text-base font-medium text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors appearance-none cursor-pointer"
+              style={{ maxHeight: '60vh' }}
+            >
+              {yearOptions.map((year) => (
+                <option key={year} value={year}>
+                  {year}년
+                </option>
+              ))}
+            </select>
+
+            {/* 월 셀렉트 */}
+            <select
+              value={format(currentMonth, 'M')}
+              onChange={(e) => handleMonthSelect(parseInt(e.target.value) - 1)}
+              size={1}
+              className="px-3 py-2 text-base font-medium text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors appearance-none cursor-pointer"
+              style={{ maxHeight: '60vh' }}
+            >
+              {monthOptions.map((month) => (
+                <option key={month} value={month + 1}>
+                  {month + 1}월
+                </option>
+              ))}
+            </select>
+          </div>
 
           <button
             onClick={handleNextMonth}
@@ -84,6 +127,7 @@ export function Calendar({ isOpen, onClose, onSelectDate, selectedDate }: Calend
             </svg>
           </button>
         </div>
+
 
         {/* 요일 헤더 */}
         <div className="grid grid-cols-7 gap-1 mb-2">

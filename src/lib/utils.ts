@@ -51,7 +51,8 @@ export interface NBTIResult {
     id: string;
     name: string;
     type: string;
-    description: string;
+    definition: string;
+    description: string | string[];
     detail: string;
     dogImage: string;
     tips: string[];

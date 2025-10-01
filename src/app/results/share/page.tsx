@@ -247,8 +247,7 @@ export default function SharePage() {
               >
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-[4px] leading-none m-0">
-                    <span className="text-[18px] w-[18px] h-[18px] flex items-center justify-center leading-none">🏆</span>
-                    <h3 className="font-medium text-[20px] leading-none m-0 font-gumi text-[#212121]">{result.nbti.name}</h3>
+                    <h3 className="font-medium text-[20px] leading-tight m-0 font-gumi text-[#212121] w-full">{result.nbti.name}</h3>
                   </div>
                   <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.type}</p>
                   <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
@@ -256,16 +255,17 @@ export default function SharePage() {
 
                 <div className="text-center mt-[13px] mb-[10px]">
                   <p className="text-[#003DA5] font-semibold text-[13px]">
-                    &ldquo;{result.nbti.description}&rdquo;
+                    &ldquo;{result.nbti.definition}&rdquo;
                   </p>
                 </div>
 
                 <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
-                  <p className="break-keep">{result.nbti.detail.split('!')[0]}!</p>
-                </div>
-
-                <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed">
-                  <p className="break-keep">{result.nbti.detail.split('!')[1]}</p>
+                  {Array.isArray(result.nbti.description)
+                    ? result.nbti.description.map((desc, index) => (
+                      <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
+                    ))
+                    : <p className="break-keep">{result.nbti.description}</p>
+                  }
                 </div>
               </NBTIResultCard>
             </div>
@@ -350,9 +350,11 @@ export default function SharePage() {
             subtitle="(Nutritional Body & Type Index)"
             description={
               <>
-                반려견의 건강 상태를 32가지 유형으로 나누고<br />
-                어떻게 하면 영양학적으로 더 건강하게 지낼 수<br />
-                있을지 알려주는 지표에요.
+                반려견의 가장 기본적인 정보를 <br />
+                32가지 유형으로 분류하는 시스템입니다.<br />
+                캐릭터는 각 유형을 이해하기 쉽게 일반화하여<br />
+                표현한 것이고, 건강 관리 팁은 우리 아이에게<br />
+                실제로 도움이 되는 맞춤 정보를 제공합니다.
               </>
             }
             buttons={[

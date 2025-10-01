@@ -93,7 +93,6 @@ export default function ResultsPage() {
         >
           <div className="text-center">
             <div className="flex items-center justify-center gap-[4px] leading-none m-0">
-              <span className="text-[18px] w-[18px] h-[18px] flex items-center justify-center leading-none">🏆</span>
               <h3 className="font-medium text-[20px] leading-none m-0 font-gumi text-[#212121]">{result.nbti.name}</h3>
             </div>
             <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.type}</p>
@@ -102,18 +101,18 @@ export default function ResultsPage() {
 
           <div className="text-center mt-[13px] mb-[10px]">
             <p className="text-[#003DA5] font-semibold text-[13px]">
-              &ldquo;{result.nbti.description}&rdquo;
+              &ldquo;{result.nbti.definition}&rdquo;
             </p>
           </div>
 
-          {/* 요약 텍스트 */}
+          {/* 설명 텍스트들 */}
           <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
-            <p className="break-keep">{result.nbti.detail.split('!')[0]}!</p>
-          </div>
-
-          {/* 상세 설명 텍스트 */}
-          <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed">
-            <p className="break-keep">{result.nbti.detail.split('!')[1]}</p>
+            {Array.isArray(result.nbti.description)
+              ? result.nbti.description.map((desc, index) => (
+                <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
+              ))
+              : <p className="break-keep">{result.nbti.description}</p>
+            }
           </div>
         </NBTIResultCard>
 
@@ -139,26 +138,14 @@ export default function ResultsPage() {
           </div>
 
           <div className="space-y-[22px]">
-            <div className="flex items-start gap-[20px]">
-              <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
-              <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
-                성장 중이면서 매우 활발한 활동을 하는 건강한 아이로, 하루 종일 뛰어놀아도 적정 체중을 유지하고 있어 현재 급여량과 사료가 잘 맞는 상태예요.
-              </p>
-            </div>
-
-            <div className="flex items-start gap-[20px]">
-              <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
-              <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
-                성장 속도에 맞춰 단백질과 칼슘 함량이 높은 퍼피 사료의 지속적인 급여가 필요하지만, 빠른 식사 속도로 인한 소화불량을 방지하기 위해 슬로우 피더나 퍼즐 피더 사용을 권장해요.
-              </p>
-            </div>
-
-            <div className="flex items-start gap-[20px]">
-              <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
-              <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
-                사교적 성향에 맞게 퍼피 소셜라이징 클래스나 강아지 놀이터에서 다양한 친구들과 뛰어놀며 건강한 사회성을 기를 수 있도록 도와주세요!
-              </p>
-            </div>
+            {result.nbti.tips.map((tip, index) => (
+              <div key={index} className="flex items-start gap-[20px]">
+                <span className="text-[13px] w-[13px] h-[13px] flex items-center justify-center flex-shrink-0 mt-[4px]">☑️</span>
+                <p className="text-[#343434] font-normal text-[13px] leading-[18px]">
+                  {tip}
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="mt-[41px] text-center">
@@ -262,9 +249,11 @@ export default function ResultsPage() {
           subtitle="(Nutritional Body & Type Index)"
           description={
             <>
-              반려견의 건강 상태를 32가지 유형으로 나누고<br />
-              어떻게 하면 영양학적으로 더 건강하게 지낼 수<br />
-              있을지 알려주는 지표에요.
+              반려견의 가장 기본적인 정보를 <br />
+              32가지 유형으로 분류하는 시스템입니다.<br />
+              캐릭터는 각 유형을 이해하기 쉽게 일반화하여<br />
+              표현한 것이고, 건강 관리 팁은 우리 아이에게<br />
+              실제로 도움이 되는 맞춤 정보를 제공합니다.
             </>
           }
           buttons={[
