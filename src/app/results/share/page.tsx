@@ -247,7 +247,6 @@ export default function SharePage() {
               >
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-[4px] leading-none m-0">
-                    <span className="text-[18px] w-[18px] h-[18px] flex items-center justify-center leading-none">🏆</span>
                     <h3 className="font-medium text-[20px] leading-none m-0 font-gumi text-[#212121]">{result.nbti.name}</h3>
                   </div>
                   <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.type}</p>
@@ -256,16 +255,17 @@ export default function SharePage() {
 
                 <div className="text-center mt-[13px] mb-[10px]">
                   <p className="text-[#003DA5] font-semibold text-[13px]">
-                    &ldquo;{result.nbti.description}&rdquo;
+                    &ldquo;{result.nbti.definition}&rdquo;
                   </p>
                 </div>
 
                 <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
-                  <p className="break-keep">{result.nbti.detail.split('!')[0]}!</p>
-                </div>
-
-                <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed">
-                  <p className="break-keep">{result.nbti.detail.split('!')[1]}</p>
+                  {Array.isArray(result.nbti.description)
+                    ? result.nbti.description.map((desc, index) => (
+                      <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
+                    ))
+                    : <p className="break-keep">{result.nbti.description}</p>
+                  }
                 </div>
               </NBTIResultCard>
             </div>
