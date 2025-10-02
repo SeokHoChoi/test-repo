@@ -244,10 +244,11 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
       const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
 
       // 2:1 이미지 (링크 미리보기용) - 테스트 홍보용
-      const testImageUrl = `${origin}/img/kakao-share/kakao-test-share-800x400.png`;
+      // 임시로 외부 이미지 사용 (카카오톡 접근 문제 해결)
+      const testImageUrl = 'https://via.placeholder.com/800x400/003DA5/FFFFFF?text=NBTI+Test';
 
-      // 1:1 이미지 (결과 공유용) - 정적 이미지 사용 (opengraph-image 대신)
-      const resultImageUrl = `${origin}/img/kakao-share/kakao-result-share-640x640.png`;
+      // 1:1 이미지 (결과 공유용) - 임시로 외부 이미지 사용
+      const resultImageUrl = 'https://via.placeholder.com/640x640/003DA5/FFFFFF?text=NBTI+Result';
 
       Kakao.Share?.sendDefault?.({
         objectType: 'feed',
@@ -347,7 +348,8 @@ export function shareKakaoTest(): void {
       const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
 
       // 2:1 이미지 (테스트 홍보용)
-      const testImageUrl = `${origin}/img/kakao-share/kakao-test-share-800x400.png`;
+      // 임시로 외부 이미지 사용 (카카오톡 접근 문제 해결)
+      const testImageUrl = 'https://via.placeholder.com/800x400/003DA5/FFFFFF?text=NBTI+Test';
       const testUrl = `${origin}/basic-questions`;
 
       Kakao.Share?.sendDefault?.({
