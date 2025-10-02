@@ -131,47 +131,41 @@ export default function SharePage() {
       // 1. 폰트 스타일 주입
       const fontStyle = injectCaptureStyles();
 
-      // 2. 강아지 이미지 프리로드 (결과에 따라 동적)
+      // 2. 강아지 이미지 preload
       const dogImagePath = result.nbti.dogImage;
       if (dogImagePath) {
         await preloadImg(dogImagePath);
       }
 
-      // 3. 폰트 로드 대기 (동적 폰트 로드)
-      const fontPromises = [];
-
-      // SB-Aggro 폰트 로드
+      // 3. FontFace 로드
       const sbAggroFont = new FontFace('SB-Aggro-Capture', 'url(/fonts/sb-aggro/SB-AggroOTF-M.woff2)');
-      fontPromises.push(sbAggroFont.load().then(() => {
-        document.fonts.add(sbAggroFont);
-      }).catch(() => { }));
-
-      // Gumi 폰트 로드
       const gumiFont = new FontFace('Gumi-Capture', 'url(/fonts/gumi-romance/Gumi-Romance.woff2)');
-      fontPromises.push(gumiFont.load().then(() => {
-        document.fonts.add(gumiFont);
-      }).catch(() => { }));
+      await Promise.all([
+        sbAggroFont.load().then(() => document.fonts.add(sbAggroFont)).catch(() => {}),
+        gumiFont.load().then(() => document.fonts.add(gumiFont)).catch(() => {}),
+      ]);
 
-      // 폰트 로드 완료 대기
-      await Promise.all(fontPromises);
-      
-      // ✅ 추가: 문서 전체 폰트 적용 대기
+      // 4. 모든 폰트 로드 완료 대기
       await document.fonts.ready;
-      
-      // ✅ 이미지 DOM 렌더링 잠깐 대기
-      await new Promise(r => setTimeout(r, 100));
 
-      // 4. 캡쳐 실행
+      // 5. DOM 렌더링 안정화 대기
+      await new Promise((r) => setTimeout(r, 100));
+
+      // 6. 캡쳐 실행
       const url = await renderNBTIImageDataUrl();
       setRenderedImageUrl(url);
+
       if (!url) {
         setSaveMessage('❌ 이미지 생성에 실패했습니다. 새로고침 후 다시 시도해주세요.');
         setTimeout(() => setSaveMessage(''), 5000);
       }
+
       setRendering(false);
 
-      // 5. 정리
-      try { document.head.removeChild(fontStyle); } catch { }
+      // 7. 스타일 정리
+      try {
+        document.head.removeChild(fontStyle);
+      } catch {}
     };
     renderImage();
   }, [result]);
