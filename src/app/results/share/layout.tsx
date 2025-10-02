@@ -38,7 +38,7 @@ export async function generateMetadata({
             card: 'summary_large_image',
             title,
             description,
-            images: ['https://test-repo-qux1.vercel.app/img/kakao-share/kakao-test-share-800x400.png'],
+            images: [imageUrl],
           },
         };
       }
