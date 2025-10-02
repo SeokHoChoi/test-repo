@@ -35,6 +35,46 @@ export default function SharePage() {
     const resultData = getResultFromUrlOrStorage();
     if (resultData) {
       setResult(resultData);
+      
+      // 동적 메타데이터 설정
+      const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
+      const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
+      const imageUrl = '/img/kakao-share/kakao-test-share-800x400.png';
+      
+      // 메타태그 설정
+      document.title = title;
+      
+      // Open Graph 메타태그
+      const ogTitle = document.querySelector('meta[property="og:title"]') || document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      ogTitle.setAttribute('content', title);
+      if (!document.querySelector('meta[property="og:title"]')) document.head.appendChild(ogTitle);
+      
+      const ogDescription = document.querySelector('meta[property="og:description"]') || document.createElement('meta');
+      ogDescription.setAttribute('property', 'og:description');
+      ogDescription.setAttribute('content', description);
+      if (!document.querySelector('meta[property="og:description"]')) document.head.appendChild(ogDescription);
+      
+      const ogImage = document.querySelector('meta[property="og:image"]') || document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      ogImage.setAttribute('content', imageUrl);
+      if (!document.querySelector('meta[property="og:image"]')) document.head.appendChild(ogImage);
+      
+      // Twitter 메타태그
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]') || document.createElement('meta');
+      twitterTitle.setAttribute('name', 'twitter:title');
+      twitterTitle.setAttribute('content', title);
+      if (!document.querySelector('meta[name="twitter:title"]')) document.head.appendChild(twitterTitle);
+      
+      const twitterDescription = document.querySelector('meta[name="twitter:description"]') || document.createElement('meta');
+      twitterDescription.setAttribute('name', 'twitter:description');
+      twitterDescription.setAttribute('content', description);
+      if (!document.querySelector('meta[name="twitter:description"]')) document.head.appendChild(twitterDescription);
+      
+      const twitterImage = document.querySelector('meta[name="twitter:image"]') || document.createElement('meta');
+      twitterImage.setAttribute('name', 'twitter:image');
+      twitterImage.setAttribute('content', imageUrl);
+      if (!document.querySelector('meta[name="twitter:image"]')) document.head.appendChild(twitterImage);
     } else {
       // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
       router.push('/landing');
