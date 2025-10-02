@@ -131,11 +131,20 @@ export default function SharePage() {
       // 1. 폰트 스타일 주입
       const fontStyle = injectCaptureStyles();
 
-      // 2. 강아지 이미지 프리로드
-      await preloadImg('/img/results/dog-1.png');
+      // 2. 강아지 이미지 프리로드 (여러 이미지)
+      await Promise.all([
+        preloadImg('/img/results/dog-1.png'),
+        preloadImg('/img/results/dog-2.png'),
+        preloadImg('/img/results/dog-3.png'),
+        preloadImg('/img/results/dog-4.png'),
+        preloadImg('/img/results/dog-5.png'),
+        preloadImg('/img/results/dog-6.png'),
+        preloadImg('/img/results/dog-7.png'),
+        preloadImg('/img/results/dog-8.png'),
+      ]);
 
-      // 3. 폰트 로드 대기
-      await new Promise((r) => setTimeout(r, 2000));
+      // 3. 폰트 로드 대기 (시간 증가)
+      await new Promise((r) => setTimeout(r, 3000));
 
       // 4. 캡쳐 실행
       const url = await renderNBTIImageDataUrl();

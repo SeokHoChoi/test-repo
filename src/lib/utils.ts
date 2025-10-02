@@ -583,7 +583,7 @@ export async function renderNBTIImageDataUrl(): Promise<string | null> {
 }
 
 // ===== 내부 유틸: 캡처 안정화 도우미 =====
-async function waitForAssets(root: HTMLElement, timeoutMs: number = 4000): Promise<void> {
+async function waitForAssets(root: HTMLElement, timeoutMs: number = 6000): Promise<void> {
   const promises: Promise<void>[] = [];
 
   // 폰트 로드
