@@ -326,11 +326,28 @@ export default function SharePage() {
           noMargin
           className="mb-[37px]"
         >
-          {/* 공유 안내 */}
-          <p className="text-[#343434] text-[15px] font-medium text-center mb-6">
-            아래 이미지를 길게 눌러 저장 후,<br />
-            채널을 선택해 공유할 수 있어요.
-          </p>
+          {/* 공유 안내 또는 로딩 - 고정 높이로 레이아웃 시프트 방지 */}
+          <div className="text-center mb-6" style={{ minHeight: '46px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {renderedImageUrl ? (
+              <p className="text-[#343434] text-[15px] font-medium">
+                아래 이미지를 길게 눌러 저장 후,<br />
+                채널을 선택해 공유할 수 있어요.
+              </p>
+            ) : (
+              <p className="text-[#343434] text-[15px] font-medium">
+                <span className="inline-flex items-center">
+                  <Image
+                    src="/img/jellyu-logo.png"
+                    alt="젤리대학교"
+                    width={36}
+                    height={36}
+                    className="w-9 h-9 object-contain animate-bounce mr-2"
+                  />
+                  <span className="font-sb-aggro font-medium">이미지 준비중...</span>
+                </span>
+              </p>
+            )}
+          </div>
 
 
           {/* 공유용 결과 카드 (캡처 대상) - 캡쳐용으로만 사용 */}
