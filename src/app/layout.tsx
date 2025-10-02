@@ -95,8 +95,10 @@ const pretendard = localFont({
   display: "swap",
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://test-repo-qux1.vercel.app';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://test-repo-qux1.vercel.app'),
+  metadataBase: new URL(baseUrl),
   title: "우리 아이의 NBTI는? | Jelly Univ",
   description: "🐶 우리 아이 건강 MBTI 테스트 | 반려견의 건강 상태를 32가지 유형으로 나누고 어떻게 하면 영양학적으로 더 건강하게 지낼 수 있을지 알려주는 지표",
   openGraph: {
@@ -104,7 +106,7 @@ export const metadata: Metadata = {
     description: "🐶 우리 아이 건강 MBTI 테스트\n너의 갱얼쥐 NBTI가 뭐야? 🐾",
     images: [
       {
-        url: '/img/kakao-share/kakao-test-share-800x400.png',
+        url: `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`,
         width: 800,
         height: 400,
         alt: 'NBTI 테스트 이미지',
@@ -117,7 +119,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "우리 아이의 NBTI는? | Jelly Univ",
     description: "🐶 우리 아이 건강 MBTI 테스트\n너의 갱얼쥐 NBTI가 뭐야? 🐾",
-    images: ['/img/kakao-share/kakao-test-share-800x400.png'],
+    images: [`${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`],
   },
 };
 
