@@ -250,7 +250,7 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
         objectType: 'feed',
         content: {
           title: `🐶 ${_result.dogName}의 NBTI는 ${_result.nbti.name}!`,
-          description: `${_result.nbti.id} (${_result.nbti.type})\n"${_result.nbti.definition}"\n\n📋 자세히 보기: ${_shareUrl}\n🧪 테스트 하기: ${origin}/basic-questions`,
+          description: `${_result.nbti.id} (${_result.nbti.type})\n"${_result.nbti.definition}"\n\n자세히 보기: ${_shareUrl}\n테스트 하기: ${origin}/basic-questions`,
           imageUrl: resultImageUrl, // 1:1 결과 이미지
           link: {
             mobileWebUrl: _shareUrl,
