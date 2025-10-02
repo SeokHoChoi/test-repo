@@ -39,7 +39,8 @@ export default function SharePage() {
       // 동적 메타데이터 설정
       const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
       const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
-      const imageUrl = '/img/kakao-share/kakao-test-share-800x400.png';
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
+      const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
 
       // 메타태그 설정
       document.title = title;
