@@ -272,11 +272,6 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
             link: { mobileWebUrl: `${origin}/basic-questions`, webUrl: `${origin}/basic-questions` },
           },
         ],
-        social: {
-          likeCount: 0,
-          commentCount: 0,
-          sharedCount: 0,
-        },
       });
     } catch (error) {
       console.error('카카오톡 공유 실패:', error);
@@ -374,11 +369,6 @@ export function shareKakaoTest(): void {
             link: { mobileWebUrl: testUrl, webUrl: testUrl },
           },
         ],
-        social: {
-          likeCount: 0,
-          commentCount: 0,
-          sharedCount: 0,
-        },
       });
     } catch (error) {
       console.error('카카오톡 공유 실패:', error);
