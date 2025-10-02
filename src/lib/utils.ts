@@ -200,7 +200,7 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
           w.Kakao.init(jsKey);
           resolve(w.Kakao);
           return;
-        } catch (_e) {
+        } catch {
           // fallthrough to reload script
         }
       }
@@ -305,7 +305,7 @@ export function shareKakaoTest(): void {
           w.Kakao.init(jsKey);
           resolve(w.Kakao);
           return;
-        } catch (_e) {
+        } catch {
           // fallthrough to reload script
         }
       }

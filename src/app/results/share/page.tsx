@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { NBTIResultCard } from '@/components/NBTIResultCard';
+import { ShareCard } from '@/components/ShareCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import {
   getResultFromUrlOrStorage,

@@ -26,13 +26,13 @@ export function NBTIResultCard({
 
       <div className="flex justify-center mb-9">
         {preferPlainImg ? (
-          <img
+          <Image
             src={dogImage}
             alt={`${dogName} 강아지`}
             width={128}
             height={128}
             className="w-32 h-32 object-contain relative z-10"
-            loading="eager"
+            priority
           />
         ) : (
           <Image

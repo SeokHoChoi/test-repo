@@ -1,7 +1,7 @@
 import { Button } from '@/components/Button';
 import { ShareCard } from '@/components/ShareCard';
 import { GrayInfoCard } from '@/components/GrayInfoCard';
-import { Share, Upload, ArrowUpRight } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import Image from 'next/image';
 
 export default function LandingPage() {
