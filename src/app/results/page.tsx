@@ -6,7 +6,6 @@ import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { InfoCard } from '@/components/InfoCard';
-import { ShareCard } from '@/components/ShareCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import { generateShareUrl, type NBTIResult } from '@/lib/utils';

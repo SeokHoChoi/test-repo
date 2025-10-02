@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, addYears, subYears, setYear, setMonth } from 'date-fns';
-import { ko } from 'date-fns/locale';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, setYear, setMonth } from 'date-fns';
 
 interface CalendarProps {
   isOpen: boolean;

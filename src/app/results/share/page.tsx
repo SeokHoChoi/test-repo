@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
 import { NBTIResultCard } from '@/components/NBTIResultCard';
-import { ShareCard } from '@/components/ShareCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import {
   getResultFromUrlOrStorage,
@@ -110,12 +109,6 @@ export default function SharePage() {
     renderImage();
   }, [result]);
 
-  const handleRetakeTest = () => {
-    // 세션 스토리지 클리어
-    sessionStorage.removeItem('basicQuestions');
-    sessionStorage.removeItem('nbtiResult');
-    router.push('/basic-questions');
-  };
 
   // TODO: 이동 경로 검토
   const handleOtherTests = () => {
@@ -221,9 +214,11 @@ export default function SharePage() {
           {/* 공유용 결과 카드 (캡처 대상) 또는 렌더된 이미지 */}
           {renderedImageUrl ? (
             <div className="mb-5 select-none" style={{ WebkitTouchCallout: 'default' }}>
-              <img
-                src={renderedImageUrl}
+              <Image
+                src={renderedImageUrl || ''}
                 alt="NBTI 결과 이미지"
+                width={400}
+                height={400}
                 className="w-full h-auto rounded-2xl shadow"
               />
             </div>
@@ -274,16 +269,16 @@ export default function SharePage() {
           {/* 공유 버튼들 */}
           <div className="flex justify-center gap-[10px]">
             <button onClick={handleInstagramShare} title="인스타그램 공유" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/insta.png" alt="인스타그램" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/insta.png" alt="인스타그램" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
             <button onClick={handleKakaoShare} title="카카오톡 공유" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/kakao.png" alt="카카오톡" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/kakao.png" alt="카카오톡" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
             <button onClick={handleXShare} title="트위터 공유" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/twitter.png" alt="트위터" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/twitter.png" alt="트위터" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
             <button onClick={handleCopyLink} title="링크 복사" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/link.png" alt="링크 복사" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/link.png" alt="링크 복사" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
           </div>
         </ShareCard>
