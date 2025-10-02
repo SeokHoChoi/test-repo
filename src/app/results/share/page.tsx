@@ -131,20 +131,32 @@ export default function SharePage() {
       // 1. 폰트 스타일 주입
       const fontStyle = injectCaptureStyles();
 
-      // 2. 강아지 이미지 프리로드 (여러 이미지)
-      await Promise.all([
-        preloadImg('/img/results/dog-1.png'),
-        preloadImg('/img/results/dog-2.png'),
-        preloadImg('/img/results/dog-3.png'),
-        preloadImg('/img/results/dog-4.png'),
-        preloadImg('/img/results/dog-5.png'),
-        preloadImg('/img/results/dog-6.png'),
-        preloadImg('/img/results/dog-7.png'),
-        preloadImg('/img/results/dog-8.png'),
-      ]);
+      // 2. 강아지 이미지 프리로드 (결과에 따라 동적)
+      const dogImagePath = result.nbti.dogImage;
+      if (dogImagePath) {
+        await preloadImg(dogImagePath);
+      }
 
-      // 3. 폰트 로드 대기 (시간 증가)
-      await new Promise((r) => setTimeout(r, 3000));
+      // 3. 폰트 로드 대기 (동적 폰트 로드)
+      const fontPromises = [];
+      
+      // SB-Aggro 폰트 로드
+      const sbAggroFont = new FontFace('SB-Aggro-Capture', 'url(/fonts/sb-aggro/SB-AggroOTF-M.woff2)');
+      fontPromises.push(sbAggroFont.load().then(() => {
+        document.fonts.add(sbAggroFont);
+      }).catch(() => {}));
+      
+      // Gumi 폰트 로드
+      const gumiFont = new FontFace('Gumi-Capture', 'url(/fonts/gumi-romance/Gumi-Romance.woff2)');
+      fontPromises.push(gumiFont.load().then(() => {
+        document.fonts.add(gumiFont);
+      }).catch(() => {}));
+      
+      // 폰트 로드 완료 대기
+      await Promise.all(fontPromises);
+      
+      // 추가 대기 시간 (폰트 적용 확실히)
+      await new Promise((r) => setTimeout(r, 1000));
 
       // 4. 캡쳐 실행
       const url = await renderNBTIImageDataUrl();
