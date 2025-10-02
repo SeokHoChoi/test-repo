@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, ABeeZee } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import ClientOnly from "../components/ClientOnly";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -121,11 +122,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${sbAggro.variable} ${pretendard.variable} ${aBeeZee.variable} antialiased`}
+        suppressHydrationWarning
       >
-        {children}
+        <ClientOnly>
+          {children}
+        </ClientOnly>
       </body>
     </html>
   );
