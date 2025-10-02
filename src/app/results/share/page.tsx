@@ -39,8 +39,8 @@ export default function SharePage() {
       // 동적 메타데이터 설정
       const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
       const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
-      const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
+        const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
 
       // 메타태그 설정
       document.title = title;
@@ -131,7 +131,7 @@ export default function SharePage() {
       // 1. 폰트 스타일 주입
       const fontStyle = injectCaptureStyles();
 
-      // 2. 강아지 이미지 preload
+      // 2. 강아지 이미지 프리로드 (결과에 따라 동적)
       const dogImagePath = result.nbti.dogImage;
       if (dogImagePath) {
         await preloadImg(dogImagePath);
@@ -154,12 +154,10 @@ export default function SharePage() {
       // 6. 캡쳐 실행
       const url = await renderNBTIImageDataUrl();
       setRenderedImageUrl(url);
-
       if (!url) {
         setSaveMessage('❌ 이미지 생성에 실패했습니다. 새로고침 후 다시 시도해주세요.');
         setTimeout(() => setSaveMessage(''), 5000);
       }
-
       setRendering(false);
 
       // 7. 스타일 정리
