@@ -39,8 +39,8 @@ export default function SharePage() {
       // 동적 메타데이터 설정
       const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
       const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
-        const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
+      const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
 
       // 메타태그 설정
       document.title = title;
@@ -85,6 +85,11 @@ export default function SharePage() {
 
   // 결과 카드 이미지를 PNG로 렌더링하여 <img>로 표시 (모바일 길게 눌러 저장 가능)
   useEffect(() => {
+    // 이미 생성된 이미지가 있으면 새로고침하지 않음
+    if (sessionStorage.getItem('imageGenerated')) {
+      return;
+    }
+
     // 캡쳐용 @font-face 직접 주입 (Next.js 폰트 최적화 우회)
     const injectCaptureStyles = () => {
       const style = document.createElement('style');
@@ -141,8 +146,8 @@ export default function SharePage() {
       const sbAggroFont = new FontFace('SB-Aggro-Capture', 'url(/fonts/sb-aggro/SB-AggroOTF-M.woff2)');
       const gumiFont = new FontFace('Gumi-Capture', 'url(/fonts/gumi-romance/Gumi-Romance.woff2)');
       await Promise.all([
-        sbAggroFont.load().then(() => document.fonts.add(sbAggroFont)).catch(() => {}),
-        gumiFont.load().then(() => document.fonts.add(gumiFont)).catch(() => {}),
+        sbAggroFont.load().then(() => document.fonts.add(sbAggroFont)).catch(() => { }),
+        gumiFont.load().then(() => document.fonts.add(gumiFont)).catch(() => { }),
       ]);
 
       // 4. 모든 폰트 로드 완료 대기
@@ -163,7 +168,16 @@ export default function SharePage() {
       // 7. 스타일 정리
       try {
         document.head.removeChild(fontStyle);
-      } catch {}
+      } catch { }
+
+      // 8. 이미지 생성 후 한 번만 새로고침 (DOM 안정화)
+      // FIX: 새로고침 없이 이미지 & 폰트 반영 
+      if (url) {
+        sessionStorage.setItem('imageGenerated', 'true');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
     };
     renderImage();
   }, [result]);
