@@ -246,10 +246,8 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
       // 2:1 이미지 (링크 미리보기용) - 테스트 홍보용
       const testImageUrl = `${origin}/img/kakao-share/kakao-test-share-800x400.png`;
 
-      // 1:1 이미지 (결과 공유용) - 동적으로 생성된 결과 이미지
-      const compact = `${_result.nbti.id}|${_result.dogName}`;
-      const version = Date.now();
-      const resultImageUrl = origin ? `${origin}/results/share/opengraph-image?code=${encodeURIComponent(compact)}&v=${version}` : testImageUrl;
+      // 1:1 이미지 (결과 공유용) - 정적 이미지 사용 (opengraph-image 대신)
+      const resultImageUrl = `${origin}/img/kakao-share/kakao-result-share-640x640.png`;
 
       Kakao.Share?.sendDefault?.({
         objectType: 'feed',
