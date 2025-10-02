@@ -41,7 +41,7 @@ export default function SharePage() {
       // 메타태그 설정
       document.title = title;
 
-      // Open Graph 메타태그
+      // Open Graph 메타태그 - 인스타그램 호환성 강화
       const ogTitle = document.querySelector('meta[property="og:title"]') || document.createElement('meta');
       ogTitle.setAttribute('property', 'og:title');
       ogTitle.setAttribute('content', title);
@@ -56,6 +56,32 @@ export default function SharePage() {
       ogImage.setAttribute('property', 'og:image');
       ogImage.setAttribute('content', imageUrl);
       if (!document.querySelector('meta[property="og:image"]')) document.head.appendChild(ogImage);
+
+      // 인스타그램을 위한 추가 메타태그
+      const ogImageWidth = document.querySelector('meta[property="og:image:width"]') || document.createElement('meta');
+      ogImageWidth.setAttribute('property', 'og:image:width');
+      ogImageWidth.setAttribute('content', '800');
+      if (!document.querySelector('meta[property="og:image:width"]')) document.head.appendChild(ogImageWidth);
+
+      const ogImageHeight = document.querySelector('meta[property="og:image:height"]') || document.createElement('meta');
+      ogImageHeight.setAttribute('property', 'og:image:height');
+      ogImageHeight.setAttribute('content', '400');
+      if (!document.querySelector('meta[property="og:image:height"]')) document.head.appendChild(ogImageHeight);
+
+      const ogImageType = document.querySelector('meta[property="og:image:type"]') || document.createElement('meta');
+      ogImageType.setAttribute('property', 'og:image:type');
+      ogImageType.setAttribute('content', 'image/png');
+      if (!document.querySelector('meta[property="og:image:type"]')) document.head.appendChild(ogImageType);
+
+      const ogUrl = document.querySelector('meta[property="og:url"]') || document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      ogUrl.setAttribute('content', window.location.href);
+      if (!document.querySelector('meta[property="og:url"]')) document.head.appendChild(ogUrl);
+
+      const ogType = document.querySelector('meta[property="og:type"]') || document.createElement('meta');
+      ogType.setAttribute('property', 'og:type');
+      ogType.setAttribute('content', 'website');
+      if (!document.querySelector('meta[property="og:type"]')) document.head.appendChild(ogType);
 
       // Twitter 메타태그
       const twitterTitle = document.querySelector('meta[name="twitter:title"]') || document.createElement('meta');
