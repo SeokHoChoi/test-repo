@@ -28,6 +28,55 @@ export default function SharePage() {
   const [saveMessage, setSaveMessage] = useState<string>('');
   const [renderedImageUrl, setRenderedImageUrl] = useState<string | null>(null);
   const [rendering, setRendering] = useState<boolean>(false);
+
+  // Open Graph 메타태그 설정
+  useEffect(() => {
+    if (result) {
+      const title = `🐶 ${result.dogName}의 NBTI는 ${result.nbti.name}!`;
+      const description = `${result.nbti.id} (${result.nbti.type})\n"${result.nbti.definition}"`;
+      const imageUrl = `${window.location.origin}/img/kakao-share/kakao-result-share-640x640.png`;
+      
+      // 메타태그 설정
+      document.title = title;
+      
+      // Open Graph 메타태그
+      const ogTitle = document.querySelector('meta[property="og:title"]') || document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      ogTitle.setAttribute('content', title);
+      if (!document.querySelector('meta[property="og:title"]')) document.head.appendChild(ogTitle);
+      
+      const ogDescription = document.querySelector('meta[property="og:description"]') || document.createElement('meta');
+      ogDescription.setAttribute('property', 'og:description');
+      ogDescription.setAttribute('content', description);
+      if (!document.querySelector('meta[property="og:description"]')) document.head.appendChild(ogDescription);
+      
+      const ogImage = document.querySelector('meta[property="og:image"]') || document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      ogImage.setAttribute('content', imageUrl);
+      if (!document.querySelector('meta[property="og:image"]')) document.head.appendChild(ogImage);
+      
+      const ogUrl = document.querySelector('meta[property="og:url"]') || document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      ogUrl.setAttribute('content', window.location.href);
+      if (!document.querySelector('meta[property="og:url"]')) document.head.appendChild(ogUrl);
+      
+      // Twitter 메타태그
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]') || document.createElement('meta');
+      twitterTitle.setAttribute('name', 'twitter:title');
+      twitterTitle.setAttribute('content', title);
+      if (!document.querySelector('meta[name="twitter:title"]')) document.head.appendChild(twitterTitle);
+      
+      const twitterDescription = document.querySelector('meta[name="twitter:description"]') || document.createElement('meta');
+      twitterDescription.setAttribute('name', 'twitter:description');
+      twitterDescription.setAttribute('content', description);
+      if (!document.querySelector('meta[name="twitter:description"]')) document.head.appendChild(twitterDescription);
+      
+      const twitterImage = document.querySelector('meta[name="twitter:image"]') || document.createElement('meta');
+      twitterImage.setAttribute('name', 'twitter:image');
+      twitterImage.setAttribute('content', imageUrl);
+      if (!document.querySelector('meta[name="twitter:image"]')) document.head.appendChild(twitterImage);
+    }
+  }, [result]);
   const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
