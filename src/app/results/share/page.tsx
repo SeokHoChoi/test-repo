@@ -158,12 +158,6 @@ export default function SharePage() {
 
       // 6. 캡쳐 실행
       const url = await renderNBTIImageDataUrl();
-      setRenderedImageUrl(url);
-      if (!url) {
-        setSaveMessage('❌ 이미지 생성에 실패했습니다. 새로고침 후 다시 시도해주세요.');
-        setTimeout(() => setSaveMessage(''), 5000);
-      }
-      setRendering(false);
 
       // 7. 스타일 정리
       try {
@@ -171,12 +165,17 @@ export default function SharePage() {
       } catch { }
 
       // 8. 이미지 생성 후 한 번만 새로고침 (DOM 안정화)
-      // FIX: 새로고침 없이 이미지 & 폰트 반영 
+      // FIX: 이미지를 보여주지 않고 바로 새로고침
       if (url) {
         sessionStorage.setItem('imageGenerated', 'true');
+        // 이미지를 화면에 표시하지 않고 바로 새로고침
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 500);
+      } else {
+        setSaveMessage('❌ 이미지 생성에 실패했습니다. 새로고침 후 다시 시도해주세요.');
+        setTimeout(() => setSaveMessage(''), 5000);
+        setRendering(false);
       }
     };
     renderImage();
