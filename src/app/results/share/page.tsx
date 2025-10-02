@@ -139,24 +139,27 @@ export default function SharePage() {
 
       // 3. 폰트 로드 대기 (동적 폰트 로드)
       const fontPromises = [];
-      
+
       // SB-Aggro 폰트 로드
       const sbAggroFont = new FontFace('SB-Aggro-Capture', 'url(/fonts/sb-aggro/SB-AggroOTF-M.woff2)');
       fontPromises.push(sbAggroFont.load().then(() => {
         document.fonts.add(sbAggroFont);
-      }).catch(() => {}));
-      
+      }).catch(() => { }));
+
       // Gumi 폰트 로드
       const gumiFont = new FontFace('Gumi-Capture', 'url(/fonts/gumi-romance/Gumi-Romance.woff2)');
       fontPromises.push(gumiFont.load().then(() => {
         document.fonts.add(gumiFont);
-      }).catch(() => {}));
-      
+      }).catch(() => { }));
+
       // 폰트 로드 완료 대기
       await Promise.all(fontPromises);
       
-      // 추가 대기 시간 (폰트 적용 확실히)
-      await new Promise((r) => setTimeout(r, 1000));
+      // ✅ 추가: 문서 전체 폰트 적용 대기
+      await document.fonts.ready;
+      
+      // ✅ 이미지 DOM 렌더링 잠깐 대기
+      await new Promise(r => setTimeout(r, 100));
 
       // 4. 캡쳐 실행
       const url = await renderNBTIImageDataUrl();
