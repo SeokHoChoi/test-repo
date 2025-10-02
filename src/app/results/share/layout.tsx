@@ -4,7 +4,7 @@ import { buildResultFromCode } from '@/lib/nbti';
 export async function generateMetadata({
   searchParams
 }: {
-  searchParams?: { code?: string }
+  searchParams: { code?: string }
 }): Promise<Metadata> {
   const code = searchParams?.code;
 
