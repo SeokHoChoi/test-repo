@@ -15,7 +15,7 @@ export default function NotFound() {
             className="mx-auto animate-bounce"
           />
         </div>
-        
+
         {/* 404 메시지 */}
         <div className="mb-8">
           <h1 className="text-6xl font-bold text-white mb-4">404</h1>
@@ -27,27 +27,27 @@ export default function NotFound() {
             메인 페이지로 돌아가서 다시 시작해보세요!
           </p>
         </div>
-        
+
         {/* 홈으로 가기 버튼 */}
-        <Button 
+        <Button
           href="/"
           variant="primary"
           size="lg"
-          className="bg-white text-[#003DA5] hover:bg-gray-100"
+          className="border-2 border-white text-white hover:bg-white hover:text-[#003DA5] font-semibold shadow-lg"
         >
           🏠 홈으로 돌아가기
         </Button>
-        
+
         {/* 추가 안내 */}
-        <p className="text-white/60 text-sm mt-6">
+        <p className="text-white/80 text-sm mt-6">
           혹시 테스트를 하려면 아래 버튼을 눌러주세요!
         </p>
-        
-        <Button 
+
+        <Button
           href="/basic-questions"
           variant="outline"
           size="md"
-          className="mt-4 border-white text-white hover:bg-white hover:text-[#003DA5]"
+          className="mt-4 border-2 border-white text-white hover:bg-white hover:text-[#003DA5] font-semibold shadow-lg"
         >
           🐶 NBTI 테스트 시작하기
         </Button>

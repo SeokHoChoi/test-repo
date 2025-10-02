@@ -104,14 +104,7 @@ export const metadata: Metadata = {
     title: "우리 아이의 NBTI는? | Jelly Univ",
     description: "🐶 우리 아이 건강 MBTI 테스트\n너의 갱얼쥐 NBTI가 뭐야? 🐾",
     type: 'website',
-    images: [
-      {
-        url: `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`,
-        width: 800,
-        height: 400,
-        alt: 'NBTI 테스트 이미지',
-      },
-    ],
+    images: [`${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`],
     siteName: '젤리대학교',
   },
   twitter: {
