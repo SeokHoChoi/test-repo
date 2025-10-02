@@ -96,7 +96,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://jelly-univ-nbti.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://test-repo-qux1.vercel.app'),
   title: "우리 아이의 NBTI는? | Jelly Univ",
   description: "🐶 우리 아이 건강 MBTI 테스트 | 반려견의 건강 상태를 32가지 유형으로 나누고 어떻게 하면 영양학적으로 더 건강하게 지낼 수 있을지 알려주는 지표",
   openGraph: {
