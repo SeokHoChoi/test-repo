@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import { buildResultFromCode } from '@/lib/nbti';
 
-export async function generateMetadata({ 
-  searchParams 
-}: { 
-  searchParams?: { code?: string } 
+export async function generateMetadata({
+  searchParams
+}: {
+  searchParams?: { code?: string }
 }): Promise<Metadata> {
   const code = searchParams?.code;
 
@@ -16,7 +16,7 @@ export async function generateMetadata({
       if (result) {
         const title = `🐶 ${dogName}의 NBTI는 ${result.nbti.name}!`;
         const description = `${result.nbti.id} (${result.nbti.type})\n"${result.nbti.definition}"`;
-        const imageUrl = `/img/kakao-share/kakao-result-share-640x640.png`;
+        const imageUrl = `/img/kakao-share/kakao-test-share-800x400.png`;
 
         return {
           title,
@@ -27,8 +27,8 @@ export async function generateMetadata({
             images: [
               {
                 url: imageUrl,
-                width: 640,
-                height: 640,
+                width: 800,
+                height: 400,
                 alt: `${dogName}의 NBTI 결과`,
               },
             ],
