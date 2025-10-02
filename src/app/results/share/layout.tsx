@@ -4,7 +4,7 @@ import { buildResultFromCode } from '@/lib/nbti';
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: { code?: string };
+  searchParams: { [key: string]: string | undefined };
 }): Promise<Metadata> {
   const code = searchParams?.code;
 
@@ -38,7 +38,7 @@ export async function generateMetadata({
             card: 'summary_large_image',
             title,
             description,
-            images: [imageUrl], // 문자열 배열로 맞춤
+            images: [imageUrl],
           },
         };
       }
