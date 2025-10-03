@@ -19,17 +19,6 @@ export interface PersonalAnswers {
 }
 
 // ===== 이미지 경로 함수 =====
-function getPersonaImagePath(imageFile: string, lifeStage: string): string {
-  if (!imageFile) {
-    // image_file이 없으면 기본 경로 사용
-    return LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
-  }
-
-  // 생애주기에 따른 폴더 경로 결정
-  const folderPath = LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
-
-  return `${folderPath}${imageFile}`;
-}
 
 // ===== Letter 매핑 =====
 function mapBcsLetter(bcs: BasicAnswers['bcs']): 'U' | 'I' | 'O' {
@@ -172,7 +161,7 @@ export function calculateNBTIFromAnswers(basic: BasicAnswers, personal: Personal
         definition: persona.definition,
         description: Array.isArray(type.description) ? type.description : [type.description],
         detail: Array.isArray(type.description) ? type.description.join(' ') : type.description,
-        dogImage: getPersonaImagePath(persona.image_file || '', lifeStageLetter),
+        dogImage: getArchetypeImagePath(typeCode),
         tips: type.management_tips,
       },
       basicInfo: {
@@ -249,14 +238,21 @@ export function getCompatibilityByPrefix(prefix: string): CompatibilityPair {
 }
 
 // ===== 이미지 매핑 (JSON 데이터 기반) =====
-export function getArchetypeImagePath(displayPrefix: string): string {
-  const lifeStage = displayPrefix.endsWith('A') ? 'adult' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
+export function getArchetypeImagePath(typeCode: string): string {
+  // typeCode에서 displayPrefix와 lifeStage 추출
+  const [displayPrefix, pair] = typeCode.split('-');
+  const lifeStage = displayPrefix.endsWith('P') ? 'puppy' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
+
   const imageMap = nbtiData.images[lifeStage];
-  const imagePath = (imageMap as Record<string, string>)[displayPrefix];
+  const imagePath = (imageMap as Record<string, string>)[typeCode];
 
   if (imagePath) return imagePath;
 
-  // 폴백: adult 기본 이미지
+  // 폴백: displayPrefix로 시도
+  const fallbackPath = (imageMap as Record<string, string>)[displayPrefix];
+  if (fallbackPath) return fallbackPath;
+
+  // 최종 폴백: adult 기본 이미지
   return nbtiData.images.adult.ILA;
 }
 
@@ -313,7 +309,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
         definition: persona.definition,
         description: Array.isArray(type.description) ? type.description : [type.description],
         detail: Array.isArray(type.description) ? type.description.join(' ') : type.description,
-        dogImage: getPersonaImagePath(persona.image_file || '', lifeStage),
+        dogImage: getArchetypeImagePath(typeCode),
         tips: type.management_tips,
       },
       basicInfo: {
@@ -352,7 +348,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
       definition: archetypeInfo.oneLine || '',
       description: behaviorData.description,
       detail,
-      dogImage: getPersonaImagePath('', lifeStage),
+      dogImage: getArchetypeImagePath(`${displayPrefix}-${pair}`),
       tips: allTips,
     },
     basicInfo: {

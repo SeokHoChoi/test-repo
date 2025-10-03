@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { buildResultFromCode } from '@/lib/nbti';
+import { buildResultFromCode, getArchetypeImagePath } from '@/lib/nbti';
 import {
   BCS_MAPPING,
   ACTIVITY_LEVEL_MAPPING,
@@ -96,6 +96,20 @@ export interface NBTIResult {
     activityLevel: string;
     activityPattern: string;
     eatingPattern: string;
+  };
+  compatibility?: {
+    best: {
+      title: string;
+      reason: string;
+      type_code: string;
+      type_label: string;
+    };
+    worst: {
+      title: string;
+      reason: string;
+      type_code: string;
+      type_label: string;
+    };
   };
 }
 
@@ -271,7 +285,7 @@ export async function generateNBTIResultFromSurvey(answers: SurveyAnswers): Prom
         definition: personaData.persona.definition, // persona의 definition 사용
         description: personaData.type.description,
         detail: personaData.type.description.join('\n\n'),
-        dogImage: getPersonaImagePath(personaData.persona.image_file, characterCode.lifeStage),
+        dogImage: getArchetypeImagePath(characterCode.fullCode),
         tips: personaData.type.management_tips
       },
       basicInfo: {
@@ -280,7 +294,8 @@ export async function generateNBTIResultFromSurvey(answers: SurveyAnswers): Prom
         activityLevel: getActivityLevelLabel(characterCode.activityLevel),
         activityPattern: getActivityPatternLabel(characterCode.activityPattern),
         eatingPattern: getEatingPatternLabel(characterCode.eatingPattern)
-      }
+      },
+      compatibility: personaData.persona.compatibility
     };
 
     return result;
@@ -325,20 +340,6 @@ function getEatingPatternLabel(eatingPattern: string): string {
   return CODE_TO_LABEL_MAPPING.EATING_PATTERN[eatingPattern as keyof typeof CODE_TO_LABEL_MAPPING.EATING_PATTERN] || "신중형";
 }
 
-/**
- * 페르소나별 이미지 경로 반환
- */
-function getPersonaImagePath(imageFile: string, lifeStage: string): string {
-  if (!imageFile) {
-    // image_file이 없으면 기본 경로 사용
-    return LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
-  }
-
-  // 생애주기에 따른 폴더 경로 결정
-  const folderPath = LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
-
-  return `${folderPath}${imageFile}`;
-}
 
 // ===== 매핑 테스트 및 디버깅 유틸리티 =====
 /**

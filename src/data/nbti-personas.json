@@ -9,6 +9,20 @@
       "definition": "호기심이 털보다 많은 우리집 탐험대장",
       "category": "퍼피",
       "image_file": "dream-explorer.png",
+      "compatibility": {
+        "best": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "고활동 에너지 수준 일치",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓"
+        },
+        "worst": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "활발함 vs 저활동 극단적 차이",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무"
+        }
+      },
       "types": [
         {
           "type_code": "IHP-EA",
@@ -82,6 +96,20 @@
       "definition": "잠이 곧 성장동력인 우리집 잠꾸러기",
       "category": "퍼피",
       "image_file": "little-dreamer.png",
+      "compatibility": {
+        "best": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "저활동+차분한 성향 유사",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "여유 vs 폭발적 에너지 상극",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓"
+        }
+      },
       "types": [
         {
           "type_code": "ILP-EA",
@@ -155,6 +183,20 @@
       "definition": "온 동네가 다 부러워하는 모범 퍼피",
       "category": "퍼피",
       "image_file": "top-dog.png",
+      "compatibility": {
+        "best": {
+          "title": "🎤 꼬마 엔터테이너",
+          "reason": "보통활동+건강한 균형",
+          "type_code": "UMP-EA",
+          "type_label": "적극적 사교형 엔터테이너"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "균형 vs 극도 식탐 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가"
+        }
+      },
       "types": [
         {
           "type_code": "IMP-EA",
@@ -228,6 +270,20 @@
       "definition": "원할때만 움직이는 소파 러버",
       "category": "퍼피",
       "image_file": "couch-kid.png",
+      "compatibility": {
+        "best": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "저활동 유사, 여유로운 성향",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "여유 vs 에너지 폭발 정반대",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓"
+        }
+      },
       "types": [
         {
           "type_code": "OLP-EA",
@@ -994,6 +1050,20 @@
       "name": "🏃‍♂️ 울트라 러너",
       "definition": "지구력이 곧 생명인 우리집 마라토너",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "고활동+지구력 성향 일치",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "운동 vs 식탐 우선순위 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가"
+        }
+      },
       "types": [
         {
           "type_code": "UHA-EA",
@@ -1066,6 +1136,20 @@
       "name": "🏠 완벽한 룸메이트",
       "definition": "보호자 맞춤형으로 살아가는 완벽 파트너",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "저활동+안정적 성격 일치",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "극단적 활동 수준 차이",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓"
+        }
+      },
       "types": [
         {
           "type_code": "ILA-EA",
@@ -1138,6 +1222,20 @@
       "name": "🎾 활력충전 파트너",
       "definition": "노는게 제일 좋은 개구장이",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🏆 엄친견",
+          "reason": "이상적 체형+보통활동 완벽 매치",
+          "type_code": "IMP-EA",
+          "type_label": "적극적 사교형 엄친견"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "활동 의욕 vs 식탐 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가"
+        }
+      },
       "types": [
         {
           "type_code": "IMA-EA",

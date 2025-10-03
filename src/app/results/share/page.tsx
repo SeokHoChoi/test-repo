@@ -36,6 +36,7 @@ export default function SharePage() {
         const resultData = getResultFromUrlOrStorage();
         if (resultData) {
           setResult(resultData);
+          setLoading(false);
           return;
         }
 
@@ -50,23 +51,34 @@ export default function SharePage() {
             sessionStorage.setItem('nbtiResult', JSON.stringify(newResult));
           } else {
             console.error('NBTI 결과 생성 실패');
-            router.push('/landing');
           }
         } else {
-          // 설문조사 데이터도 없으면 랜딩 페이지로 리다이렉트
-          router.push('/landing');
+          // 설문조사 데이터도 없으면 에러 상태로 표시
+          console.error('설문조사 데이터가 없습니다.');
         }
       } catch (error) {
         console.error('결과 로드 실패:', error);
-        router.push('/landing');
+      } finally {
+        setLoading(false);
       }
     };
 
     loadResult();
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     if (result) {
+      // 이미지 경로 수정: lifeStage에 따라 올바른 폴더로 변경
+      const currentLifeStage = result.basicInfo.lifeStage;
+      if (currentLifeStage === 'puppy' && result.nbti.dogImage.includes('/adult/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/adult/', '/puppy/');
+      } else if (currentLifeStage === 'senior' && result.nbti.dogImage.includes('/adult/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/adult/', '/senior/');
+      } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/puppy/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/puppy/', '/adult/');
+      } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/senior/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/senior/', '/adult/');
+      }
 
       // 동적 메타데이터 설정
       const title = `🐶 ${result.dogName}의 NBTI는 ${result.nbti.name}!`;
@@ -134,12 +146,10 @@ export default function SharePage() {
       twitterImage.setAttribute('name', 'twitter:image');
       twitterImage.setAttribute('content', imageUrl);
       if (!document.querySelector('meta[name="twitter:image"]')) document.head.appendChild(twitterImage);
-    } else {
-      // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
-      router.push('/landing');
+
     }
     setLoading(false);
-  }, [router]);
+  }, [router, result]);
 
   // 전체 결과 카드를 Canvas로 캡쳐
   useEffect(() => {
@@ -410,7 +420,23 @@ export default function SharePage() {
           <div className="mb-5 select-none" style={{ WebkitTouchCallout: 'default', display: renderedImageUrl ? 'none' : 'block' }}>
             <NBTIResultCard
               dogName={result.dogName}
-              dogImage={result.nbti.dogImage}
+              dogImage={(() => {
+                // 이미지 경로 수정: lifeStage에 따라 올바른 폴더로 변경
+                const currentLifeStage = result.basicInfo.lifeStage;
+                let correctedImagePath = result.nbti.dogImage;
+
+                if (currentLifeStage === 'puppy' && result.nbti.dogImage.includes('/adult/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/adult/', '/puppy/');
+                } else if (currentLifeStage === 'senior' && result.nbti.dogImage.includes('/adult/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/adult/', '/senior/');
+                } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/puppy/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/puppy/', '/adult/');
+                } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/senior/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/senior/', '/adult/');
+                }
+
+                return correctedImagePath;
+              })()}
               preferPlainImg
             >
               <div className="text-center">

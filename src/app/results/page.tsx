@@ -204,35 +204,33 @@ export default function ResultsPage() {
 
           <div className="flex justify-center gap-[13px]">
             {(() => {
-              const id = result.nbti.id || '';
-              const [displayPrefix, currentPair] = id.split('-');
-              const comp = getCompatibilityByPrefix(displayPrefix || '');
-              const pairKorean: Record<string, string> = { EA: '적극적 사교형', EI: '적극적 독립형', CA: '신중한 사교형', CI: '신중한 독립형' };
-              const opposite: Record<string, string> = { EA: 'CI', EI: 'CA', CA: 'EI', CI: 'EA' };
-              const puppyPrefix = `${(displayPrefix || '').slice(0, 2)}P`;
-              const bestPair = (currentPair as keyof typeof pairKorean) || 'EA';
-              const worstPair = (opposite[bestPair] as keyof typeof pairKorean) || 'CI';
-              const bestSubtitle = `${puppyPrefix}-${bestPair} ${pairKorean[bestPair]} ${comp.best.title}`;
-              const worstSubtitle = `${puppyPrefix}-${worstPair} ${pairKorean[worstPair]} ${comp.worst.title}`;
+              // nbti-personas.json에서 compatibility 정보 가져오기
+              const personaName = result.nbti.name;
+              const compatibility = result.compatibility;
+
+              if (!compatibility) {
+                return <div>Compatibility 정보를 찾을 수 없습니다.</div>;
+              }
+
               return (
                 <>
                   <MatchingCard
                     type="good"
                     badgeText="잘 맞는 유형"
-                    imageSrc={getPuppyImagePathByTitle(comp.best.title)}
+                    imageSrc={getPuppyImagePathByTitle(compatibility.best.title)}
                     imageAlt="강아지"
-                    title={comp.best.title}
+                    title={compatibility.best.title}
                     emoji="🔭"
-                    description={bestSubtitle}
+                    description={`${compatibility.best.type_code} (${compatibility.best.type_label})`}
                   />
                   <MatchingCard
                     type="bad"
                     badgeText="안 맞는 유형"
-                    imageSrc={getPuppyImagePathByTitle(comp.worst.title)}
+                    imageSrc={getPuppyImagePathByTitle(compatibility.worst.title)}
                     imageAlt="강아지"
-                    title={comp.worst.title}
+                    title={compatibility.worst.title}
                     emoji="🔭"
-                    description={worstSubtitle}
+                    description={`${compatibility.worst.type_code} (${compatibility.worst.type_label})`}
                   />
                 </>
               );
