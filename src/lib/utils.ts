@@ -202,6 +202,7 @@ function mapEatingPattern(q4: string, q5: string): string {
   const q4Result = mapEatingQuestion(q4);
   const q5Result = mapEatingQuestion(q5);
 
+  // TODO: 식사 패턴 로직 검토 필요 - 현재는 OR 로직 (하나라도 E이면 E, 모두 C이면 C)
   // 하나라도 E이면 E, 모두 C이면 C
   return (q4Result === "E" || q5Result === "E") ? "E" : "C";
 }
@@ -228,6 +229,7 @@ function mapActivityPattern(q6: string, q7: string): string {
   const q6Result = mapActivityQuestion(q6);
   const q7Result = mapActivityQuestion(q7);
 
+  // TODO: 활동 패턴 로직 검토 필요 - 현재는 OR 로직 (하나라도 A이면 A, 모두 I이면 I)
   // 하나라도 A이면 A, 모두 I이면 I
   return (q6Result === "A" || q7Result === "A") ? "A" : "I";
 }
