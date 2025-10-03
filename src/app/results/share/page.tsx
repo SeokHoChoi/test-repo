@@ -14,7 +14,9 @@ import {
   shareToX,
   shareToInstagram,
   copyToClipboard,
-  type NBTIResult
+  type NBTIResult,
+  type SurveyAnswers,
+  generateNBTIResultFromSurvey
 } from '@/lib/utils';
 import Image from 'next/image';
 import { getArchetypeImagePath } from '@/lib/nbti';
@@ -28,13 +30,59 @@ export default function SharePage() {
   const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
-    const resultData = getResultFromUrlOrStorage();
-    if (resultData) {
-      setResult(resultData);
+    const loadResult = async () => {
+      try {
+        // 1. 기존 결과 데이터가 있는지 확인
+        const resultData = getResultFromUrlOrStorage();
+        if (resultData) {
+          setResult(resultData);
+          setLoading(false);
+          return;
+        }
+
+        // 2. 설문조사 답변 데이터가 있는지 확인
+        const surveyData = sessionStorage.getItem('surveyAnswers');
+        if (surveyData) {
+          const answers: SurveyAnswers = JSON.parse(surveyData);
+          const newResult = await generateNBTIResultFromSurvey(answers);
+          if (newResult) {
+            setResult(newResult);
+            // 새로운 결과를 sessionStorage에 저장
+            sessionStorage.setItem('nbtiResult', JSON.stringify(newResult));
+          } else {
+            console.error('NBTI 결과 생성 실패');
+          }
+        } else {
+          // 설문조사 데이터도 없으면 에러 상태로 표시
+          console.error('설문조사 데이터가 없습니다.');
+        }
+      } catch (error) {
+        console.error('결과 로드 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadResult();
+  }, []);
+
+  useEffect(() => {
+    if (result) {
+      // 이미지 경로 수정: lifeStage에 따라 올바른 폴더로 변경
+      const currentLifeStage = result.basicInfo.lifeStage;
+      if (currentLifeStage === 'puppy' && result.nbti.dogImage.includes('/adult/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/adult/', '/puppy/');
+      } else if (currentLifeStage === 'senior' && result.nbti.dogImage.includes('/adult/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/adult/', '/senior/');
+      } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/puppy/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/puppy/', '/adult/');
+      } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/senior/')) {
+        result.nbti.dogImage = result.nbti.dogImage.replace('/senior/', '/adult/');
+      }
 
       // 동적 메타데이터 설정
-      const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
-      const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
+      const title = `🐶 ${result.dogName}의 NBTI는 ${result.nbti.name}!`;
+      const description = `${result.nbti.id} (${result.nbti.type})\n"${result.nbti.definition}"`;
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
       const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
 
@@ -98,12 +146,10 @@ export default function SharePage() {
       twitterImage.setAttribute('name', 'twitter:image');
       twitterImage.setAttribute('content', imageUrl);
       if (!document.querySelector('meta[name="twitter:image"]')) document.head.appendChild(twitterImage);
-    } else {
-      // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
-      router.push('/landing');
+
     }
     setLoading(false);
-  }, [router]);
+  }, [router, result]);
 
   // 전체 결과 카드를 Canvas로 캡쳐
   useEffect(() => {
@@ -271,7 +317,8 @@ export default function SharePage() {
 
   // TODO: 이동 경로 검토
   const handleOtherTests = () => {
-    window.open('https://www.jellyu-univ.com', '_blank');
+    // window.open('https://www.jellyu-univ.com', '_blank');
+    router.push('/promo');
   };
 
   // 공유 기능들
@@ -294,6 +341,24 @@ export default function SharePage() {
         setTimeout(() => setToast(''), 2200);
       }
     });
+  };
+
+  // 네이티브 공유 기능
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `🐶 ${result?.dogName}의 NBTI는 ${result?.nbti.name}!`,
+          text: `${result?.nbti.id} (${result?.nbti.type})\n"${result?.nbti.definition}"`,
+          url: shareUrl,
+        });
+      } catch (error) {
+        console.log('공유가 취소되었습니다.');
+      }
+    } else {
+      // 네이티브 공유를 지원하지 않는 경우 링크 복사
+      handleCopyLink();
+    }
   };
 
   if (loading) {
@@ -375,9 +440,21 @@ export default function SharePage() {
             <NBTIResultCard
               dogName={result.dogName}
               dogImage={(() => {
-                const id = result.nbti.id || '';
-                const displayPrefix = id.split('-')[0] || '';
-                return getArchetypeImagePath(displayPrefix);
+                // 이미지 경로 수정: lifeStage에 따라 올바른 폴더로 변경
+                const currentLifeStage = result.basicInfo.lifeStage;
+                let correctedImagePath = result.nbti.dogImage;
+
+                if (currentLifeStage === 'puppy' && result.nbti.dogImage.includes('/adult/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/adult/', '/puppy/');
+                } else if (currentLifeStage === 'senior' && result.nbti.dogImage.includes('/adult/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/adult/', '/senior/');
+                } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/puppy/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/puppy/', '/adult/');
+                } else if (currentLifeStage === 'adult' && result.nbti.dogImage.includes('/senior/')) {
+                  correctedImagePath = result.nbti.dogImage.replace('/senior/', '/adult/');
+                }
+
+                return correctedImagePath;
               })()}
               preferPlainImg
             >
@@ -484,7 +561,7 @@ export default function SharePage() {
               </>
             }
             buttons={[
-              { text: "테스트 공유하기", variant: 'primary', onClick: () => router.push(generateShareUrl(result)) }
+              { text: "테스트 공유하기", variant: 'primary', onClick: handleNativeShare }
             ]}
             customPadding="px-[30px] pt-[23.5px] pb-[28.5px]"
             noMargin

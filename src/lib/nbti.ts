@@ -1,6 +1,7 @@
 import { type NBTIResult } from './utils';
 import nbtiData from '@/data/nbti-data.json';
 import personasData from '@/data/nbti-personas.json';
+import { LIFE_STAGE_IMAGE_PATHS } from '@/data/survey-mapping';
 
 // ===== 입력 타입 =====
 export interface BasicAnswers {
@@ -16,6 +17,8 @@ export interface PersonalAnswers {
   walkReaction: 'excited' | 'normal' | 'reluctant';
   playPattern: 'social' | 'independent' | 'observer';
 }
+
+// ===== 이미지 경로 함수 =====
 
 // ===== Letter 매핑 =====
 function mapBcsLetter(bcs: BasicAnswers['bcs']): 'U' | 'I' | 'O' {
@@ -34,10 +37,23 @@ function mapActivityLevelLetter(level: BasicAnswers['activityLevel']): 'L' | 'M'
 function mapLifeStageLetter(birthDateIso: string): 'P' | 'A' | 'S' {
   const birth = new Date(birthDateIso);
   const now = new Date();
-  const years = now.getFullYear() - birth.getFullYear() - ((now.getMonth() < birth.getMonth() || (now.getMonth() === birth.getMonth() && now.getDate() < birth.getDate())) ? 1 : 0);
-  if (years <= 1) return 'P';
-  if (years >= 7) return 'S';
-  return 'A';
+
+  // 미래 날짜인 경우 퍼피로 분류
+  if (birth > now) return 'P';
+
+  // 나이 계산 (정확한 계산)
+  const years = now.getFullYear() - birth.getFullYear();
+  const months = now.getMonth() - birth.getMonth();
+  const days = now.getDate() - birth.getDate();
+
+  // 만 나이 계산
+  let ageInMonths = years * 12 + months;
+  if (days < 0) ageInMonths -= 1;
+
+  // 생애주기 분류
+  if (ageInMonths <= 12) return 'P';  // 12개월 이하: 퍼피
+  if (ageInMonths >= 84) return 'S';  // 84개월(7세) 이상: 시니어
+  return 'A';  // 그 외: 성견
 }
 
 function mapEatingPattern(personal: PersonalAnswers): 'E' | 'C' {
@@ -145,7 +161,7 @@ export function calculateNBTIFromAnswers(basic: BasicAnswers, personal: Personal
         definition: persona.definition,
         description: Array.isArray(type.description) ? type.description : [type.description],
         detail: Array.isArray(type.description) ? type.description.join(' ') : type.description,
-        dogImage: '/img/results/dog-1.png',
+        dogImage: getArchetypeImagePath(typeCode),
         tips: type.management_tips,
       },
       basicInfo: {
@@ -222,14 +238,21 @@ export function getCompatibilityByPrefix(prefix: string): CompatibilityPair {
 }
 
 // ===== 이미지 매핑 (JSON 데이터 기반) =====
-export function getArchetypeImagePath(displayPrefix: string): string {
-  const lifeStage = displayPrefix.endsWith('A') ? 'adult' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
+export function getArchetypeImagePath(typeCode: string): string {
+  // typeCode에서 displayPrefix와 lifeStage 추출
+  const [displayPrefix, pair] = typeCode.split('-');
+  const lifeStage = displayPrefix.endsWith('P') ? 'puppy' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
+
   const imageMap = nbtiData.images[lifeStage];
-  const imagePath = (imageMap as Record<string, string>)[displayPrefix];
+  const imagePath = (imageMap as Record<string, string>)[typeCode];
 
   if (imagePath) return imagePath;
 
-  // 폴백: adult 기본 이미지
+  // 폴백: displayPrefix로 시도
+  const fallbackPath = (imageMap as Record<string, string>)[displayPrefix];
+  if (fallbackPath) return fallbackPath;
+
+  // 최종 폴백: adult 기본 이미지
   return nbtiData.images.adult.ILA;
 }
 
@@ -241,6 +264,39 @@ export function getPuppyImagePathByTitle(title: string): string {
 
   // 폴백: 기본 퍼피 이미지
   return '/img/nbti-dog/puppy/little-dreamer.png';
+}
+
+// nbti-personas.json의 compatibility.image_file을 공용 경로로 변환
+export function getPersonaImagePathByLifeStageAndFile(lifeStage: 'puppy' | 'adult' | 'senior', fileName?: string): string {
+  if (!fileName) {
+    // 기본 폴백: 퍼피 기본 이미지
+    return '/img/nbti-dog/puppy/little-dreamer.png';
+  }
+  const base = lifeStage === 'puppy'
+    ? '/img/nbti-dog/puppy'
+    : lifeStage === 'senior'
+      ? '/img/nbti-dog/senior'
+      : '/img/nbti-dog/adult';
+  return `${base}/${fileName}`;
+}
+
+// type_code에서 생애주기 문자를 추출하여 이미지 경로 생성
+export function getPersonaImagePathByTypeCode(typeCode: string, fileName?: string): string {
+  if (!fileName) {
+    // 기본 폴백: 퍼피 기본 이미지
+    return '/img/nbti-dog/puppy/little-dreamer.png';
+  }
+
+  // type_code에서 3번째 문자 추출 (예: UHA-EA -> A, OHS-EA -> S)
+  const lifeStageChar = typeCode.charAt(2);
+
+  const base = lifeStageChar === 'P'
+    ? '/img/nbti-dog/puppy'
+    : lifeStageChar === 'S'
+      ? '/img/nbti-dog/senior'
+      : '/img/nbti-dog/adult'; // A 또는 기타는 adult
+
+  return `${base}/${fileName}`;
 }
 
 // ===== 페르소나 데이터 유틸리티 함수들 =====
@@ -286,7 +342,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
         definition: persona.definition,
         description: Array.isArray(type.description) ? type.description : [type.description],
         detail: Array.isArray(type.description) ? type.description.join(' ') : type.description,
-        dogImage: '/img/results/dog-1.png',
+        dogImage: getArchetypeImagePath(typeCode),
         tips: type.management_tips,
       },
       basicInfo: {
@@ -325,7 +381,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
       definition: archetypeInfo.oneLine || '',
       description: behaviorData.description,
       detail,
-      dogImage: '/img/results/dog-1.png',
+      dogImage: getArchetypeImagePath(`${displayPrefix}-${pair}`),
       tips: allTips,
     },
     basicInfo: {

@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/Button';
 import { Header } from '@/components/Header';
-import { calculateNBTIFromAnswers } from '@/lib/nbti';
-import type { PersonalAnswers } from '@/lib/nbti';
+import { generateNBTIResultFromSurvey, type SurveyAnswers } from '@/lib/utils';
 
 interface PersonalQuestionsData {
   mealEnjoyment: string | null;
@@ -62,7 +61,7 @@ export default function PersonalQuestionsPage() {
     }
   ];
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // 모든 질문에 답했는지 확인
     const allAnswered = questions.every(q => formData[q.id as keyof PersonalQuestionsData]);
 
@@ -81,30 +80,59 @@ export default function PersonalQuestionsPage() {
 
     const basic = JSON.parse(basicData);
 
-    // NBTI 계산
-    const personalAnswers: PersonalAnswers = {
-      mealEnjoyment: formData.mealEnjoyment as 'excited' | 'normal' | 'indifferent',
-      eatingSpeed: formData.eatingSpeed as 'fast' | 'normal' | 'slow',
-      walkReaction: formData.walkReaction as 'excited' | 'normal' | 'reluctant',
-      // 'observer'는 내부 로직에서 독립형(I)으로 처리되므로 그대로 전달
-      playPattern: formData.playPattern as 'social' | 'independent' | 'observer',
+    // 생년월일을 기반으로 생애주기 계산
+    const birthDate = new Date(basic.birthDate);
+    const now = new Date();
+
+    // 미래 날짜인 경우 퍼피로 분류
+    let lifeStage = '성견'; // 기본값
+    if (birthDate > now) {
+      lifeStage = '퍼피';
+    } else {
+      // 정확한 나이 계산 (개월 단위)
+      const years = now.getFullYear() - birthDate.getFullYear();
+      const months = now.getMonth() - birthDate.getMonth();
+      const days = now.getDate() - birthDate.getDate();
+
+      let ageInMonths = years * 12 + months;
+      if (days < 0) ageInMonths -= 1;
+
+      if (ageInMonths <= 12) {
+        lifeStage = '퍼피';
+      } else if (ageInMonths >= 84) {
+        lifeStage = '시니어';
+      } else {
+        lifeStage = '성견';
+      }
+    }
+
+    // 설문조사 답변을 SurveyAnswers 형식으로 변환
+    const surveyAnswers: SurveyAnswers = {
+      q1: basic.bcs === 'skinny' ? '저체중' : basic.bcs === 'just-right' ? '이상적' : basic.bcs === 'husky' ? '과체중' : '비만', // BCS 변환
+      q2: basic.activityLevel === 'low' ? '저활동' : basic.activityLevel === 'medium' ? '보통활동' : '고활동', // 활동수준
+      q3: lifeStage, // 생애주기 (계산된 값)
+      q4: formData.mealEnjoyment === 'excited' ? '좋아함' : formData.mealEnjoyment === 'normal' ? '보통' : '별로 즐기지 않음', // 식사 즐거움
+      q5: formData.eatingSpeed === 'fast' ? '빠름' : formData.eatingSpeed === 'normal' ? '보통' : '느림', // 식사 속도
+      q6: formData.walkReaction === 'excited' ? '신남' : formData.walkReaction === 'normal' ? '보통' : '귀찮아함', // 산책 반응
+      q7: formData.playPattern === 'social' ? '친구/사람과 함께' : formData.playPattern === 'independent' ? '혼자 잘 놈' : '관찰/구경', // 놀이 패턴
+      q8: basic.dogName // 강아지 이름
     };
 
-    const result = calculateNBTIFromAnswers(
-      {
-        dogName: basic.dogName,
-        birthDate: basic.birthDate,
-        bcs: basic.bcs,
-        activityLevel: basic.activityLevel,
-      },
-      personalAnswers
-    );
+    // 설문조사 답변을 세션 스토리지에 저장
+    sessionStorage.setItem('surveyAnswers', JSON.stringify(surveyAnswers));
 
-    // 결과를 세션 스토리지에 저장
-    sessionStorage.setItem('nbtiResult', JSON.stringify(result));
+    // NBTI 결과 생성
+    const result = await generateNBTIResultFromSurvey(surveyAnswers);
 
-    // 결과 페이지로 이동
-    router.push('/results');
+    if (result) {
+      // 결과를 세션 스토리지에 저장
+      sessionStorage.setItem('nbtiResult', JSON.stringify(result));
+
+      // 결과 페이지로 이동
+      router.push('/results');
+    } else {
+      alert('결과 생성에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   // 기존 임시 계산 함수는 유틸로 대체됨

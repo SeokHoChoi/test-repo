@@ -8,9 +8,8 @@ import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { InfoCard } from '@/components/InfoCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
-import { generateShareUrl, type NBTIResult } from '@/lib/utils';
-import { getCompatibilityByPrefix, getPuppyImagePathByTitle } from '@/lib/nbti';
-import { getArchetypeImagePath } from '@/lib/nbti';
+import { generateShareUrl, type NBTIResult, type SurveyAnswers, generateNBTIResultFromSurvey } from '@/lib/utils';
+import { getPuppyImagePathByTitle, getPersonaImagePathByTypeCode } from '@/lib/nbti';
 import { Upload } from 'lucide-react';
 import Image from 'next/image';
 
@@ -20,14 +19,42 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const resultData = sessionStorage.getItem('nbtiResult');
-    if (resultData) {
-      setResult(JSON.parse(resultData));
-    } else {
-      // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
-      router.push('/landing');
-    }
-    setLoading(false);
+    const loadResult = async () => {
+      try {
+        // 1. 기존 결과 데이터가 있는지 확인
+        const resultData = sessionStorage.getItem('nbtiResult');
+        if (resultData) {
+          setResult(JSON.parse(resultData));
+          setLoading(false);
+          return;
+        }
+
+        // 2. 설문조사 답변 데이터가 있는지 확인
+        const surveyData = sessionStorage.getItem('surveyAnswers');
+        if (surveyData) {
+          const answers: SurveyAnswers = JSON.parse(surveyData);
+          const newResult = await generateNBTIResultFromSurvey(answers);
+          if (newResult) {
+            setResult(newResult);
+            // 새로운 결과를 sessionStorage에 저장
+            sessionStorage.setItem('nbtiResult', JSON.stringify(newResult));
+          } else {
+            console.error('NBTI 결과 생성 실패');
+            router.push('/landing');
+          }
+        } else {
+          // 설문조사 데이터도 없으면 랜딩 페이지로 리다이렉트
+          router.push('/landing');
+        }
+      } catch (error) {
+        console.error('결과 로드 실패:', error);
+        router.push('/landing');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadResult();
   }, [router]);
 
   const handleShare = () => {
@@ -39,7 +66,8 @@ export default function ResultsPage() {
   };
 
   const handleCheckFood = () => {
-    window.open('https://www.jellyu-univ.com', '_blank');
+    // window.open('https://www.jellyu-univ.com', '_blank');
+    router.push('/promo');
   };
 
   if (loading) {
@@ -84,11 +112,7 @@ export default function ResultsPage() {
         {/* 결과 카드 */}
         <NBTIResultCard
           dogName={result.dogName}
-          dogImage={(() => {
-            const id = result.nbti.id || '';
-            const displayPrefix = id.split('-')[0] || '';
-            return getArchetypeImagePath(displayPrefix);
-          })()}
+          dogImage={result.nbti.dogImage}
         >
           <div className="text-center">
             <div className="flex items-center justify-center gap-[4px] leading-none m-0">
@@ -180,35 +204,32 @@ export default function ResultsPage() {
 
           <div className="flex justify-center gap-[13px]">
             {(() => {
-              const id = result.nbti.id || '';
-              const [displayPrefix, currentPair] = id.split('-');
-              const comp = getCompatibilityByPrefix(displayPrefix || '');
-              const pairKorean: Record<string, string> = { EA: '적극적 사교형', EI: '적극적 독립형', CA: '신중한 사교형', CI: '신중한 독립형' };
-              const opposite: Record<string, string> = { EA: 'CI', EI: 'CA', CA: 'EI', CI: 'EA' };
-              const puppyPrefix = `${(displayPrefix || '').slice(0, 2)}P`;
-              const bestPair = (currentPair as keyof typeof pairKorean) || 'EA';
-              const worstPair = (opposite[bestPair] as keyof typeof pairKorean) || 'CI';
-              const bestSubtitle = `${puppyPrefix}-${bestPair} ${pairKorean[bestPair]} ${comp.best.title}`;
-              const worstSubtitle = `${puppyPrefix}-${worstPair} ${pairKorean[worstPair]} ${comp.worst.title}`;
+              // nbti-personas.json에서 compatibility 정보 가져오기
+              const compatibility = result.compatibility;
+
+              if (!compatibility) {
+                return <div>Compatibility 정보를 찾을 수 없습니다.</div>;
+              }
+
               return (
                 <>
                   <MatchingCard
                     type="good"
                     badgeText="잘 맞는 유형"
-                    imageSrc={getPuppyImagePathByTitle(comp.best.title)}
+                    imageSrc={getPersonaImagePathByTypeCode(compatibility.best.type_code, compatibility.best.image_file)}
                     imageAlt="강아지"
-                    title={comp.best.title}
+                    title={compatibility.best.title}
                     emoji="🔭"
-                    description={bestSubtitle}
+                    description={`${compatibility.best.type_code} (${compatibility.best.type_label})`}
                   />
                   <MatchingCard
                     type="bad"
                     badgeText="안 맞는 유형"
-                    imageSrc={getPuppyImagePathByTitle(comp.worst.title)}
+                    imageSrc={getPersonaImagePathByTypeCode(compatibility.worst.type_code, compatibility.worst.image_file)}
                     imageAlt="강아지"
-                    title={comp.worst.title}
+                    title={compatibility.worst.title}
                     emoji="🔭"
-                    description={worstSubtitle}
+                    description={`${compatibility.worst.type_code} (${compatibility.worst.type_label})`}
                   />
                 </>
               );

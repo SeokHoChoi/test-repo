@@ -8,6 +8,23 @@
       "name": "🔭 꿈 많은 탐험가",
       "definition": "호기심이 털보다 많은 우리집 탐험대장",
       "category": "퍼피",
+      "image_file": "dream-explorer.png",
+      "compatibility": {
+        "best": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "고활동 에너지 수준 일치",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        },
+        "worst": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "활발함 vs 저활동 극단적 차이",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
+        }
+      },
       "types": [
         {
           "type_code": "IHP-EA",
@@ -80,6 +97,23 @@
       "name": "🧚 꿈꾸는 작은 요정",
       "definition": "잠이 곧 성장동력인 우리집 잠꾸러기",
       "category": "퍼피",
+      "image_file": "little-dreamer.png",
+      "compatibility": {
+        "best": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "저활동+차분한 성향 유사",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "여유 vs 폭발적 에너지 상극",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "ILP-EA",
@@ -152,6 +186,23 @@
       "name": "🏆 엄친견",
       "definition": "온 동네가 다 부러워하는 모범 퍼피",
       "category": "퍼피",
+      "image_file": "top-dog.png",
+      "compatibility": {
+        "best": {
+          "title": "🎤 꼬마 엔터테이너",
+          "reason": "보통활동+건강한 균형",
+          "type_code": "UMP-EA",
+          "type_label": "적극적 사교형 엔터테이너",
+          "image_file": "little-entertainer.png"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "균형 vs 극도 식탐 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        }
+      },
       "types": [
         {
           "type_code": "IMP-EA",
@@ -224,6 +275,23 @@
       "name": "🛌 눕방 꿈나무",
       "definition": "원할때만 움직이는 소파 러버",
       "category": "퍼피",
+      "image_file": "couch-kid.png",
+      "compatibility": {
+        "best": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "저활동 유사, 여유로운 성향",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "여유 vs 에너지 폭발 정반대",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "OLP-EA",
@@ -296,6 +364,23 @@
       "name": "🍖 꼬마 먹방러",
       "definition": "먹는 게 취미인 우리집 포동이",
       "category": "퍼피",
+      "image_file": "little-foodie.png",
+      "compatibility": {
+        "best": {
+          "title": "🏆 엄친견",
+          "reason": "활동 수준 유사, 식습관 균형",
+          "type_code": "IMP-EA",
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
+        },
+        "worst": {
+          "title": "🍘 식도락 모험가",
+          "reason": "과체중 vs 비만 식탐 차이",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
+        }
+      },
       "types": [
         {
           "type_code": "OMP-EA",
@@ -432,6 +517,23 @@
       "name": "🍩 꼬마 대식가",
       "definition": "간식만 보면 순간이동하는 꼬꼬마",
       "category": "퍼피",
+      "image_file": "little-big-eater.png",
+      "compatibility": {
+        "best": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "저활동 유사, 식습관 고려",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "극도 식탐 vs 운동 중심 충돌",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "OLP-EA",
@@ -504,6 +606,23 @@
       "name": "🍘 식도락 모험가",
       "definition": "세상 모든게 신기하고 맛있는 통통한 모험가",
       "category": "퍼피",
+      "image_file": "foodie-adventurer.png",
+      "compatibility": {
+        "best": {
+          "title": "🍖 꼬마 먹방러",
+          "reason": "활동 수준+식탐 유사",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "극도 식탐 vs 절제된 식사",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "OMP-EA",
@@ -624,6 +743,23 @@
       "name": "🎭 성견의 탈을 쓴 쪼꼬미",
       "definition": "먹기도 움직이기도 귀찮은 애늙은이",
       "category": "퍼피",
+      "image_file": "mini-adult.png",
+      "compatibility": {
+        "best": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "저체중+저활동 유사, 차분한 성향",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "조숙함 vs 폭발적 에너지 충돌",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "ULP-EA",
@@ -696,6 +832,23 @@
       "name": "🎤 꼬마 엔터테이너",
       "definition": "먹는 것보다 노는게 더 좋은 까불이",
       "category": "퍼피",
+      "image_file": "little-entertainer.png",
+      "compatibility": {
+        "best": {
+          "title": "🏆 엄친견",
+          "reason": "보통활동 유사, 건강한 균형",
+          "type_code": "IMP-EA",
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "먹는 것보다 노는 것 vs 극도 식탐",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        }
+      },
       "types": [
         {
           "type_code": "UMP-EA",
@@ -768,6 +921,23 @@
       "name": "🚀 꼬마 로켓",
       "definition": "충전보다 방전이 빠른 에너자이저",
       "category": "퍼피",
+      "image_file": "little-rocket.png",
+      "compatibility": {
+        "best": {
+          "title": "🔭 꿈 많은 탐험가",
+          "reason": "고활동 에너지 수준 일치",
+          "type_code": "IHP-EA",
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "폭발적 vs 신중한 성향 정반대",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "UHP-EA",
@@ -840,6 +1010,22 @@
       "name": "👗 도그 모델",
       "definition": "타고난 슬림한 몸매가 자랑인 톱모델",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "저체중+저활동+우아함 공통점",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        },
+        "worst": {
+          "title": "🍘 식도락 모험가",
+          "reason": "절제 vs 극도 식탐 충돌",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
+        }
+      },
       "types": [
         {
           "type_code": "ULA-EA",
@@ -912,6 +1098,22 @@
       "name": "🐆 날렵한 치타",
       "definition": "속도가 곧 무기인 육상 선수",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🎤 꼬마 엔터테이너",
+          "reason": "저체중+활동적 성향 유사",
+          "type_code": "UMP-EA",
+          "type_label": "적극적 사교형 엔터테이너",
+          "image_file": "little-entertainer.png"
+        },
+        "worst": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "활동 vs 휴식 성향 정반대",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
+        }
+      },
       "types": [
         {
           "type_code": "UMA-EA",
@@ -984,6 +1186,22 @@
       "name": "🏃‍♂️ 울트라 러너",
       "definition": "지구력이 곧 생명인 우리집 마라토너",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "고활동+지구력 성향 일치",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "운동 vs 식탐 우선순위 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        }
+      },
       "types": [
         {
           "type_code": "UHA-EA",
@@ -1056,6 +1274,22 @@
       "name": "🏠 완벽한 룸메이트",
       "definition": "보호자 맞춤형으로 살아가는 완벽 파트너",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "저활동+안정적 성격 일치",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "극단적 활동 수준 차이",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "ILA-EA",
@@ -1128,6 +1362,22 @@
       "name": "🎾 활력충전 파트너",
       "definition": "노는게 제일 좋은 개구장이",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🏆 엄친견",
+          "reason": "이상적 체형+보통활동 완벽 매치",
+          "type_code": "IMP-EA",
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "활동 의욕 vs 식탐 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        }
+      },
       "types": [
         {
           "type_code": "IMA-EA",
@@ -1200,6 +1450,22 @@
       "name": "🏆 철인삼종 챔피언",
       "definition": "체력이 곧 자존심인 우리집 올림픽 선수",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🔭 꿈 많은 탐험가",
+          "reason": "고활동 에너지 수준 일치",
+          "type_code": "IHP-EA",
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "활동량 극단적 차이",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "IHA-EA",
@@ -1272,6 +1538,23 @@
       "name": "🪔 여유로운 휘게족",
       "definition": "슬기로운 슬로우 라이프의 달인",
       "category": "성견",
+      "image_file": "relaxed-hygge.png",
+      "compatibility": {
+        "best": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "과체중+저활동+여유로운 성향",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "여유 vs 폭발적 에너지 상극",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "OLA-EA",
@@ -1344,6 +1627,23 @@
       "name": "🍴 행복한 미식가",
       "definition": "맛집 탐방이 활동인 우리집 푸디",
       "category": "성견",
+      "image_file": "happy-gourmet.png",
+      "compatibility": {
+        "best": {
+          "title": "🍖 꼬마 먹방러",
+          "reason": "과체중+먹는 즐거움 공유",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "식탐 vs 절제된 식사 충돌",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "OMA-EA",
@@ -1416,6 +1716,22 @@
       "name": "💪🏻 중량급 보디빌더",
       "definition": "든든한 체구로 어디든 달려가는 보디빌더",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🍖 꼬마 먹방러",
+          "reason": "과체중+고활동 체질 유사",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
+        },
+        "worst": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "활동량 극단적 차이",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
+        }
+      },
       "types": [
         {
           "type_code": "OHA-EA",
@@ -1488,6 +1804,22 @@
       "name": "👑 트릿 킹",
       "definition": "간식으로 우리집을 다스리는 소파 위 절대군주",
       "category": "성견",
+      "compatibility": {
+        "best": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "비만+저활동+식탐 성향 일치",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        },
+        "worst": {
+          "title": "🏃‍♂️ 울트라 러너",
+          "reason": "움직이기 싫음 vs 끝없는 활동",
+          "type_code": "UHA-EA",
+          "type_label": "적극적 사교형 러너",
+          "image_file": "ultra-runner.png"
+        }
+      },
       "types": [
         {
           "type_code": "OLA-EA",
@@ -1560,6 +1892,23 @@
       "name": "🍽️ 극한의 대식가",
       "definition": "24시간 맛집 탐방이 일상인 푸드 파이터",
       "category": "성견",
+      "image_file": "big-eater.png",
+      "compatibility": {
+        "best": {
+          "title": "🍘 식도락 모험가",
+          "reason": "비만+식탐+탐색 성향 공통",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
+        },
+        "worst": {
+          "title": "👗 도그 모델",
+          "reason": "극도 식탐 vs 절제된 우아함",
+          "type_code": "ULA-EA",
+          "type_label": "적극적 사교형 모델",
+          "image_file": "dog-model.png"
+        }
+      },
       "types": [
         {
           "type_code": "OMA-EA",
@@ -1632,6 +1981,23 @@
       "name": "🏋️ 헤비급 헤라클레스",
       "definition": "근육인지 살인지 모르겠는 우리집 헤라클레스",
       "category": "성견",
+      "image_file": "hw-hercules.png",
+      "compatibility": {
+        "best": {
+          "title": "🍘 식도락 모험가",
+          "reason": "비만+고활동+보상 식사 패턴",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "폭발적 vs 신중한 성향 정반대",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "OHA-EA",
@@ -1704,6 +2070,22 @@
       "name": "🕊️ 온화한 수호자",
       "definition": "세월이 만들어낸 우아함을 간직한 동반자",
       "category": "시니어",
+      "compatibility": {
+        "best": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "저체중+차분함+철학적 성향",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "온화함 vs 폭발적 에너지",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "ULS-EA",
@@ -1776,6 +2158,23 @@
       "name": "👊🏻 의지의 파이터",
       "definition": "의지만큼은 여전한 우리집 투지왕",
       "category": "시니어",
+      "image_file": "willful-fighter.png",
+      "compatibility": {
+        "best": {
+          "title": "🎤 꼬마 엔터테이너",
+          "reason": "의지력+적당한 활동 성향 일치",
+          "type_code": "UMP-EA",
+          "type_label": "적극적 사교형 엔터테이너",
+          "image_file": "little-entertainer.png"
+        },
+        "worst": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "의지 vs 안일함 상극",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
+        }
+      },
       "types": [
         {
           "type_code": "UMS-EA",
@@ -1848,6 +2247,23 @@
       "name": "⚡ 전설의 러너",
       "definition": "오늘도 달리는 우리집 러닝 마스터",
       "category": "시니어",
+      "image_file": "legendary-runner.png",
+      "compatibility": {
+        "best": {
+          "title": "🔭 꿈 많은 탐험가",
+          "reason": "고활동+도전 정신 공통점",
+          "type_code": "IHP-EA",
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "운동 정신 vs 식탐 우선순위",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        }
+      },
       "types": [
         {
           "type_code": "UHS-EA",
@@ -1920,6 +2336,23 @@
       "name": "🎩 관록의 파트너",
       "definition": "세월이 곧 품격인 우리집 어르신",
       "category": "시니어",
+      "image_file": "veteran-partner.png",
+      "compatibility": {
+        "best": {
+          "title": "🧚 꿈꾸는 작은 요정",
+          "reason": "저활동+안정적 성격 일치",
+          "type_code": "ILP-EA",
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "극단적 활동 수준 차이",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "ILS-EA",
@@ -1992,6 +2425,23 @@
       "name": "🚶‍♂️ 노련한 산책가",
       "definition": "경험이 곧 건강인 우리집 인생선배",
       "category": "시니어",
+      "image_file": "pro-walker.png",
+      "compatibility": {
+        "best": {
+          "title": "🏆 엄친견",
+          "reason": "이상적 체형+보통활동 완벽 매치",
+          "type_code": "IMP-EA",
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
+        },
+        "worst": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "활동 의욕 vs 식탐 충돌",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        }
+      },
       "types": [
         {
           "type_code": "IMS-EA",
@@ -2064,6 +2514,23 @@
       "name": "🎖️ 전설의 챔피언",
       "definition": "나이는 숫자일 뿐인 우리집 영원한 청춘",
       "category": "시니어",
+      "image_file": "legend-champion.png",
+      "compatibility": {
+        "best": {
+          "title": "🔭 꿈 많은 탐험가",
+          "reason": "고활동 에너지 수준 일치",
+          "type_code": "IHP-EA",
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "활동량 극단적 차이",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "IHS-EA",
@@ -2136,6 +2603,23 @@
       "name": "🛒 펫페어 큰손",
       "definition": "펫푸드 쇼핑이 취미인 VIP",
       "category": "시니어",
+      "image_file": "petfair-vip.png",
+      "compatibility": {
+        "best": {
+          "title": "🛌 눕방 꿈나무",
+          "reason": "과체중+저활동+안락함 추구",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
+        },
+        "worst": {
+          "title": "🚀 꼬마 로켓",
+          "reason": "여유 vs 에너지 폭발 상극",
+          "type_code": "UHP-EA",
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
+        }
+      },
       "types": [
         {
           "type_code": "OLS-EA",
@@ -2208,6 +2692,23 @@
       "name": "👹 노련한 놀이꾼",
       "definition": "여전한 동심이 매력인 우리집 늙지않는 아이",
       "category": "시니어",
+      "image_file": "seasoned-player.png",
+      "compatibility": {
+        "best": {
+          "title": "🍖 꼬마 먹방러",
+          "reason": "과체중+활동적+놀이 정신",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
+        },
+        "worst": {
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
+          "reason": "동심 vs 조숙함 차이",
+          "type_code": "ULP-EA",
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
+        }
+      },
       "types": [
         {
           "type_code": "OMS-EA",
@@ -2272,6 +2773,70 @@
           "bcs": "과체중 (6-7/9)",
           "life_stage": "시니어 (7세 이상)",
           "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-EA",
+          "type_label": "적극적 사교형 놀이꾼",
+          "description": [
+            "친구들과 함께할 때 여전히\n놀이의 중심이 되려는 귀여운 시니어예요.",
+            "빠르게 식사를 마치고 다시 놀이에\n집중하지만 예전만큼 오래 못가\n헥헥거리는 모습마저 사랑스러워요.\n살이 잘 안빠져 고민이지만\n여전히 동심을 가진 우리집 평생 베이비죠."
+          ],
+          "management_tips": [
+            "시니어 활동 의지는 있지만 과체중과 신진대사 저하로 체중 관리가 필요해요.",
+            "슬로우 피더로 식사 속도를 조절하고 시니어용 저칼로리 사료로 전환하며, 활동 후 간식을 제한해주세요.",
+            "친구들과의 짧은 놀이는 좋지만 헥헥거리면 즉시 휴식을 취하게 하고, 관절과 심장 건강을 위한 저강도 활동이 필수예요."
+          ],
+          "bcs": "과체중 (6-7/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-EI",
+          "type_label": "적극적 독립형 놀이꾼",
+          "description": [
+            "혼자서도 장난감을 가지고 놀려는\n의욕은 여전하지만 금세 지쳐버리는\n귀여운 시니어예요.",
+            "먹는 거나 놀이나 호불호가 명확하고\n예전만큼 날렵하지 못해 보호자를\n걱정시킬 때가 있는\n우리집 영원한 아이예요."
+          ],
+          "management_tips": [
+            "시니어 개별 활동을 즐기지만 과체중 상태이므로 식사 조절이 우선이에요.",
+            "슬로우 피더와 시니어용 저칼로리 사료로 관리하고, 놀이 후 간식 보상을 제한해주세요.",
+            "혼자서 놀려는 의욕은 좋지만 무리하지 않도록 활동 시간을 조절하고, 정기적인 건강 체크가 필요해요."
+          ],
+          "bcs": "과체중 (6-7/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-CA",
+          "type_label": "신중한 사교형 놀이꾼",
+          "description": [
+            "여전히 노는게 좋지만 금세 지쳐버리는\n체력 때문에 무리하지 않으려고 노력해요.",
+            "식탐이 과하거나 빠르게 식사하지 않음에도\n체중 관리가 잘 안되는 스타일이죠.\n놀이 후에는 휴식이 필요하지만\n그래도 끝까지 친구들과의 시간을 즐기려는\n사교적인 놀이꾼이에요!"
+          ],
+          "management_tips": [
+            "시니어 활동은 하지만 천천히 많이 먹어 과체중 상태이므로 식사량 조절이 필요해요.",
+            "기호성 좋은 시니어용 저칼로리 사료로 전환하고, 소량 분할 급여하며 간식을 제한해주세요.",
+            "친구들과의 짧은 놀이로 칼로리 소모를 유도하되, 시니어 체력에 맞는 휴식 시간을 충분히 제공해주세요."
+          ],
+          "bcs": "과체중 (6-7/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-CI",
+          "type_label": "신중한 독립형 놀이꾼",
+          "description": [
+            "자신의 체력 한계를 알면서도\n노는 것을 쉽게 포기하지 않는 놀이꾼이에요.",
+            "필요한 만큼 적당히 먹지만 나이와\n신진대사 저하로 체중 관리가 어려운 상태예요.\n사부작 사부작 조용히 혼자 움직이다가도\n금세 지쳐 자는 모습이\n사랑스러운 우리집의 영원한 아이예요."
+          ],
+          "management_tips": [
+            "시니어 활동 의지는 있지만 과체중이므로 신진대사 저하를 고려한 관리가 필요해요.",
+            "시니어용 저칼로리 사료로 전환하고 천천히 먹는 패턴에 맞춰 소량 분할 급여하며, 체중 모니터링이 필요해요.",
+            "혼자서 놀려는 성향은 좋지만 무리하지 않도록 시간을 제한하고, 수의사 상담을 권장해요."
+          ],
+          "bcs": "과체중 (6-7/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
         }
       ]
     },
@@ -2280,6 +2845,23 @@
       "name": "🌾 황혼의 대식가",
       "definition": "노년의 유일한 낙이 먹는 것인 우리집 어르신",
       "category": "시니어",
+      "image_file": "twilight-eater.png",
+      "compatibility": {
+        "best": {
+          "title": "🍩 꼬마 대식가",
+          "reason": "비만+저활동+식탐 중심 생활",
+          "type_code": "OLP-EA",
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
+        },
+        "worst": {
+          "title": "🏃‍♂️ 울트라 러너",
+          "reason": "먹는 즐거움 vs 운동 중심",
+          "type_code": "UHA-EA",
+          "type_label": "적극적 사교형 러너",
+          "image_file": "ultra-runner.png"
+        }
+      },
       "types": [
         {
           "type_code": "OLS-EA",
@@ -2352,7 +2934,88 @@
       "name": "🎪 황혼의 개그맨",
       "definition": "몸은 무거워도 마음은 여전한 우리집 개그맨",
       "category": "시니어",
+      "image_file": "dusk-comedian.png",
+      "compatibility": {
+        "best": {
+          "title": "🍘 식도락 모험가",
+          "reason": "비만+활동적+유머 감각",
+          "type_code": "OMP-EA",
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
+        },
+        "worst": {
+          "title": "👗 도그 모델",
+          "reason": "개그 vs 우아함 스타일 차이",
+          "type_code": "ULA-EA",
+          "type_label": "적극적 사교형 모델",
+          "image_file": "dog-model.png"
+        }
+      },
       "types": [
+        {
+          "type_code": "OHS-EA",
+          "type_label": "적극적 사교형 개그맨",
+          "description": [
+            "가족과 친구들 앞에서 여전히 재롱을\n부리며 분위기를 밝게 만드는\n시니어 코미디언이에요!",
+            "여전한 식욕으로 빠르게 식사하고\n무거운 몸을 이끌고도 애교를 부리며,\n숨이 차도 껑충껑충 뛰며 웃음을 주려는\n불굴의 엔터테이너 정신의 소유자죠."
+          ],
+          "management_tips": [
+            "시니어 활동 의지는 있지만 비만 상태로 관절과 심장에 무리가 가므로 즉시 관리가 필요해요.",
+            "슬로우 피더로 식사 속도를 조절하고 시니어용 처방 다이어트 사료로 전환하며, 활동 후 보상 간식을 철저히 제한해야 해요.",
+            "가족과 친구들 앞에서 재롱 부리는 것은 좋지만 숨이 차면 즉시 중단하게 하고, 저강도 활동으로만 제한하며 수의사 모니터링이 필수예요."
+          ],
+          "bcs": "비만 (8-9/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-EI",
+          "type_label": "적극적 독립형 개그맨",
+          "description": [
+            "무거운 몸이 잘 따라주지 않지만\n홀로 개인기를 연마하며 마음만은 한창인 아이.",
+            "개그 소재 발굴을 위해 이리저리\n몸을 움직인 덕분에 자꾸만 배가 고파져\n늘어나는 식욕은 컨트롤이 어렵지만\n긍정 에너지로 가족에게 웃음을 주는\n진정한 코미디언이에요."
+          ],
+          "management_tips": [
+            "시니어 비만 상태에서 개별 활동을 즐기려 하므로 활동 제한과 식사 관리가 시급해요.",
+            "슬로우 피더와 시니어용 처방 다이어트 사료로 엄격히 관리하고, 놀이는 매우 짧게만 허용해야 해요.",
+            "혼자서 놀려는 의욕은 인정하되 비만과 시니어 건강을 고려해 활동을 최소화하고, 전문적인 체중 감량이 필요해요."
+          ],
+          "bcs": "비만 (8-9/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-CA",
+          "type_label": "신중한 사교형 개그맨",
+          "description": [
+            "친구과 가족들 앞에서\n새로 개발한 몸개그와 콩트를 선보이는 걸\n즐기는 무대 체질의 코미디언이에요.",
+            "개그 코드를 맞는 댕댕이를 찾는 것 만큼\n음식에도 까다로운 면이 호불호가 명확해요.\n오늘도 한 건 했다면 허허 웃고\n보호자에게 당당히 간식을 요구하는\n스타일이에요."
+          ],
+          "management_tips": [
+            "시니어 비만 상태에서 천천히 많이 먹고 활동하려 하므로 균형 잡힌 관리가 필요해요.",
+            "기호성 좋은 시니어용 처방 다이어트 사료로 전환하고 소량 분할 급여하며, 모든 추가 간식을 제한해야 해요.",
+            "가족과 함께하는 짧은 활동은 허용하되 무리하지 않도록 철저히 감독하고, 시니어 건강을 위한 수의사 상담이 필수예요."
+          ],
+          "bcs": "비만 (8-9/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
+        {
+          "type_code": "OHS-CI",
+          "type_label": "신중한 독립형 개그맨",
+          "description": [
+            "타고난 유머를 자기만 알고 친구들\n앞에서는 숨기는 은둔형 고수 스타일이에요.",
+            "완벽주의자 기질이 있어 음식에 엄격하고\n자신의 개그에 100% 만족하지 못하지만\n그래도 매일 웃어주는 보호자 덕분에\n집 안에서만큼은 자신감이 뿜뿜한\n귀여운 모습을 가지고 있어요."
+          ],
+          "management_tips": [
+            "시니어 비만의 가장 복합적인 케이스로 천천히 많이 먹고 활동하려는 패턴의 관리가 필요해요.",
+            "시니어용 처방 다이어트 사료로 전환하고 엄격한 급여 관리를 하며, 활동은 최소한으로 제한해야 해요.",
+            "개별 활동과 유머 감각은 존중하되 생명과 건강이 최우선이므로, 즉시 수의사 상담과 전문적인 시니어 체중 감량 프로그램이 절대적으로 필요해요."
+          ],
+          "bcs": "비만 (8-9/9)",
+          "life_stage": "시니어 (7세 이상)",
+          "activity_level": "보통활동"
+        },
         {
           "type_code": "OMS-EA",
           "type_label": "적극적 사교형 개그맨",
