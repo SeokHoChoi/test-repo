@@ -113,6 +113,31 @@ export interface NBTIResult {
   };
 }
 
+// ===== nbti-personas.json 최소 타입 =====
+export interface PersonaTypeEntry {
+  type_code: string;
+  type_label: string;
+  description: string[];
+  management_tips: string[];
+}
+
+export interface PersonaEntry {
+  id?: number;
+  name: string;
+  definition: string;
+  image_file?: string;
+  types: PersonaTypeEntry[];
+  compatibility?: {
+    best: { title: string; reason: string; type_code: string; type_label: string };
+    worst: { title: string; reason: string; type_code: string; type_label: string };
+  };
+}
+
+export interface PersonaMatch {
+  persona: PersonaEntry;
+  type: PersonaTypeEntry;
+}
+
 // ===== 설문조사 답변 매핑 함수들 =====
 /**
  * 설문조사 답변을 캐릭터 코드로 변환
@@ -235,9 +260,9 @@ export function decodeResultFromUrl(encodedResult: string): NBTIResult | null {
 /**
  * 캐릭터 코드로부터 NBTI 페르소나 데이터 찾기
  */
-export async function findPersonaByCharacterCode(characterCode: string): Promise<any | null> {
+export async function findPersonaByCharacterCode(characterCode: string): Promise<PersonaMatch | null> {
   try {
-    const personasData = await import('@/data/nbti-personas.json');
+    const personasData = (await import('@/data/nbti-personas.json')) as unknown as { personas: PersonaEntry[] };
 
     // 모든 페르소나에서 해당 type_code 찾기
     for (const persona of personasData.personas) {
