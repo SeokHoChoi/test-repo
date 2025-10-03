@@ -146,7 +146,7 @@ export default function SharePage() {
         // 추가 대기 시간 (모든 렌더링 완료)
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        // html2canvas를 사용한 캡쳐 - 일반 img 태그로 단순화
+        // html2canvas를 사용한 캡쳐 - 뷰포트 문제만 해결
         const html2canvas = await import('html2canvas');
         const canvas = await html2canvas.default(cardElement, {
           backgroundColor: '#003DA5',
@@ -163,6 +163,11 @@ export default function SharePage() {
           scrollX: 0,
           scrollY: 0,
           removeContainer: false,
+          // 큰 화면에서만 뷰포트 제한 적용
+          ...(window.innerWidth > 1200 && {
+            windowWidth: 500,
+            windowHeight: 600
+          }),
           onclone: (clonedDoc) => {
             console.log('클론된 문서 생성됨');
 
