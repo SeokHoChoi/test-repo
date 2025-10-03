@@ -9,7 +9,7 @@ import { InfoCard } from '@/components/InfoCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import { generateShareUrl, type NBTIResult, type SurveyAnswers, generateNBTIResultFromSurvey } from '@/lib/utils';
-import { getPuppyImagePathByTitle } from '@/lib/nbti';
+import { getPuppyImagePathByTitle, getPersonaImagePathByTypeCode } from '@/lib/nbti';
 import { Upload } from 'lucide-react';
 import Image from 'next/image';
 
@@ -215,7 +215,7 @@ export default function ResultsPage() {
                   <MatchingCard
                     type="good"
                     badgeText="잘 맞는 유형"
-                    imageSrc={getPuppyImagePathByTitle(compatibility.best.title)}
+                    imageSrc={getPersonaImagePathByTypeCode(compatibility.best.type_code, compatibility.best.image_file)}
                     imageAlt="강아지"
                     title={compatibility.best.title}
                     emoji="🔭"
@@ -224,7 +224,7 @@ export default function ResultsPage() {
                   <MatchingCard
                     type="bad"
                     badgeText="안 맞는 유형"
-                    imageSrc={getPuppyImagePathByTitle(compatibility.worst.title)}
+                    imageSrc={getPersonaImagePathByTypeCode(compatibility.worst.type_code, compatibility.worst.image_file)}
                     imageAlt="강아지"
                     title={compatibility.worst.title}
                     emoji="🔭"

@@ -103,12 +103,14 @@ export interface NBTIResult {
       reason: string;
       type_code: string;
       type_label: string;
+      image_file?: string;
     };
     worst: {
       title: string;
       reason: string;
       type_code: string;
       type_label: string;
+      image_file?: string;
     };
   };
 }

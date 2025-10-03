@@ -266,6 +266,39 @@ export function getPuppyImagePathByTitle(title: string): string {
   return '/img/nbti-dog/puppy/little-dreamer.png';
 }
 
+// nbti-personas.json의 compatibility.image_file을 공용 경로로 변환
+export function getPersonaImagePathByLifeStageAndFile(lifeStage: 'puppy' | 'adult' | 'senior', fileName?: string): string {
+  if (!fileName) {
+    // 기본 폴백: 퍼피 기본 이미지
+    return '/img/nbti-dog/puppy/little-dreamer.png';
+  }
+  const base = lifeStage === 'puppy'
+    ? '/img/nbti-dog/puppy'
+    : lifeStage === 'senior'
+      ? '/img/nbti-dog/senior'
+      : '/img/nbti-dog/adult';
+  return `${base}/${fileName}`;
+}
+
+// type_code에서 생애주기 문자를 추출하여 이미지 경로 생성
+export function getPersonaImagePathByTypeCode(typeCode: string, fileName?: string): string {
+  if (!fileName) {
+    // 기본 폴백: 퍼피 기본 이미지
+    return '/img/nbti-dog/puppy/little-dreamer.png';
+  }
+
+  // type_code에서 3번째 문자 추출 (예: UHA-EA -> A, OHS-EA -> S)
+  const lifeStageChar = typeCode.charAt(2);
+
+  const base = lifeStageChar === 'P'
+    ? '/img/nbti-dog/puppy'
+    : lifeStageChar === 'S'
+      ? '/img/nbti-dog/senior'
+      : '/img/nbti-dog/adult'; // A 또는 기타는 adult
+
+  return `${base}/${fileName}`;
+}
+
 // ===== 페르소나 데이터 유틸리티 함수들 =====
 export function getAllPersonas() {
   return personasData.personas;

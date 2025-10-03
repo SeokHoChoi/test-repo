@@ -14,13 +14,15 @@
           "title": "🚀 꼬마 로켓",
           "reason": "고활동 에너지 수준 일치",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         },
         "worst": {
           "title": "🛌 눕방 꿈나무",
           "reason": "활발함 vs 저활동 극단적 차이",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 눕방 꿈나무"
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
         }
       },
       "types": [
@@ -101,13 +103,15 @@
           "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "저활동+차분한 성향 유사",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         },
         "worst": {
           "title": "🚀 꼬마 로켓",
           "reason": "여유 vs 폭발적 에너지 상극",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -188,13 +192,15 @@
           "title": "🎤 꼬마 엔터테이너",
           "reason": "보통활동+건강한 균형",
           "type_code": "UMP-EA",
-          "type_label": "적극적 사교형 엔터테이너"
+          "type_label": "적극적 사교형 엔터테이너",
+          "image_file": "little-entertainer.png"
         },
         "worst": {
           "title": "🍩 꼬마 대식가",
           "reason": "균형 vs 극도 식탐 충돌",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         }
       },
       "types": [
@@ -275,13 +281,15 @@
           "title": "🧚 꿈꾸는 작은 요정",
           "reason": "저활동 유사, 여유로운 성향",
           "type_code": "ILP-EA",
-          "type_label": "적극적 사교형 꿈요정"
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
         },
         "worst": {
           "title": "🚀 꼬마 로켓",
           "reason": "여유 vs 에너지 폭발 정반대",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -359,16 +367,18 @@
       "image_file": "little-foodie.png",
       "compatibility": {
         "best": {
-          "title": "엄친견",
+          "title": "🏆 엄친견",
           "reason": "활동 수준 유사, 식습관 균형",
           "type_code": "IMP-EA",
-          "type_label": "적극적 사교형 엄친견"
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
         },
         "worst": {
-          "title": "식도락 모험가",
+          "title": "🍘 식도락 모험가",
           "reason": "과체중 vs 비만 식탐 차이",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 모험가"
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
         }
       },
       "types": [
@@ -510,16 +520,18 @@
       "image_file": "little-big-eater.png",
       "compatibility": {
         "best": {
-          "title": "눕방 꿈나무",
+          "title": "🛌 눕방 꿈나무",
           "reason": "저활동 유사, 식습관 고려",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 눕방 꿈나무"
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
         },
         "worst": {
-          "title": "꼬마 로켓",
+          "title": "🚀 꼬마 로켓",
           "reason": "극도 식탐 vs 운동 중심 충돌",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -597,16 +609,18 @@
       "image_file": "foodie-adventurer.png",
       "compatibility": {
         "best": {
-          "title": "꼬마 먹방러",
+          "title": "🍖 꼬마 먹방러",
           "reason": "활동 수준+식탐 유사",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 먹방러"
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "극도 식탐 vs 절제된 식사",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -732,16 +746,18 @@
       "image_file": "mini-adult.png",
       "compatibility": {
         "best": {
-          "title": "꿈꾸는 작은 요정",
+          "title": "🧚 꿈꾸는 작은 요정",
           "reason": "저체중+저활동 유사, 차분한 성향",
           "type_code": "ILP-EA",
-          "type_label": "적극적 사교형 꿈요정"
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
         },
         "worst": {
-          "title": "꼬마 로켓",
+          "title": "🚀 꼬마 로켓",
           "reason": "조숙함 vs 폭발적 에너지 충돌",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -819,16 +835,18 @@
       "image_file": "little-entertainer.png",
       "compatibility": {
         "best": {
-          "title": "엄친견",
+          "title": "🏆 엄친견",
           "reason": "보통활동 유사, 건강한 균형",
           "type_code": "IMP-EA",
-          "type_label": "적극적 사교형 엄친견"
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
         },
         "worst": {
-          "title": "꼬마 대식가",
+          "title": "🍩 꼬마 대식가",
           "reason": "먹는 것보다 노는 것 vs 극도 식탐",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         }
       },
       "types": [
@@ -906,16 +924,18 @@
       "image_file": "little-rocket.png",
       "compatibility": {
         "best": {
-          "title": "꿈 많은 탐험가",
+          "title": "🔭 꿈 많은 탐험가",
           "reason": "고활동 에너지 수준 일치",
           "type_code": "IHP-EA",
-          "type_label": "적극적 사교형 탐험가"
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "폭발적 vs 신중한 성향 정반대",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -992,16 +1012,18 @@
       "category": "성견",
       "compatibility": {
         "best": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "저체중+저활동+우아함 공통점",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         },
         "worst": {
-          "title": "식도락 모험가",
+          "title": "🍘 식도락 모험가",
           "reason": "절제 vs 극도 식탐 충돌",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 모험가"
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
         }
       },
       "types": [
@@ -1078,16 +1100,18 @@
       "category": "성견",
       "compatibility": {
         "best": {
-          "title": "꼬마 엔터테이너",
+          "title": "🎤 꼬마 엔터테이너",
           "reason": "저체중+활동적 성향 유사",
           "type_code": "UMP-EA",
-          "type_label": "적극적 사교형 엔터테이너"
+          "type_label": "적극적 사교형 엔터테이너",
+          "image_file": "little-entertainer.png"
         },
         "worst": {
-          "title": "눕방 꿈나무",
+          "title": "🛌 눕방 꿈나무",
           "reason": "활동 vs 휴식 성향 정반대",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 눕방 꿈나무"
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
         }
       },
       "types": [
@@ -1167,13 +1191,15 @@
           "title": "🚀 꼬마 로켓",
           "reason": "고활동+지구력 성향 일치",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         },
         "worst": {
           "title": "🍩 꼬마 대식가",
           "reason": "운동 vs 식탐 우선순위 충돌",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         }
       },
       "types": [
@@ -1253,13 +1279,15 @@
           "title": "🧚 꿈꾸는 작은 요정",
           "reason": "저활동+안정적 성격 일치",
           "type_code": "ILP-EA",
-          "type_label": "적극적 사교형 꿈요정"
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
         },
         "worst": {
           "title": "🚀 꼬마 로켓",
           "reason": "극단적 활동 수준 차이",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -1339,13 +1367,15 @@
           "title": "🏆 엄친견",
           "reason": "이상적 체형+보통활동 완벽 매치",
           "type_code": "IMP-EA",
-          "type_label": "적극적 사교형 엄친견"
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
         },
         "worst": {
           "title": "🍩 꼬마 대식가",
           "reason": "활동 의욕 vs 식탐 충돌",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         }
       },
       "types": [
@@ -1422,16 +1452,18 @@
       "category": "성견",
       "compatibility": {
         "best": {
-          "title": "꿈 많은 탐험가",
+          "title": "🔭 꿈 많은 탐험가",
           "reason": "고활동 에너지 수준 일치",
           "type_code": "IHP-EA",
-          "type_label": "적극적 사교형 탐험가"
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "활동량 극단적 차이",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -1509,16 +1541,18 @@
       "image_file": "relaxed-hygge.png",
       "compatibility": {
         "best": {
-          "title": "눕방 꿈나무",
+          "title": "🛌 눕방 꿈나무",
           "reason": "과체중+저활동+여유로운 성향",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 눕방 꿈나무"
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
         },
         "worst": {
-          "title": "꼬마 로켓",
+          "title": "🚀 꼬마 로켓",
           "reason": "여유 vs 폭발적 에너지 상극",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -1596,16 +1630,18 @@
       "image_file": "happy-gourmet.png",
       "compatibility": {
         "best": {
-          "title": "꼬마 먹방러",
+          "title": "🍖 꼬마 먹방러",
           "reason": "과체중+먹는 즐거움 공유",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 먹방러"
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "식탐 vs 절제된 식사 충돌",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -1682,16 +1718,18 @@
       "category": "성견",
       "compatibility": {
         "best": {
-          "title": "꼬마 먹방러",
+          "title": "🍖 꼬마 먹방러",
           "reason": "과체중+고활동 체질 유사",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 먹방러"
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
         },
         "worst": {
-          "title": "꿈꾸는 작은 요정",
+          "title": "🧚 꿈꾸는 작은 요정",
           "reason": "활동량 극단적 차이",
           "type_code": "ILP-EA",
-          "type_label": "적극적 사교형 꿈요정"
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
         }
       },
       "types": [
@@ -1768,16 +1806,18 @@
       "category": "성견",
       "compatibility": {
         "best": {
-          "title": "꼬마 대식가",
+          "title": "🍩 꼬마 대식가",
           "reason": "비만+저활동+식탐 성향 일치",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         },
         "worst": {
-          "title": "울트라 러너",
+          "title": "🏃‍♂️ 울트라 러너",
           "reason": "움직이기 싫음 vs 끝없는 활동",
           "type_code": "UHA-EA",
-          "type_label": "적극적 사교형 러너"
+          "type_label": "적극적 사교형 러너",
+          "image_file": "ultra-runner.png"
         }
       },
       "types": [
@@ -1855,16 +1895,18 @@
       "image_file": "big-eater.png",
       "compatibility": {
         "best": {
-          "title": "식도락 모험가",
+          "title": "🍘 식도락 모험가",
           "reason": "비만+식탐+탐색 성향 공통",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 모험가"
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
         },
         "worst": {
-          "title": "도그모델",
+          "title": "👗 도그 모델",
           "reason": "극도 식탐 vs 절제된 우아함",
           "type_code": "ULA-EA",
-          "type_label": "적극적 사교형 모델"
+          "type_label": "적극적 사교형 모델",
+          "image_file": "dog-model.png"
         }
       },
       "types": [
@@ -1942,16 +1984,18 @@
       "image_file": "hw-hercules.png",
       "compatibility": {
         "best": {
-          "title": "식도락 모험가",
+          "title": "🍘 식도락 모험가",
           "reason": "비만+고활동+보상 식사 패턴",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 모험가"
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "폭발적 vs 신중한 성향 정반대",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -2028,16 +2072,18 @@
       "category": "시니어",
       "compatibility": {
         "best": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "저체중+차분함+철학적 성향",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         },
         "worst": {
-          "title": "꼬마 로켓",
+          "title": "🚀 꼬마 로켓",
           "reason": "온화함 vs 폭발적 에너지",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -2115,16 +2161,18 @@
       "image_file": "willful-fighter.png",
       "compatibility": {
         "best": {
-          "title": "꼬마 엔터테이너",
+          "title": "🎤 꼬마 엔터테이너",
           "reason": "의지력+적당한 활동 성향 일치",
           "type_code": "UMP-EA",
-          "type_label": "적극적 사교형 엔터테이너"
+          "type_label": "적극적 사교형 엔터테이너",
+          "image_file": "little-entertainer.png"
         },
         "worst": {
-          "title": "눕방 꿈나무",
+          "title": "🛌 눕방 꿈나무",
           "reason": "의지 vs 안일함 상극",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 눕방 꿈나무"
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
         }
       },
       "types": [
@@ -2202,16 +2250,18 @@
       "image_file": "legendary-runner.png",
       "compatibility": {
         "best": {
-          "title": "꿈 많은 탐험가",
+          "title": "🔭 꿈 많은 탐험가",
           "reason": "고활동+도전 정신 공통점",
           "type_code": "IHP-EA",
-          "type_label": "적극적 사교형 탐험가"
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
         },
         "worst": {
-          "title": "꼬마 대식가",
+          "title": "🍩 꼬마 대식가",
           "reason": "운동 정신 vs 식탐 우선순위",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         }
       },
       "types": [
@@ -2289,16 +2339,18 @@
       "image_file": "veteran-partner.png",
       "compatibility": {
         "best": {
-          "title": "꿈꾸는 작은 요정",
+          "title": "🧚 꿈꾸는 작은 요정",
           "reason": "저활동+안정적 성격 일치",
           "type_code": "ILP-EA",
-          "type_label": "적극적 사교형 꿈요정"
+          "type_label": "적극적 사교형 꿈요정",
+          "image_file": "little-dreamer.png"
         },
         "worst": {
-          "title": "꼬마 로켓",
+          "title": "🚀 꼬마 로켓",
           "reason": "극단적 활동 수준 차이",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -2376,16 +2428,18 @@
       "image_file": "pro-walker.png",
       "compatibility": {
         "best": {
-          "title": "엄친견",
+          "title": "🏆 엄친견",
           "reason": "이상적 체형+보통활동 완벽 매치",
           "type_code": "IMP-EA",
-          "type_label": "적극적 사교형 엄친견"
+          "type_label": "적극적 사교형 엄친견",
+          "image_file": "top-dog.png"
         },
         "worst": {
-          "title": "꼬마 대식가",
+          "title": "🍩 꼬마 대식가",
           "reason": "활동 의욕 vs 식탐 충돌",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         }
       },
       "types": [
@@ -2463,16 +2517,18 @@
       "image_file": "legend-champion.png",
       "compatibility": {
         "best": {
-          "title": "꿈 많은 탐험가",
+          "title": "🔭 꿈 많은 탐험가",
           "reason": "고활동 에너지 수준 일치",
           "type_code": "IHP-EA",
-          "type_label": "적극적 사교형 탐험가"
+          "type_label": "적극적 사교형 탐험가",
+          "image_file": "dream-explorer.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "활동량 극단적 차이",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -2550,16 +2606,18 @@
       "image_file": "petfair-vip.png",
       "compatibility": {
         "best": {
-          "title": "눕방 꿈나무",
+          "title": "🛌 눕방 꿈나무",
           "reason": "과체중+저활동+안락함 추구",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 눕방 꿈나무"
+          "type_label": "적극적 사교형 눕방 꿈나무",
+          "image_file": "couch-kid.png"
         },
         "worst": {
-          "title": "꼬마 로켓",
+          "title": "🚀 꼬마 로켓",
           "reason": "여유 vs 에너지 폭발 상극",
           "type_code": "UHP-EA",
-          "type_label": "적극적 사교형 로켓"
+          "type_label": "적극적 사교형 로켓",
+          "image_file": "little-rocket.png"
         }
       },
       "types": [
@@ -2637,16 +2695,18 @@
       "image_file": "seasoned-player.png",
       "compatibility": {
         "best": {
-          "title": "꼬마 먹방러",
+          "title": "🍖 꼬마 먹방러",
           "reason": "과체중+활동적+놀이 정신",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 먹방러"
+          "type_label": "적극적 사교형 먹방러",
+          "image_file": "little-foodie.png"
         },
         "worst": {
-          "title": "성견의 탈을 쓴 쪼꼬미",
+          "title": "🎭 성견의 탈을 쓴 쪼꼬미",
           "reason": "동심 vs 조숙함 차이",
           "type_code": "ULP-EA",
-          "type_label": "적극적 사교형 쪼꼬미"
+          "type_label": "적극적 사교형 쪼꼬미",
+          "image_file": "mini-adult.png"
         }
       },
       "types": [
@@ -2788,16 +2848,18 @@
       "image_file": "twilight-eater.png",
       "compatibility": {
         "best": {
-          "title": "꼬마 대식가",
+          "title": "🍩 꼬마 대식가",
           "reason": "비만+저활동+식탐 중심 생활",
           "type_code": "OLP-EA",
-          "type_label": "적극적 사교형 대식가"
+          "type_label": "적극적 사교형 대식가",
+          "image_file": "little-big-eater.png"
         },
         "worst": {
-          "title": "울트라 러너",
+          "title": "🏃‍♂️ 울트라 러너",
           "reason": "먹는 즐거움 vs 운동 중심",
           "type_code": "UHA-EA",
-          "type_label": "적극적 사교형 러너"
+          "type_label": "적극적 사교형 러너",
+          "image_file": "ultra-runner.png"
         }
       },
       "types": [
@@ -2875,16 +2937,18 @@
       "image_file": "dusk-comedian.png",
       "compatibility": {
         "best": {
-          "title": "식도락 모험가",
+          "title": "🍘 식도락 모험가",
           "reason": "비만+활동적+유머 감각",
           "type_code": "OMP-EA",
-          "type_label": "적극적 사교형 모험가"
+          "type_label": "적극적 사교형 모험가",
+          "image_file": "foodie-adventurer.png"
         },
         "worst": {
-          "title": "도그모델",
+          "title": "👗 도그 모델",
           "reason": "개그 vs 우아함 스타일 차이",
           "type_code": "ULA-EA",
-          "type_label": "적극적 사교형 모델"
+          "type_label": "적극적 사교형 모델",
+          "image_file": "dog-model.png"
         }
       },
       "types": [
