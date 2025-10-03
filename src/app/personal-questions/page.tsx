@@ -54,8 +54,8 @@ export default function PersonalQuestionsPage() {
       id: 'playPattern',
       title: '놀이 패턴과 선호는 어떻게 되나요?',
       options: [
-        { id: 'independent', label: '혼자서도 잘 놀고 낯을 가려요' },
-        { id: 'social', label: '친구들과 함께 노는걸 좋아해요' },
+        { id: 'independent', label: '혼자서 잘 놀고 독립적이에요' },
+        { id: 'social', label: '친구 그리고 사람과 함께 노는걸 좋아해요' },
         { id: 'observer', label: '노는 것보다 관찰하고 구경하는걸 좋아해요' }
       ]
     }
