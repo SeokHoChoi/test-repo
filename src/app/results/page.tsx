@@ -66,7 +66,8 @@ export default function ResultsPage() {
   };
 
   const handleCheckFood = () => {
-    window.open('https://www.jellyu-univ.com', '_blank');
+    // window.open('https://www.jellyu-univ.com', '_blank');
+    router.push('/promo');
   };
 
   if (loading) {
