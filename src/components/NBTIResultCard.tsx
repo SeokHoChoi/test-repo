@@ -19,7 +19,7 @@ export function NBTIResultCard({
       data-testid="nbti-result-card"
     >
       {/* FIX: 공유 카드에서는 폰트 적용이 안 되는 문제 해결 */}
-      <div className="text-center mb-4">
+      <div className="text-center">
         <h2 className="text-white text-[30px] font-medium mb-0 font-gumi leading-[31px]">
           {dogName}의 NBTI는
         </h2>
