@@ -45,9 +45,9 @@ export default function PersonalQuestionsPage() {
       id: 'walkReaction',
       title: '산책할 때 반응은 어떤가요?',
       options: [
-        { id: 'excited', label: '신남' },
-        { id: 'normal', label: '보통' },
-        { id: 'reluctant', label: '귀찮아함' }
+        { id: 'excited', label: '산책하며 친구들과 인사하는 것을 좋아해요' },
+        { id: 'normal', label: '산책은 즐기지만 친구들과는 낯을 가려요' },
+        { id: 'reluctant', label: '산책 자체를 즐기지 않아요' }
       ]
     },
     {
