@@ -226,20 +226,17 @@ export default function SharePage() {
               });
 
               // 제목/젤리대학교와 강아지 이미지 사이 간격 제거에 맞춰 보정
-              // 1) 제목 컨테이너 하단 여백 제거
               const titleHeading = clonedElement.querySelector('h2.text-white');
-              if (titleHeading && titleHeading.parentElement) {
-                const headingWrap = titleHeading.parentElement as HTMLElement;
-                headingWrap.style.marginTop = '0px';
-                headingWrap.style.marginBottom = '0px';
-                headingWrap.style.paddingTop = '0px';
+              if (titleHeading) {
+                (titleHeading as HTMLElement).style.marginTop = '-14px';
               }
 
               // @젤리대학교 텍스트에 margin-top 추가
               const jellyText = clonedElement.querySelector('p.text-\\[\\#FFFFFF\\]');
               if (jellyText) {
-                (jellyText as HTMLElement).style.marginTop = '4px';
-                (jellyText as HTMLElement).style.marginBottom = '0px';
+                const currentTop = 4; // 기존 보정치
+                (jellyText as HTMLElement).style.marginTop = `${currentTop + 8}px`;
+                (jellyText as HTMLElement).style.marginBottom = '12px';
               }
 
               // 3) 강아지 이미지 래퍼 상단 여백 제거 (제목과 딱 붙도록)
