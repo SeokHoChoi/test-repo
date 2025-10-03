@@ -488,7 +488,7 @@ export default function SharePage() {
                 </p>
               </div>
 
-              <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
+              <div className="text-center text-[#000000] font-normal text-[13px] leading-[18px] px-[50px] mb-[15px]">
                 {Array.isArray(result.nbti.description)
                   ? result.nbti.description.map((desc, index) => (
                     <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
