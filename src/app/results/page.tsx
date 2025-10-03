@@ -219,7 +219,6 @@ export default function ResultsPage() {
                     imageSrc={getPersonaImagePathByTypeCode(compatibility.best.type_code, compatibility.best.image_file)}
                     imageAlt="강아지"
                     title={compatibility.best.title}
-                    emoji="🔭"
                     description={`${compatibility.best.type_code} (${compatibility.best.type_label})`}
                   />
                   <MatchingCard
@@ -228,7 +227,6 @@ export default function ResultsPage() {
                     imageSrc={getPersonaImagePathByTypeCode(compatibility.worst.type_code, compatibility.worst.image_file)}
                     imageAlt="강아지"
                     title={compatibility.worst.title}
-                    emoji="🔭"
                     description={`${compatibility.worst.type_code} (${compatibility.worst.type_label})`}
                   />
                 </>

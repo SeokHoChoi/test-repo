@@ -7,7 +7,7 @@ interface MatchingCardProps {
   imageSrc: string;
   imageAlt: string;
   title: string;
-  emoji: string;
+  emoji?: string;
   description: string;
 }
 
