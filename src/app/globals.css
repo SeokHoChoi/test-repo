@@ -22,6 +22,7 @@
   --font-pretendard: var(--font-pretendard);
   --font-gumi: 'Gumi-Romance';
   --font-family-gumi: 'Gumi-Romance';
+  --font-sb-aggro: var(--font-aggro);
   --color-brand-blue: #003DA5;
 }
 

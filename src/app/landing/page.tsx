@@ -48,7 +48,7 @@ export default function LandingPage() {
           >
             {/* 랜딩 페이지 전용 헤더 */}
             <div className="text-center">
-              <h1 className="font-bold text-gray-900 pt-[86px] mb-[20px] text-[37px]">
+              <h1 className="font-sb-aggro font-semibold text-gray-900 pt-[86px] mb-[20px] text-[37px]">
                 <span className="block">우리 갱얼쥐의</span>
                 <span className="block -mt-[5px]"><span className="text-[#003DA5]">NBTI</span>는 뭘까?</span>
               </h1>
