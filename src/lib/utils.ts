@@ -200,7 +200,7 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
           w.Kakao.init(jsKey);
           resolve(w.Kakao);
           return;
-        } catch (_e) {
+        } catch {
           // fallthrough to reload script
         }
       }
@@ -242,16 +242,16 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
     try {
       const Kakao = await loadSdk();
       const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
-      const compact = `${_result.nbti.id}|${_result.dogName}`;
-      const version = Date.now();
-      const imageUrl = origin ? `${origin}/results/share/opengraph-image?code=${encodeURIComponent(compact)}&v=${version}` : 'https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/brand/favicon/kakaocorp_favicon.ico';
+
+      // 1:1 이미지 (결과 공유용) - 정적 이미지 사용
+      const resultImageUrl = `${origin}/img/kakao-share/kakao-result-share-640x640.png`;
 
       Kakao.Share?.sendDefault?.({
         objectType: 'feed',
         content: {
-          title: '🐶 우리 아이 건강 MBTI 테스트',
-          description: '너의 갱얼쥐 NBTI가 뭐야? 🐾',
-          imageUrl,
+          title: `🐶 ${_result.dogName}의 NBTI는 ${_result.nbti.name}!`,
+          description: `${_result.nbti.id} (${_result.nbti.type})\n"${_result.nbti.definition}"`,
+          imageUrl: resultImageUrl, // 1:1 결과 이미지
           link: {
             mobileWebUrl: _shareUrl,
             webUrl: _shareUrl,
@@ -265,6 +265,103 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
           {
             title: '테스트 하기',
             link: { mobileWebUrl: `${origin}/basic-questions`, webUrl: `${origin}/basic-questions` },
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('카카오톡 공유 실패:', error);
+      alert('카카오톡 공유 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    }
+  })();
+}
+
+/**
+ * 카카오톡 테스트 홍보 공유 (2:1 이미지 사용)
+ */
+export function shareKakaoTest(): void {
+  if (typeof window === 'undefined') return;
+
+  const loadSdk = (): Promise<KakaoSDK> => {
+    return new Promise((resolve, reject) => {
+      const jsKey = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+      if (!jsKey) {
+        reject(new Error('Kakao JS Key not found'));
+        return;
+      }
+
+      const w = window as Window;
+      if (w.Kakao && w.Kakao.isInitialized?.()) {
+        resolve(w.Kakao);
+        return;
+      }
+
+      if (w.Kakao) {
+        try {
+          w.Kakao.init(jsKey);
+          resolve(w.Kakao);
+          return;
+        } catch {
+          // fallthrough to reload script
+        }
+      }
+      const existing = document.querySelector('script[data-kakao-sdk]') as HTMLScriptElement | null;
+      if (existing) {
+        existing.addEventListener('load', () => {
+          try {
+            const w2 = window as Window;
+            if (w2.Kakao && !w2.Kakao.isInitialized?.()) {
+              w2.Kakao.init(jsKey);
+            }
+            resolve(w2.Kakao as KakaoSDK);
+          } catch (err) { reject(err); }
+        }, { once: true });
+        existing.addEventListener('error', () => reject(new Error('Kakao SDK load error')), { once: true });
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+      script.async = true;
+      script.defer = true;
+      script.setAttribute('data-kakao-sdk', 'true');
+      script.onload = () => {
+        try {
+          const w2 = window as Window;
+          if (w2.Kakao && !w2.Kakao.isInitialized?.()) {
+            w2.Kakao.init(jsKey);
+          }
+          resolve(w2.Kakao as KakaoSDK);
+        } catch (err) { reject(err); }
+      };
+      script.onerror = () => reject(new Error('Kakao SDK load error'));
+      document.head.appendChild(script);
+    });
+  };
+
+  // 실제 공유 실행
+  (async () => {
+    try {
+      const Kakao = await loadSdk();
+      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
+
+      // 2:1 이미지 (테스트 홍보용)
+      const testImageUrl = `${origin}/img/kakao-share/kakao-test-share-800x400.png`;
+      const testUrl = `${origin}/basic-questions`;
+
+      Kakao.Share?.sendDefault?.({
+        objectType: 'feed',
+        content: {
+          title: '🐶 우리 아이 건강 NBTI 테스트',
+          description: '반려견의 가장 기본적인 정보를 32가지 유형으로 분류하는 시스템입니다. 우리 아이의 NBTI가 뭘까? 🐾',
+          imageUrl: testImageUrl, // 2:1 테스트 홍보 이미지
+          link: {
+            mobileWebUrl: testUrl,
+            webUrl: testUrl,
+          },
+        },
+        buttons: [
+          {
+            title: '테스트 시작하기',
+            link: { mobileWebUrl: testUrl, webUrl: testUrl },
           },
         ],
       });
@@ -486,7 +583,7 @@ export async function renderNBTIImageDataUrl(): Promise<string | null> {
 }
 
 // ===== 내부 유틸: 캡처 안정화 도우미 =====
-async function waitForAssets(root: HTMLElement, timeoutMs: number = 4000): Promise<void> {
+async function waitForAssets(root: HTMLElement, timeoutMs: number = 6000): Promise<void> {
   const promises: Promise<void>[] = [];
 
   // 폰트 로드

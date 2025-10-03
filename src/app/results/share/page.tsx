@@ -14,7 +14,6 @@ import {
   shareToX,
   shareToInstagram,
   copyToClipboard,
-  renderNBTIImageDataUrl,
   type NBTIResult
 } from '@/lib/utils';
 import Image from 'next/image';
@@ -25,15 +24,80 @@ export default function SharePage() {
   const router = useRouter();
   const [result, setResult] = useState<NBTIResult | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saveMessage, setSaveMessage] = useState<string>('');
   const [renderedImageUrl, setRenderedImageUrl] = useState<string | null>(null);
-  const [rendering, setRendering] = useState<boolean>(false);
   const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
     const resultData = getResultFromUrlOrStorage();
     if (resultData) {
       setResult(resultData);
+
+      // 동적 메타데이터 설정
+      const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
+      const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
+      const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
+
+      // 메타태그 설정
+      document.title = title;
+
+      // Open Graph 메타태그 - 인스타그램 호환성 강화
+      const ogTitle = document.querySelector('meta[property="og:title"]') || document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      ogTitle.setAttribute('content', title);
+      if (!document.querySelector('meta[property="og:title"]')) document.head.appendChild(ogTitle);
+
+      const ogDescription = document.querySelector('meta[property="og:description"]') || document.createElement('meta');
+      ogDescription.setAttribute('property', 'og:description');
+      ogDescription.setAttribute('content', description);
+      if (!document.querySelector('meta[property="og:description"]')) document.head.appendChild(ogDescription);
+
+      const ogImage = document.querySelector('meta[property="og:image"]') || document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      ogImage.setAttribute('content', imageUrl);
+      if (!document.querySelector('meta[property="og:image"]')) document.head.appendChild(ogImage);
+
+      // 인스타그램을 위한 추가 메타태그
+      const ogImageWidth = document.querySelector('meta[property="og:image:width"]') || document.createElement('meta');
+      ogImageWidth.setAttribute('property', 'og:image:width');
+      ogImageWidth.setAttribute('content', '800');
+      if (!document.querySelector('meta[property="og:image:width"]')) document.head.appendChild(ogImageWidth);
+
+      const ogImageHeight = document.querySelector('meta[property="og:image:height"]') || document.createElement('meta');
+      ogImageHeight.setAttribute('property', 'og:image:height');
+      ogImageHeight.setAttribute('content', '400');
+      if (!document.querySelector('meta[property="og:image:height"]')) document.head.appendChild(ogImageHeight);
+
+      const ogImageType = document.querySelector('meta[property="og:image:type"]') || document.createElement('meta');
+      ogImageType.setAttribute('property', 'og:image:type');
+      ogImageType.setAttribute('content', 'image/png');
+      if (!document.querySelector('meta[property="og:image:type"]')) document.head.appendChild(ogImageType);
+
+      const ogUrl = document.querySelector('meta[property="og:url"]') || document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      ogUrl.setAttribute('content', window.location.href);
+      if (!document.querySelector('meta[property="og:url"]')) document.head.appendChild(ogUrl);
+
+      const ogType = document.querySelector('meta[property="og:type"]') || document.createElement('meta');
+      ogType.setAttribute('property', 'og:type');
+      ogType.setAttribute('content', 'website');
+      if (!document.querySelector('meta[property="og:type"]')) document.head.appendChild(ogType);
+
+      // Twitter 메타태그
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]') || document.createElement('meta');
+      twitterTitle.setAttribute('name', 'twitter:title');
+      twitterTitle.setAttribute('content', title);
+      if (!document.querySelector('meta[name="twitter:title"]')) document.head.appendChild(twitterTitle);
+
+      const twitterDescription = document.querySelector('meta[name="twitter:description"]') || document.createElement('meta');
+      twitterDescription.setAttribute('name', 'twitter:description');
+      twitterDescription.setAttribute('content', description);
+      if (!document.querySelector('meta[name="twitter:description"]')) document.head.appendChild(twitterDescription);
+
+      const twitterImage = document.querySelector('meta[name="twitter:image"]') || document.createElement('meta');
+      twitterImage.setAttribute('name', 'twitter:image');
+      twitterImage.setAttribute('content', imageUrl);
+      if (!document.querySelector('meta[name="twitter:image"]')) document.head.appendChild(twitterImage);
     } else {
       // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
       router.push('/landing');
@@ -41,81 +105,169 @@ export default function SharePage() {
     setLoading(false);
   }, [router]);
 
-  // 결과 카드 이미지를 PNG로 렌더링하여 <img>로 표시 (모바일 길게 눌러 저장 가능)
+  // 전체 결과 카드를 Canvas로 캡쳐
   useEffect(() => {
-    // 캡쳐용 @font-face 직접 주입 (Next.js 폰트 최적화 우회)
-    const injectCaptureStyles = () => {
-      const style = document.createElement('style');
-      style.setAttribute('data-capture-fonts', 'true');
-      style.textContent = `
-@font-face {
-  font-family: 'SB-Aggro-Capture';
-  src: url('/fonts/sb-aggro/SB-AggroOTF-M.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Gumi-Capture';
-  src: url('/fonts/gumi-romance/Gumi-Romance.woff2') format('woff2');
-  font-weight: normal;
-  font-display: swap;
-}
-.share-card .font-aggro,
-.share-card h3.font-aggro {
-  font-family: 'SB-Aggro-Capture', var(--font-aggro), system-ui !important;
-}
-.share-card .font-gumi,
-.share-card h2.font-gumi {
-  font-family: 'Gumi-Capture', 'Gumi-Romance', system-ui !important;
-}
-`;
-      document.head.appendChild(style);
-      return style;
-    };
+    if (!result) return;
 
-    const preloadImg = (src: string) => {
-      return new Promise<void>((resolve) => {
-        const img = document.createElement('img');
-        img.onload = () => resolve();
-        img.onerror = () => resolve();
-        img.src = src;
-      });
-    };
+    const captureResultCard = async () => {
+      try {
+        // DOM에서 NBTIResultCard 컴포넌트 찾기
+        const cardElement = document.querySelector('[data-testid="nbti-result-card"]') as HTMLElement;
+        if (!cardElement) {
+          console.error('결과 카드 요소를 찾을 수 없습니다.');
+          return;
+        }
 
-    const renderImage = async () => {
-      if (!result) return;
-      setRendering(true);
 
-      // 1. 폰트 스타일 주입
-      const fontStyle = injectCaptureStyles();
+        // 모든 이미지가 완전히 로드될 때까지 대기
+        const images = cardElement.querySelectorAll('img');
 
-      // 2. 강아지 이미지 프리로드
-      await preloadImg('/img/results/dog-1.png');
+        for (const img of images) {
+          if (!img.complete) {
+            await new Promise((resolve) => {
+              img.onload = () => {
+                resolve(img);
+              };
+              img.onerror = () => {
+                console.error('이미지 로드 실패:', img.src);
+                resolve(img);
+              };
+            });
+          }
+        }
 
-      // 3. 폰트 로드 대기
-      await new Promise((r) => setTimeout(r, 2000));
+        // 폰트가 완전히 로드될 때까지 대기
+        await document.fonts.ready;
 
-      // 4. 캡쳐 실행
-      const url = await renderNBTIImageDataUrl();
-      setRenderedImageUrl(url);
-      if (!url) {
-        setSaveMessage('❌ 이미지 생성에 실패했습니다. 새로고침 후 다시 시도해주세요.');
-        setTimeout(() => setSaveMessage(''), 5000);
+        // 추가 대기 시간 (모든 렌더링 완료)
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // html2canvas를 사용한 캡쳐 - 뷰포트 문제만 해결
+        const html2canvas = await import('html2canvas');
+        const canvas = await html2canvas.default(cardElement, {
+          backgroundColor: '#003DA5',
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          foreignObjectRendering: false, // false로 다시 변경
+          imageTimeout: 30000,
+          logging: true, // 디버깅을 위해 활성화
+          width: cardElement.offsetWidth,
+          height: cardElement.offsetHeight,
+          x: 0,
+          y: 0,
+          scrollX: 0,
+          scrollY: 0,
+          removeContainer: false,
+          // 큰 화면에서만 뷰포트 제한 적용
+          ...(window.innerWidth > 1200 && {
+            windowWidth: 500,
+            windowHeight: 600
+          }),
+          onclone: (clonedDoc) => {
+
+            // 클론된 문서에서 이미지가 보이도록 설정
+            const clonedElement = clonedDoc.querySelector('[data-testid="nbti-result-card"]') as HTMLElement;
+            if (clonedElement) {
+
+              // 모든 이미지가 보이도록 설정
+              const allImages = clonedElement.querySelectorAll('img');
+
+              allImages.forEach((img, index) => {
+                (img as HTMLElement).style.visibility = 'visible';
+                (img as HTMLElement).style.opacity = '1';
+                (img as HTMLElement).style.display = 'block';
+              });
+
+              // 대제목을 위로 땡기기
+              const titleSection = clonedElement.querySelector('div.text-center.mb-4');
+              if (titleSection) {
+                (titleSection as HTMLElement).style.marginTop = '-14px';
+                (titleSection as HTMLElement).style.paddingTop = '0px';
+              }
+
+              // @젤리대학교 텍스트에 margin-top 추가
+              const jellyText = clonedElement.querySelector('p.text-\\[\\#FFFFFF\\]');
+              if (jellyText) {
+                (jellyText as HTMLElement).style.marginTop = '14.8px';
+                (jellyText as HTMLElement).style.marginBottom = '24px';
+              }
+
+              // 하얀 카드 내부 요소들 조정
+              // 메인 타이틀을 위로 당기기
+              const mainTitle = clonedElement.querySelector('h3.font-medium.text-\\[20px\\]');
+              if (mainTitle) {
+                (mainTitle as HTMLElement).style.marginTop = '-11px';
+              }
+
+              // 서브타이틀을 아래로 당기기
+              const subtitleText = clonedElement.querySelector('p.font-normal.text-\\[13px\\]');
+              if (subtitleText) {
+                (subtitleText as HTMLElement).style.marginTop = '8px';
+                (subtitleText as HTMLElement).style.marginBottom = '8px';
+              }
+
+              // 보더를 아래로 당기기
+              const borderElement = clonedElement.querySelector('.h-px');
+              if (borderElement) {
+                (borderElement as HTMLElement).style.marginTop = '12px';
+              }
+
+              // 따옴표 텍스트와 보더 간격 좁히기
+              const quoteText = clonedElement.querySelector('p.text-\\[\\#003DA5\\]');
+              if (quoteText) {
+                (quoteText as HTMLElement).style.marginTop = '-4.5px';
+              }
+
+              // 폰트 스타일 명시적 설정 (두꺼워지는 문제 방지)
+              const allTextElements = clonedElement.querySelectorAll('h1, h2, h3, p, span');
+              allTextElements.forEach(el => {
+                const element = el as HTMLElement;
+
+                // 폰트 렌더링 최적화
+                element.style.textRendering = 'optimizeLegibility';
+                element.style.setProperty('-webkit-font-smoothing', 'antialiased');
+                element.style.setProperty('-moz-osx-font-smoothing', 'grayscale');
+                element.style.setProperty('font-smooth', 'always');
+
+                // 폰트 두께 명시적 설정
+                if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3') {
+                  element.style.fontWeight = '500';
+                } else if (element.tagName === 'P') {
+                  element.style.fontWeight = '400';
+                }
+              });
+            }
+          }
+        });
+
+        // Canvas에 둥글기 적용
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.globalCompositeOperation = 'destination-in';
+          ctx.beginPath();
+          ctx.roundRect(0, 0, canvas.width, canvas.height, 30);
+          ctx.fill();
+        }
+
+        // Canvas를 Data URL로 변환
+        const dataUrl = canvas.toDataURL('image/png');
+
+        setRenderedImageUrl(dataUrl);
+        setToast('이미지 준비완료!');
+        setTimeout(() => setToast(''), 2000);
+
+      } catch (error) {
+        console.error('이미지 캡쳐 오류:', error);
+        setToast('이미지 생성에 실패했습니다.');
+        setTimeout(() => setToast(''), 3000);
       }
-      setRendering(false);
-
-      // 5. 정리
-      try { document.head.removeChild(fontStyle); } catch { }
     };
-    renderImage();
+
+    // DOM이 완전히 렌더링된 후 캡쳐 실행
+    setTimeout(captureResultCard, 3000);
   }, [result]);
 
-  const handleRetakeTest = () => {
-    // 세션 스토리지 클리어
-    sessionStorage.removeItem('basicQuestions');
-    sessionStorage.removeItem('nbtiResult');
-    router.push('/basic-questions');
-  };
 
   // TODO: 이동 경로 검토
   const handleOtherTests = () => {
@@ -194,96 +346,93 @@ export default function SharePage() {
           noMargin
           className="mb-[37px]"
         >
-          {/* 공유 안내 */}
-          <p className="text-[#343434] text-[15px] font-medium text-center mb-6">
-            아래 이미지를 길게 눌러 저장 후,<br />
-            채널을 선택해 공유할 수 있어요.
-          </p>
+          {/* 공유 안내 또는 로딩 - 고정 높이로 레이아웃 시프트 방지 */}
+          <div className="text-center mb-6" style={{ minHeight: '46px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {renderedImageUrl ? (
+              <p className="text-[#343434] text-[15px] font-medium">
+                아래 이미지를 길게 눌러 저장 후,<br />
+                채널을 선택해 공유할 수 있어요.
+              </p>
+            ) : (
+              <p className="text-[#343434] text-[15px] font-medium">
+                <span className="inline-flex items-center">
+                  <Image
+                    src="/img/jellyu-logo.png"
+                    alt="젤리대학교"
+                    width={36}
+                    height={36}
+                    className="w-9 h-9 object-contain animate-bounce mr-2"
+                  />
+                  <span className="font-sb-aggro font-medium">이미지 준비중...</span>
+                </span>
+              </p>
+            )}
+          </div>
 
-          {/* 이미지 렌더링 상태 */}
-          {rendering && (
-            <div className="mb-6 text-center text-sm text-gray-500">이미지를 준비하고 있어요...</div>
-          )}
 
-          {/* 저장 메시지 (오류 노출) */}
-          {saveMessage && (
-            <div className={`
-              p-4 rounded-lg text-sm font-medium text-center mb-6 whitespace-pre-line
-              ${saveMessage.includes('❌')
-                ? 'bg-red-100 text-red-800 border border-red-200'
-                : 'bg-green-100 text-green-800 border border-green-200'
-              }
-            `}>
-              {saveMessage}
-            </div>
-          )}
+          {/* 공유용 결과 카드 (캡처 대상) - 캡쳐용으로만 사용 */}
+          <div className="mb-5 select-none" style={{ WebkitTouchCallout: 'default', display: renderedImageUrl ? 'none' : 'block' }}>
+            <NBTIResultCard
+              dogName={result.dogName}
+              dogImage={(() => {
+                const id = result.nbti.id || '';
+                const displayPrefix = id.split('-')[0] || '';
+                return getArchetypeImagePath(displayPrefix);
+              })()}
+              preferPlainImg
+            >
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-[4px] leading-none m-0">
+                  <h3 className="font-medium text-[20px] leading-tight m-0 font-gumi text-[#212121] w-full">{result.nbti.name}</h3>
+                </div>
+                <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.id} ({result.nbti.type})</p>
+                <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
+              </div>
 
-          {/* 공유용 결과 카드 (캡처 대상) 또는 렌더된 이미지 */}
-          {renderedImageUrl ? (
+              <div className="text-center mt-[13px] mb-[10px]">
+                <p className="text-[#003DA5] font-semibold text-[13px]">
+                  &ldquo;{result.nbti.definition}&rdquo;
+                </p>
+              </div>
+
+              <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
+                {Array.isArray(result.nbti.description)
+                  ? result.nbti.description.map((desc, index) => (
+                    <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
+                  ))
+                  : <p className="break-keep">{result.nbti.description}</p>
+                }
+              </div>
+            </NBTIResultCard>
+          </div>
+
+          {/* 캡쳐된 이미지 (메인 표시) */}
+          {renderedImageUrl && (
             <div className="mb-5 select-none" style={{ WebkitTouchCallout: 'default' }}>
-              <img
+              <Image
                 src={renderedImageUrl}
                 alt="NBTI 결과 이미지"
-                className="w-full h-auto rounded-2xl shadow"
+                width={400}
+                height={400}
+                className="w-full h-auto shadow"
+                style={{ borderRadius: '30px' }}
               />
-            </div>
-          ) : (
-            <div
-              className="share-card mb-5 select-none"
-              style={{
-                userSelect: 'none',
-                WebkitUserSelect: 'none',
-                WebkitTouchCallout: 'default'
-              }}
-            >
-              <NBTIResultCard
-                dogName={result.dogName}
-                dogImage={(() => {
-                  const id = result.nbti.id || '';
-                  const displayPrefix = id.split('-')[0] || '';
-                  return getArchetypeImagePath(displayPrefix);
-                })()}
-                preferPlainImg
-              >
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-[4px] leading-none m-0">
-                    <h3 className="font-medium text-[20px] leading-tight m-0 font-gumi text-[#212121] w-full">{result.nbti.name}</h3>
-                  </div>
-                  <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.type}</p>
-                  <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
-                </div>
-
-                <div className="text-center mt-[13px] mb-[10px]">
-                  <p className="text-[#003DA5] font-semibold text-[13px]">
-                    &ldquo;{result.nbti.definition}&rdquo;
-                  </p>
-                </div>
-
-                <div className="text-center text-[#000000] font-normal text-[13px] leading-relaxed px-[50px] mb-[15px]">
-                  {Array.isArray(result.nbti.description)
-                    ? result.nbti.description.map((desc, index) => (
-                      <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
-                    ))
-                    : <p className="break-keep">{result.nbti.description}</p>
-                  }
-                </div>
-              </NBTIResultCard>
             </div>
           )}
 
           {/* 공유 버튼들 */}
           <div className="flex justify-center gap-[10px]">
             <button onClick={handleInstagramShare} title="인스타그램 공유" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/insta.png" alt="인스타그램" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/insta.png" alt="인스타그램" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
             <button onClick={handleKakaoShare} title="카카오톡 공유" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/kakao.png" alt="카카오톡" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/kakao.png" alt="카카오톡" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
             <button onClick={handleXShare} title="트위터 공유" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/twitter.png" alt="트위터" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/twitter.png" alt="트위터" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
             <button onClick={handleCopyLink} title="링크 복사" className="w-[30px] h-[30px]">
-              <img src="/img/results/share/link.png" alt="링크 복사" className="w-[30px] h-[30px] object-contain" />
+              <Image src="/img/results/share/link.png" alt="링크 복사" width={30} height={30} className="w-[30px] h-[30px] object-contain" />
             </button>
           </div>
         </ShareCard>

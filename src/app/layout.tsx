@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, ABeeZee } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import ClientOnly from "../components/ClientOnly";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,21 +96,23 @@ const pretendard = localFont({
   display: "swap",
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://test-repo-qux1.vercel.app';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://jelly-univ-nbti.vercel.app'),
   title: "우리 아이의 NBTI는? | Jelly Univ",
   description: "🐶 우리 아이 건강 MBTI 테스트 | 반려견의 건강 상태를 32가지 유형으로 나누고 어떻게 하면 영양학적으로 더 건강하게 지낼 수 있을지 알려주는 지표",
   openGraph: {
     title: "우리 아이의 NBTI는? | Jelly Univ",
     description: "🐶 우리 아이 건강 MBTI 테스트\n너의 갱얼쥐 NBTI가 뭐야? 🐾",
-    images: ['/img/jellyu-logo.png'],
-    siteName: '젤리대학교',
     type: 'website',
+    images: [`${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`],
+    siteName: '젤리대학교',
   },
   twitter: {
     card: 'summary_large_image',
     title: "우리 아이의 NBTI는? | Jelly Univ",
     description: "🐶 우리 아이 건강 MBTI 테스트\n너의 갱얼쥐 NBTI가 뭐야? 🐾",
+    images: [`${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`],
   },
 };
 
@@ -119,11 +122,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${sbAggro.variable} ${pretendard.variable} ${aBeeZee.variable} antialiased`}
+        suppressHydrationWarning
       >
-        {children}
+        <ClientOnly>
+          {children}
+        </ClientOnly>
       </body>
     </html>
   );
