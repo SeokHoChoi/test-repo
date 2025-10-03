@@ -9,8 +9,7 @@ import { InfoCard } from '@/components/InfoCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
 import { generateShareUrl, type NBTIResult, type SurveyAnswers, generateNBTIResultFromSurvey } from '@/lib/utils';
-import { getCompatibilityByPrefix, getPuppyImagePathByTitle } from '@/lib/nbti';
-import { getArchetypeImagePath } from '@/lib/nbti';
+import { getPuppyImagePathByTitle } from '@/lib/nbti';
 import { Upload } from 'lucide-react';
 import Image from 'next/image';
 
@@ -205,7 +204,6 @@ export default function ResultsPage() {
           <div className="flex justify-center gap-[13px]">
             {(() => {
               // nbti-personas.json에서 compatibility 정보 가져오기
-              const personaName = result.nbti.name;
               const compatibility = result.compatibility;
 
               if (!compatibility) {
