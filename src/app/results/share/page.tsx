@@ -343,6 +343,24 @@ export default function SharePage() {
     });
   };
 
+  // 네이티브 공유 기능
+  const handleNativeShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `🐶 ${result?.dogName}의 NBTI는 ${result?.nbti.name}!`,
+          text: `${result?.nbti.id} (${result?.nbti.type})\n"${result?.nbti.definition}"`,
+          url: shareUrl,
+        });
+      } catch (error) {
+        console.log('공유가 취소되었습니다.');
+      }
+    } else {
+      // 네이티브 공유를 지원하지 않는 경우 링크 복사
+      handleCopyLink();
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -543,7 +561,7 @@ export default function SharePage() {
               </>
             }
             buttons={[
-              { text: "테스트 공유하기", variant: 'primary', onClick: () => router.push(generateShareUrl(result)) }
+              { text: "테스트 공유하기", variant: 'primary', onClick: handleNativeShare }
             ]}
             customPadding="px-[30px] pt-[23.5px] pb-[28.5px]"
             noMargin
