@@ -8,6 +8,7 @@
       "name": "🔭 꿈 많은 탐험가",
       "definition": "호기심이 털보다 많은 우리집 탐험대장",
       "category": "퍼피",
+      "image_file": "dream-explorer.png",
       "types": [
         {
           "type_code": "IHP-EA",
@@ -80,6 +81,7 @@
       "name": "🧚 꿈꾸는 작은 요정",
       "definition": "잠이 곧 성장동력인 우리집 잠꾸러기",
       "category": "퍼피",
+      "image_file": "little-dreamer.png",
       "types": [
         {
           "type_code": "ILP-EA",
@@ -152,6 +154,7 @@
       "name": "🏆 엄친견",
       "definition": "온 동네가 다 부러워하는 모범 퍼피",
       "category": "퍼피",
+      "image_file": "top-dog.png",
       "types": [
         {
           "type_code": "IMP-EA",
@@ -224,6 +227,7 @@
       "name": "🛌 눕방 꿈나무",
       "definition": "원할때만 움직이는 소파 러버",
       "category": "퍼피",
+      "image_file": "couch-kid.png",
       "types": [
         {
           "type_code": "OLP-EA",
@@ -296,6 +300,7 @@
       "name": "🍖 꼬마 먹방러",
       "definition": "먹는 게 취미인 우리집 포동이",
       "category": "퍼피",
+      "image_file": "little-foodie.png",
       "types": [
         {
           "type_code": "OMP-EA",
@@ -432,6 +437,7 @@
       "name": "🍩 꼬마 대식가",
       "definition": "간식만 보면 순간이동하는 꼬꼬마",
       "category": "퍼피",
+      "image_file": "little-big-eater.png",
       "types": [
         {
           "type_code": "OLP-EA",
@@ -504,6 +510,7 @@
       "name": "🍘 식도락 모험가",
       "definition": "세상 모든게 신기하고 맛있는 통통한 모험가",
       "category": "퍼피",
+      "image_file": "foodie-adventurer.png",
       "types": [
         {
           "type_code": "OMP-EA",
@@ -624,6 +631,7 @@
       "name": "🎭 성견의 탈을 쓴 쪼꼬미",
       "definition": "먹기도 움직이기도 귀찮은 애늙은이",
       "category": "퍼피",
+      "image_file": "mini-adult.png",
       "types": [
         {
           "type_code": "ULP-EA",
@@ -696,6 +704,7 @@
       "name": "🎤 꼬마 엔터테이너",
       "definition": "먹는 것보다 노는게 더 좋은 까불이",
       "category": "퍼피",
+      "image_file": "little-entertainer.png",
       "types": [
         {
           "type_code": "UMP-EA",
@@ -768,6 +777,7 @@
       "name": "🚀 꼬마 로켓",
       "definition": "충전보다 방전이 빠른 에너자이저",
       "category": "퍼피",
+      "image_file": "little-rocket.png",
       "types": [
         {
           "type_code": "UHP-EA",
@@ -1272,6 +1282,7 @@
       "name": "🪔 여유로운 휘게족",
       "definition": "슬기로운 슬로우 라이프의 달인",
       "category": "성견",
+      "image_file": "relaxed-hygge.png",
       "types": [
         {
           "type_code": "OLA-EA",
@@ -1344,6 +1355,7 @@
       "name": "🍴 행복한 미식가",
       "definition": "맛집 탐방이 활동인 우리집 푸디",
       "category": "성견",
+      "image_file": "happy-gourmet.png",
       "types": [
         {
           "type_code": "OMA-EA",
@@ -1560,6 +1572,7 @@
       "name": "🍽️ 극한의 대식가",
       "definition": "24시간 맛집 탐방이 일상인 푸드 파이터",
       "category": "성견",
+      "image_file": "big-eater.png",
       "types": [
         {
           "type_code": "OMA-EA",
@@ -1632,6 +1645,7 @@
       "name": "🏋️ 헤비급 헤라클레스",
       "definition": "근육인지 살인지 모르겠는 우리집 헤라클레스",
       "category": "성견",
+      "image_file": "hw-hercules.png",
       "types": [
         {
           "type_code": "OHA-EA",
@@ -1776,6 +1790,7 @@
       "name": "👊🏻 의지의 파이터",
       "definition": "의지만큼은 여전한 우리집 투지왕",
       "category": "시니어",
+      "image_file": "willful-fighter.png",
       "types": [
         {
           "type_code": "UMS-EA",
@@ -1848,6 +1863,7 @@
       "name": "⚡ 전설의 러너",
       "definition": "오늘도 달리는 우리집 러닝 마스터",
       "category": "시니어",
+      "image_file": "legendary-runner.png",
       "types": [
         {
           "type_code": "UHS-EA",
@@ -1920,6 +1936,7 @@
       "name": "🎩 관록의 파트너",
       "definition": "세월이 곧 품격인 우리집 어르신",
       "category": "시니어",
+      "image_file": "veteran-partner.png",
       "types": [
         {
           "type_code": "ILS-EA",
@@ -1992,6 +2009,7 @@
       "name": "🚶‍♂️ 노련한 산책가",
       "definition": "경험이 곧 건강인 우리집 인생선배",
       "category": "시니어",
+      "image_file": "pro-walker.png",
       "types": [
         {
           "type_code": "IMS-EA",
@@ -2064,6 +2082,7 @@
       "name": "🎖️ 전설의 챔피언",
       "definition": "나이는 숫자일 뿐인 우리집 영원한 청춘",
       "category": "시니어",
+      "image_file": "legend-champion.png",
       "types": [
         {
           "type_code": "IHS-EA",
@@ -2136,6 +2155,7 @@
       "name": "🛒 펫페어 큰손",
       "definition": "펫푸드 쇼핑이 취미인 VIP",
       "category": "시니어",
+      "image_file": "petfair-vip.png",
       "types": [
         {
           "type_code": "OLS-EA",
@@ -2208,6 +2228,7 @@
       "name": "👹 노련한 놀이꾼",
       "definition": "여전한 동심이 매력인 우리집 늙지않는 아이",
       "category": "시니어",
+      "image_file": "seasoned-player.png",
       "types": [
         {
           "type_code": "OMS-EA",
@@ -2280,6 +2301,7 @@
       "name": "🌾 황혼의 대식가",
       "definition": "노년의 유일한 낙이 먹는 것인 우리집 어르신",
       "category": "시니어",
+      "image_file": "twilight-eater.png",
       "types": [
         {
           "type_code": "OLS-EA",
@@ -2352,6 +2374,7 @@
       "name": "🎪 황혼의 개그맨",
       "definition": "몸은 무거워도 마음은 여전한 우리집 개그맨",
       "category": "시니어",
+      "image_file": "dusk-comedian.png",
       "types": [
         {
           "type_code": "OMS-EA",

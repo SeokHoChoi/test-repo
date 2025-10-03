@@ -8,7 +8,7 @@ import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { InfoCard } from '@/components/InfoCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
-import { generateShareUrl, type NBTIResult } from '@/lib/utils';
+import { generateShareUrl, type NBTIResult, type SurveyAnswers, generateNBTIResultFromSurvey } from '@/lib/utils';
 import { getCompatibilityByPrefix, getPuppyImagePathByTitle } from '@/lib/nbti';
 import { getArchetypeImagePath } from '@/lib/nbti';
 import { Upload } from 'lucide-react';
@@ -20,14 +20,42 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const resultData = sessionStorage.getItem('nbtiResult');
-    if (resultData) {
-      setResult(JSON.parse(resultData));
-    } else {
-      // 결과 데이터가 없으면 랜딩 페이지로 리다이렉트
-      router.push('/landing');
-    }
-    setLoading(false);
+    const loadResult = async () => {
+      try {
+        // 1. 기존 결과 데이터가 있는지 확인
+        const resultData = sessionStorage.getItem('nbtiResult');
+        if (resultData) {
+          setResult(JSON.parse(resultData));
+          setLoading(false);
+          return;
+        }
+
+        // 2. 설문조사 답변 데이터가 있는지 확인
+        const surveyData = sessionStorage.getItem('surveyAnswers');
+        if (surveyData) {
+          const answers: SurveyAnswers = JSON.parse(surveyData);
+          const newResult = await generateNBTIResultFromSurvey(answers);
+          if (newResult) {
+            setResult(newResult);
+            // 새로운 결과를 sessionStorage에 저장
+            sessionStorage.setItem('nbtiResult', JSON.stringify(newResult));
+          } else {
+            console.error('NBTI 결과 생성 실패');
+            router.push('/landing');
+          }
+        } else {
+          // 설문조사 데이터도 없으면 랜딩 페이지로 리다이렉트
+          router.push('/landing');
+        }
+      } catch (error) {
+        console.error('결과 로드 실패:', error);
+        router.push('/landing');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadResult();
   }, [router]);
 
   const handleShare = () => {
@@ -84,11 +112,7 @@ export default function ResultsPage() {
         {/* 결과 카드 */}
         <NBTIResultCard
           dogName={result.dogName}
-          dogImage={(() => {
-            const id = result.nbti.id || '';
-            const displayPrefix = id.split('-')[0] || '';
-            return getArchetypeImagePath(displayPrefix);
-          })()}
+          dogImage={result.nbti.dogImage}
         >
           <div className="text-center">
             <div className="flex items-center justify-center gap-[4px] leading-none m-0">

@@ -1,6 +1,16 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { buildResultFromCode } from '@/lib/nbti';
+import {
+  BCS_MAPPING,
+  ACTIVITY_LEVEL_MAPPING,
+  LIFE_STAGE_MAPPING,
+  MEAL_ENJOYMENT_MAPPING,
+  EATING_SPEED_MAPPING,
+  ACTIVITY_QUESTION_MAPPING,
+  CODE_TO_LABEL_MAPPING,
+  LIFE_STAGE_IMAGE_PATHS
+} from '@/data/survey-mapping';
 // html-to-image는 타입 내보내기가 일정치 않아 any로 안전 처리
 type HtmlToImageOptions = {
   cacheBust?: boolean;
@@ -44,6 +54,29 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// ===== 설문조사 답변 타입 정의 =====
+export interface SurveyAnswers {
+  // 1-8번 질문 답변
+  q1: string; // BCS (체형 점수)
+  q2: string; // 활동수준
+  q3: string; // 생애주기
+  q4: string; // 식사를 얼마나 즐기나요?
+  q5: string; // 밥그릇을 비우는 속도
+  q6: string; // 산책할 때 반응
+  q7: string; // 놀이 패턴과 선호
+  q8: string; // 강아지 이름
+}
+
+// ===== 캐릭터 코드 타입 정의 =====
+export interface CharacterCode {
+  bcs: string;        // U, I, O
+  activityLevel: string; // L, M, H
+  lifeStage: string;   // P, A, S
+  eatingPattern: string; // E, C
+  activityPattern: string; // A, I
+  fullCode: string;    // 예: "ULS-EA"
+}
+
 // ===== NBTI 결과 타입 정의 =====
 export interface NBTIResult {
   dogName: string;
@@ -66,6 +99,105 @@ export interface NBTIResult {
   };
 }
 
+// ===== 설문조사 답변 매핑 함수들 =====
+/**
+ * 설문조사 답변을 캐릭터 코드로 변환
+ */
+export function mapSurveyToCharacterCode(answers: SurveyAnswers): CharacterCode {
+  // 1. BCS (체형 점수) 매핑
+  const bcs = mapBCS(answers.q1);
+
+  // 2. 활동수준 매핑
+  const activityLevel = mapActivityLevel(answers.q2);
+
+  // 3. 생애주기 매핑
+  const lifeStage = mapLifeStage(answers.q3);
+
+  // 4. 식사패턴 매핑 (E/C)
+  const eatingPattern = mapEatingPattern(answers.q4, answers.q5);
+
+  // 5. 활동패턴 매핑 (A/I)
+  const activityPattern = mapActivityPattern(answers.q6, answers.q7);
+
+  // 6. 최종 코드 조합
+  const fullCode = `${bcs}${activityLevel}${lifeStage}-${eatingPattern}${activityPattern}`;
+
+  return {
+    bcs,
+    activityLevel,
+    lifeStage,
+    eatingPattern,
+    activityPattern,
+    fullCode
+  };
+}
+
+/**
+ * BCS (체형 점수) 매핑
+ */
+function mapBCS(bcsAnswer: string): string {
+  return BCS_MAPPING[bcsAnswer as keyof typeof BCS_MAPPING] || "I";
+}
+
+/**
+ * 활동수준 매핑
+ */
+function mapActivityLevel(activityAnswer: string): string {
+  return ACTIVITY_LEVEL_MAPPING[activityAnswer as keyof typeof ACTIVITY_LEVEL_MAPPING] || "M";
+}
+
+/**
+ * 생애주기 매핑
+ */
+function mapLifeStage(lifeStageAnswer: string): string {
+  return LIFE_STAGE_MAPPING[lifeStageAnswer as keyof typeof LIFE_STAGE_MAPPING] || "A";
+}
+
+/**
+ * 식사패턴 매핑 (E/C)
+ * 두 질문 중 하나라도 E이면 E, 모두 C이면 C
+ */
+function mapEatingPattern(q4: string, q5: string): string {
+  const q4Result = mapEatingQuestion(q4);
+  const q5Result = mapEatingQuestion(q5);
+
+  // 하나라도 E이면 E, 모두 C이면 C
+  return (q4Result === "E" || q5Result === "E") ? "E" : "C";
+}
+
+/**
+ * 개별 식사 질문 매핑
+ */
+function mapEatingQuestion(answer: string): string {
+  // 식사 즐거움과 식사 속도를 구분해서 매핑
+  if (MEAL_ENJOYMENT_MAPPING[answer as keyof typeof MEAL_ENJOYMENT_MAPPING]) {
+    return MEAL_ENJOYMENT_MAPPING[answer as keyof typeof MEAL_ENJOYMENT_MAPPING];
+  }
+  if (EATING_SPEED_MAPPING[answer as keyof typeof EATING_SPEED_MAPPING]) {
+    return EATING_SPEED_MAPPING[answer as keyof typeof EATING_SPEED_MAPPING];
+  }
+  return "C";
+}
+
+/**
+ * 활동패턴 매핑 (A/I)
+ * 두 질문 중 하나라도 A이면 A, 모두 I이면 I
+ */
+function mapActivityPattern(q6: string, q7: string): string {
+  const q6Result = mapActivityQuestion(q6);
+  const q7Result = mapActivityQuestion(q7);
+
+  // 하나라도 A이면 A, 모두 I이면 I
+  return (q6Result === "A" || q7Result === "A") ? "A" : "I";
+}
+
+/**
+ * 개별 활동 질문 매핑
+ */
+function mapActivityQuestion(answer: string): string {
+  return ACTIVITY_QUESTION_MAPPING[answer as keyof typeof ACTIVITY_QUESTION_MAPPING] || "I";
+}
+
 // ===== URL 관련 유틸리티 =====
 /**
  * 결과 데이터를 URL 파라미터로 인코딩
@@ -84,6 +216,172 @@ export function decodeResultFromUrl(encodedResult: string): NBTIResult | null {
     console.error('결과 데이터 파싱 실패:', error);
     return null;
   }
+}
+
+/**
+ * 캐릭터 코드로부터 NBTI 페르소나 데이터 찾기
+ */
+export async function findPersonaByCharacterCode(characterCode: string): Promise<any | null> {
+  try {
+    const personasData = await import('@/data/nbti-personas.json');
+
+    // 모든 페르소나에서 해당 type_code 찾기
+    for (const persona of personasData.personas) {
+      for (const type of persona.types) {
+        if (type.type_code === characterCode) {
+          return {
+            persona: persona,
+            type: type
+          };
+        }
+      }
+    }
+
+    console.error(`캐릭터 코드 ${characterCode}에 해당하는 페르소나를 찾을 수 없습니다.`);
+    return null;
+  } catch (error) {
+    console.error('페르소나 데이터 로드 실패:', error);
+    return null;
+  }
+}
+
+/**
+ * 설문조사 답변으로부터 완전한 NBTI 결과 생성
+ */
+export async function generateNBTIResultFromSurvey(answers: SurveyAnswers): Promise<NBTIResult | null> {
+  try {
+    // 1. 설문조사 답변을 캐릭터 코드로 변환
+    const characterCode = mapSurveyToCharacterCode(answers);
+
+    // 2. 캐릭터 코드로 페르소나 데이터 찾기
+    const personaData = await findPersonaByCharacterCode(characterCode.fullCode);
+
+    if (!personaData) {
+      console.error('페르소나 데이터를 찾을 수 없습니다.');
+      return null;
+    }
+
+    // 3. NBTI 결과 객체 생성
+    const result: NBTIResult = {
+      dogName: answers.q8, // 강아지 이름
+      nbti: {
+        id: characterCode.fullCode,
+        name: personaData.persona.name,
+        type: personaData.type.type_label,
+        definition: personaData.persona.definition, // persona의 definition 사용
+        description: personaData.type.description,
+        detail: personaData.type.description.join('\n\n'),
+        dogImage: getPersonaImagePath(personaData.persona.image_file, characterCode.lifeStage),
+        tips: personaData.type.management_tips
+      },
+      basicInfo: {
+        lifeStage: getLifeStageLabel(characterCode.lifeStage),
+        bcsCategory: getBCSLabel(characterCode.bcs),
+        activityLevel: getActivityLevelLabel(characterCode.activityLevel),
+        activityPattern: getActivityPatternLabel(characterCode.activityPattern),
+        eatingPattern: getEatingPatternLabel(characterCode.eatingPattern)
+      }
+    };
+
+    return result;
+  } catch (error) {
+    console.error('NBTI 결과 생성 실패:', error);
+    return null;
+  }
+}
+
+/**
+ * 생애주기 코드를 라벨로 변환
+ */
+function getLifeStageLabel(lifeStage: string): string {
+  return CODE_TO_LABEL_MAPPING.LIFE_STAGE[lifeStage as keyof typeof CODE_TO_LABEL_MAPPING.LIFE_STAGE] || "성견";
+}
+
+/**
+ * BCS 코드를 라벨로 변환
+ */
+function getBCSLabel(bcs: string): string {
+  return CODE_TO_LABEL_MAPPING.BCS[bcs as keyof typeof CODE_TO_LABEL_MAPPING.BCS] || "이상적";
+}
+
+/**
+ * 활동수준 코드를 라벨로 변환
+ */
+function getActivityLevelLabel(activityLevel: string): string {
+  return CODE_TO_LABEL_MAPPING.ACTIVITY_LEVEL[activityLevel as keyof typeof CODE_TO_LABEL_MAPPING.ACTIVITY_LEVEL] || "보통활동";
+}
+
+/**
+ * 활동패턴 코드를 라벨로 변환
+ */
+function getActivityPatternLabel(activityPattern: string): string {
+  return CODE_TO_LABEL_MAPPING.ACTIVITY_PATTERN[activityPattern as keyof typeof CODE_TO_LABEL_MAPPING.ACTIVITY_PATTERN] || "독립형";
+}
+
+/**
+ * 식사패턴 코드를 라벨로 변환
+ */
+function getEatingPatternLabel(eatingPattern: string): string {
+  return CODE_TO_LABEL_MAPPING.EATING_PATTERN[eatingPattern as keyof typeof CODE_TO_LABEL_MAPPING.EATING_PATTERN] || "신중형";
+}
+
+/**
+ * 페르소나별 이미지 경로 반환
+ */
+function getPersonaImagePath(imageFile: string, lifeStage: string): string {
+  if (!imageFile) {
+    // image_file이 없으면 기본 경로 사용
+    return LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
+  }
+
+  // 생애주기에 따른 폴더 경로 결정
+  const folderPath = LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
+
+  return `${folderPath}${imageFile}`;
+}
+
+// ===== 매핑 테스트 및 디버깅 유틸리티 =====
+/**
+ * 설문조사 답변 매핑 테스트 함수 (개발/디버깅용)
+ */
+export function testSurveyMapping(answers: SurveyAnswers): {
+  characterCode: CharacterCode;
+  mappingSteps: {
+    bcs: { answer: string; code: string };
+    activityLevel: { answer: string; code: string };
+    lifeStage: { answer: string; code: string };
+    eatingPattern: {
+      q4: { answer: string; code: string };
+      q5: { answer: string; code: string };
+      result: string;
+    };
+    activityPattern: {
+      q6: { answer: string; code: string };
+      q7: { answer: string; code: string };
+      result: string;
+    };
+  };
+} {
+  const characterCode = mapSurveyToCharacterCode(answers);
+
+  return {
+    characterCode,
+    mappingSteps: {
+      bcs: { answer: answers.q1, code: characterCode.bcs },
+      activityLevel: { answer: answers.q2, code: characterCode.activityLevel },
+      lifeStage: { answer: answers.q3, code: characterCode.lifeStage },
+      eatingPattern: {
+        q4: { answer: answers.q4, code: mapEatingQuestion(answers.q4) },
+        q5: { answer: answers.q5, code: mapEatingQuestion(answers.q5) },
+        result: characterCode.eatingPattern
+      },
+      activityPattern: {
+        q6: { answer: answers.q6, code: mapActivityQuestion(answers.q6) },
+        q7: { answer: answers.q7, code: mapActivityQuestion(answers.q7) },
+        result: characterCode.activityPattern
+      }
+    }
+  };
 }
 
 /**

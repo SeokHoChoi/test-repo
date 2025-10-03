@@ -116,7 +116,7 @@ export default function BasicQuestionsPage() {
               variant="input"
               size="md"
               onClick={() => setShowCalendar(true)}
-              className={`text-left !h-[48px] w-full px-4 border border-gray-200 rounded-xl ${formData.birthDate ? '!text-[#343434]' : '!text-gray-400'}`}
+              className={`text-left !h-[48px] w-full px-4 border border-gray-200 rounded-xl flex items-center ${formData.birthDate ? '!text-[#343434]' : '!text-gray-400'}`}
             >
               {formData.birthDate
                 ? format(formData.birthDate, 'yyyy년 M월 d일', { locale: ko })

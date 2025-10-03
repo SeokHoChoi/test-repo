@@ -1,6 +1,7 @@
 import { type NBTIResult } from './utils';
 import nbtiData from '@/data/nbti-data.json';
 import personasData from '@/data/nbti-personas.json';
+import { LIFE_STAGE_IMAGE_PATHS } from '@/data/survey-mapping';
 
 // ===== 입력 타입 =====
 export interface BasicAnswers {
@@ -15,6 +16,19 @@ export interface PersonalAnswers {
   eatingSpeed: 'fast' | 'normal' | 'slow';
   walkReaction: 'excited' | 'normal' | 'reluctant';
   playPattern: 'social' | 'independent' | 'observer';
+}
+
+// ===== 이미지 경로 함수 =====
+function getPersonaImagePath(imageFile: string, lifeStage: string): string {
+  if (!imageFile) {
+    // image_file이 없으면 기본 경로 사용
+    return LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
+  }
+
+  // 생애주기에 따른 폴더 경로 결정
+  const folderPath = LIFE_STAGE_IMAGE_PATHS[lifeStage as keyof typeof LIFE_STAGE_IMAGE_PATHS] || "/img/nbti-dog/adult/";
+
+  return `${folderPath}${imageFile}`;
 }
 
 // ===== Letter 매핑 =====
@@ -34,10 +48,23 @@ function mapActivityLevelLetter(level: BasicAnswers['activityLevel']): 'L' | 'M'
 function mapLifeStageLetter(birthDateIso: string): 'P' | 'A' | 'S' {
   const birth = new Date(birthDateIso);
   const now = new Date();
-  const years = now.getFullYear() - birth.getFullYear() - ((now.getMonth() < birth.getMonth() || (now.getMonth() === birth.getMonth() && now.getDate() < birth.getDate())) ? 1 : 0);
-  if (years <= 1) return 'P';
-  if (years >= 7) return 'S';
-  return 'A';
+
+  // 미래 날짜인 경우 퍼피로 분류
+  if (birth > now) return 'P';
+
+  // 나이 계산 (정확한 계산)
+  const years = now.getFullYear() - birth.getFullYear();
+  const months = now.getMonth() - birth.getMonth();
+  const days = now.getDate() - birth.getDate();
+
+  // 만 나이 계산
+  let ageInMonths = years * 12 + months;
+  if (days < 0) ageInMonths -= 1;
+
+  // 생애주기 분류
+  if (ageInMonths <= 12) return 'P';  // 12개월 이하: 퍼피
+  if (ageInMonths >= 84) return 'S';  // 84개월(7세) 이상: 시니어
+  return 'A';  // 그 외: 성견
 }
 
 function mapEatingPattern(personal: PersonalAnswers): 'E' | 'C' {
@@ -145,7 +172,7 @@ export function calculateNBTIFromAnswers(basic: BasicAnswers, personal: Personal
         definition: persona.definition,
         description: Array.isArray(type.description) ? type.description : [type.description],
         detail: Array.isArray(type.description) ? type.description.join(' ') : type.description,
-        dogImage: '/img/results/dog-1.png',
+        dogImage: getPersonaImagePath(persona.image_file || '', lifeStageLetter),
         tips: type.management_tips,
       },
       basicInfo: {
@@ -286,7 +313,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
         definition: persona.definition,
         description: Array.isArray(type.description) ? type.description : [type.description],
         detail: Array.isArray(type.description) ? type.description.join(' ') : type.description,
-        dogImage: '/img/results/dog-1.png',
+        dogImage: getPersonaImagePath(persona.image_file || '', lifeStage),
         tips: type.management_tips,
       },
       basicInfo: {
@@ -325,7 +352,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
       definition: archetypeInfo.oneLine || '',
       description: behaviorData.description,
       detail,
-      dogImage: '/img/results/dog-1.png',
+      dogImage: getPersonaImagePath('', lifeStage),
       tips: allTips,
     },
     basicInfo: {

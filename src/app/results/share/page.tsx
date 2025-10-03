@@ -14,7 +14,9 @@ import {
   shareToX,
   shareToInstagram,
   copyToClipboard,
-  type NBTIResult
+  type NBTIResult,
+  type SurveyAnswers,
+  generateNBTIResultFromSurvey
 } from '@/lib/utils';
 import Image from 'next/image';
 import { getArchetypeImagePath } from '@/lib/nbti';
@@ -28,13 +30,47 @@ export default function SharePage() {
   const [toast, setToast] = useState<string>('');
 
   useEffect(() => {
-    const resultData = getResultFromUrlOrStorage();
-    if (resultData) {
-      setResult(resultData);
+    const loadResult = async () => {
+      try {
+        // 1. 기존 결과 데이터가 있는지 확인
+        const resultData = getResultFromUrlOrStorage();
+        if (resultData) {
+          setResult(resultData);
+          return;
+        }
+
+        // 2. 설문조사 답변 데이터가 있는지 확인
+        const surveyData = sessionStorage.getItem('surveyAnswers');
+        if (surveyData) {
+          const answers: SurveyAnswers = JSON.parse(surveyData);
+          const newResult = await generateNBTIResultFromSurvey(answers);
+          if (newResult) {
+            setResult(newResult);
+            // 새로운 결과를 sessionStorage에 저장
+            sessionStorage.setItem('nbtiResult', JSON.stringify(newResult));
+          } else {
+            console.error('NBTI 결과 생성 실패');
+            router.push('/landing');
+          }
+        } else {
+          // 설문조사 데이터도 없으면 랜딩 페이지로 리다이렉트
+          router.push('/landing');
+        }
+      } catch (error) {
+        console.error('결과 로드 실패:', error);
+        router.push('/landing');
+      }
+    };
+
+    loadResult();
+  }, [router]);
+
+  useEffect(() => {
+    if (result) {
 
       // 동적 메타데이터 설정
-      const title = `🐶 ${resultData.dogName}의 NBTI는 ${resultData.nbti.name}!`;
-      const description = `${resultData.nbti.id} (${resultData.nbti.type})\n"${resultData.nbti.definition}"`;
+      const title = `🐶 ${result.dogName}의 NBTI는 ${result.nbti.name}!`;
+      const description = `${result.nbti.id} (${result.nbti.type})\n"${result.nbti.definition}"`;
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://test-repo-qux1.vercel.app');
       const imageUrl = `${baseUrl}/img/kakao-share/kakao-test-share-800x400.png`;
 
@@ -374,11 +410,7 @@ export default function SharePage() {
           <div className="mb-5 select-none" style={{ WebkitTouchCallout: 'default', display: renderedImageUrl ? 'none' : 'block' }}>
             <NBTIResultCard
               dogName={result.dogName}
-              dogImage={(() => {
-                const id = result.nbti.id || '';
-                const displayPrefix = id.split('-')[0] || '';
-                return getArchetypeImagePath(displayPrefix);
-              })()}
+              dogImage={result.nbti.dogImage}
               preferPlainImg
             >
               <div className="text-center">

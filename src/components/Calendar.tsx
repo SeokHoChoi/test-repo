@@ -142,18 +142,23 @@ export function Calendar({ isOpen, onClose, onSelectDate, selectedDate }: Calend
           {days.map((day) => {
             const isSelected = selectedDate && isSameDay(day, selectedDate);
             const isCurrentMonth = isSameMonth(day, currentMonth);
+            const isFuture = day > new Date(); // 미래 날짜 체크
+            const isDisabled = isFuture; // 미래 날짜는 비활성화
 
             return (
               <button
                 key={day.toISOString()}
-                onClick={() => handleDateClick(day)}
+                onClick={() => !isDisabled && handleDateClick(day)}
+                disabled={isDisabled}
                 className={`
                   aspect-square flex items-center justify-center text-sm rounded-lg transition-colors
-                  ${isSelected
-                    ? 'bg-blue-600 text-white'
-                    : isCurrentMonth
-                      ? 'text-gray-900 hover:bg-gray-100'
-                      : 'text-gray-400'
+                  ${isDisabled
+                    ? 'text-gray-300 cursor-not-allowed'
+                    : isSelected
+                      ? 'bg-blue-600 text-white'
+                      : isCurrentMonth
+                        ? 'text-gray-900 hover:bg-gray-100'
+                        : 'text-gray-400'
                   }
                 `}
               >
