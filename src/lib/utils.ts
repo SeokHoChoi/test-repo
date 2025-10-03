@@ -69,7 +69,7 @@ export interface SurveyAnswers {
 
 // ===== 캐릭터 코드 타입 정의 =====
 export interface CharacterCode {
-  bcs: string;        // U, I, O
+  bcs: string;        // U, I, W, O
   activityLevel: string; // L, M, H
   lifeStage: string;   // P, A, S
   eatingPattern: string; // E, C
