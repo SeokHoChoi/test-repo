@@ -225,18 +225,27 @@ export default function SharePage() {
                 (img as HTMLElement).style.display = 'block';
               });
 
-              // 대제목을 위로 땡기기
-              const titleSection = clonedElement.querySelector('div.text-center.mb-4');
-              if (titleSection) {
-                (titleSection as HTMLElement).style.marginTop = '-14px';
-                (titleSection as HTMLElement).style.paddingTop = '0px';
+              // 제목/젤리대학교와 강아지 이미지 사이 간격 제거에 맞춰 보정
+              // 1) 제목 컨테이너 하단 여백 제거
+              const titleHeading = clonedElement.querySelector('h2.text-white');
+              if (titleHeading && titleHeading.parentElement) {
+                const headingWrap = titleHeading.parentElement as HTMLElement;
+                headingWrap.style.marginTop = '0px';
+                headingWrap.style.marginBottom = '0px';
+                headingWrap.style.paddingTop = '0px';
               }
 
               // @젤리대학교 텍스트에 margin-top 추가
               const jellyText = clonedElement.querySelector('p.text-\\[\\#FFFFFF\\]');
               if (jellyText) {
-                (jellyText as HTMLElement).style.marginTop = '14.8px';
-                (jellyText as HTMLElement).style.marginBottom = '24px';
+                (jellyText as HTMLElement).style.marginTop = '4px';
+                (jellyText as HTMLElement).style.marginBottom = '0px';
+              }
+
+              // 3) 강아지 이미지 래퍼 상단 여백 제거 (제목과 딱 붙도록)
+              const imageWrap = clonedElement.querySelector('div.flex.justify-center');
+              if (imageWrap) {
+                (imageWrap as HTMLElement).style.marginTop = '0px';
               }
 
               // 하얀 카드 내부 요소들 조정
@@ -257,6 +266,13 @@ export default function SharePage() {
               const borderElement = clonedElement.querySelector('.h-px');
               if (borderElement) {
                 (borderElement as HTMLElement).style.marginTop = '12px';
+              }
+
+              // 4) 하얀 카드 상단 겹침(-mt) 값을 실제 레이아웃과 동기화
+              const whiteCard = clonedElement.querySelector('div.bg-white');
+              if (whiteCard) {
+                // Tailwind -mt-20 => -5rem => -80px
+                (whiteCard as HTMLElement).style.marginTop = '-80px';
               }
 
               // 따옴표 텍스트와 보더 간격 좁히기
