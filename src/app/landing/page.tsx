@@ -5,7 +5,7 @@ import { Upload } from 'lucide-react';
 import Image from 'next/image';
 import { Metadata } from 'next';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://test-repo-qux1.vercel.app';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://nbti.jellyuniversity.com';
 
 export const metadata: Metadata = {
   title: "우리 아이의 NBTI는? | Jelly Univ",

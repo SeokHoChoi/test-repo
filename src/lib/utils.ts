@@ -567,7 +567,7 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
   (async () => {
     try {
       const Kakao = await loadSdk();
-      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
+      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://nbti.jellyuniversity.com')) || 'https://nbti.jellyuniversity.com';
 
       // 1:1 이미지 (결과 공유용) - 정적 이미지 사용
       const resultImageUrl = `${origin}/img/kakao-share/kakao-result-share-640x640.png`;
@@ -667,7 +667,7 @@ export function shareKakaoTest(): void {
   (async () => {
     try {
       const Kakao = await loadSdk();
-      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : '')) || '';
+      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://nbti.jellyuniversity.com')) || 'https://nbti.jellyuniversity.com';
 
       // 2:1 이미지 (테스트 홍보용)
       const testImageUrl = `${origin}/img/kakao-share/kakao-test-share-800x400.png`;
