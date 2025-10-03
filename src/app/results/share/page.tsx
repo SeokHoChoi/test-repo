@@ -118,18 +118,14 @@ export default function SharePage() {
           return;
         }
 
-        console.log('캡쳐할 요소 찾음:', cardElement);
 
         // 모든 이미지가 완전히 로드될 때까지 대기
         const images = cardElement.querySelectorAll('img');
-        console.log('이미지 개수:', images.length);
 
         for (const img of images) {
-          console.log('이미지 로딩 상태:', img.complete, img.src);
           if (!img.complete) {
             await new Promise((resolve) => {
               img.onload = () => {
-                console.log('이미지 로드 완료:', img.src);
                 resolve(img);
               };
               img.onerror = () => {
@@ -169,19 +165,15 @@ export default function SharePage() {
             windowHeight: 600
           }),
           onclone: (clonedDoc) => {
-            console.log('클론된 문서 생성됨');
 
             // 클론된 문서에서 이미지가 보이도록 설정
             const clonedElement = clonedDoc.querySelector('[data-testid="nbti-result-card"]') as HTMLElement;
             if (clonedElement) {
-              console.log('클론된 요소 찾음:', clonedElement);
 
               // 모든 이미지가 보이도록 설정
               const allImages = clonedElement.querySelectorAll('img');
-              console.log('클론된 이미지 개수:', allImages.length);
 
               allImages.forEach((img, index) => {
-                console.log(`이미지 ${index} 처리 중:`, img.src);
                 (img as HTMLElement).style.visibility = 'visible';
                 (img as HTMLElement).style.opacity = '1';
                 (img as HTMLElement).style.display = 'block';
@@ -249,8 +241,6 @@ export default function SharePage() {
           }
         });
 
-        console.log('캔버스 생성됨:', canvas);
-
         // Canvas에 둥글기 적용
         const ctx = canvas.getContext('2d');
         if (ctx) {
@@ -262,7 +252,6 @@ export default function SharePage() {
 
         // Canvas를 Data URL로 변환
         const dataUrl = canvas.toDataURL('image/png');
-        console.log('이미지 URL 생성됨:', dataUrl.substring(0, 100) + '...');
 
         setRenderedImageUrl(dataUrl);
         setToast('이미지 준비완료!');
