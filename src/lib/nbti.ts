@@ -21,10 +21,11 @@ export interface PersonalAnswers {
 // ===== 이미지 경로 함수 =====
 
 // ===== Letter 매핑 =====
-function mapBcsLetter(bcs: BasicAnswers['bcs']): 'U' | 'I' | 'O' {
+function mapBcsLetter(bcs: BasicAnswers['bcs']): 'U' | 'I' | 'W' | 'O' {
   if (bcs === 'skinny') return 'U';
   if (bcs === 'just-right') return 'I';
-  // husky/chubby -> Overweight/Obese: 둘 다 O
+  // husky -> Well-fed(W), chubby -> Obese(O)
+  if (bcs === 'husky') return 'W';
   return 'O';
 }
 
@@ -72,13 +73,31 @@ function mapActivityPattern(personal: PersonalAnswers): 'A' | 'I' {
 
 // ===== 페르소나 데이터 기반 콘텐츠 생성 =====
 function getPersonaByTypeCode(typeCode: string) {
+  // 1차: 그대로 매칭
   for (const persona of personasData.personas) {
     const matchingType = persona.types.find(type => type.type_code === typeCode);
     if (matchingType) {
-      return {
-        persona,
-        type: matchingType
-      };
+      return { persona, type: matchingType };
+    }
+  }
+  // 2차 폴백: W→O (전환 중 호환)
+  if (typeCode[0] === 'W') {
+    const legacy = ('O' + typeCode.slice(1));
+    for (const persona of personasData.personas) {
+      const matchingType = persona.types.find(type => type.type_code === legacy);
+      if (matchingType) {
+        return { persona, type: matchingType };
+      }
+    }
+  }
+  // 3차 폴백: O(과체중일 가능성)→W 시도
+  if (typeCode[0] === 'O') {
+    const migrated = ('W' + typeCode.slice(1));
+    for (const persona of personasData.personas) {
+      const matchingType = persona.types.find(type => type.type_code === migrated);
+      if (matchingType) {
+        return { persona, type: matchingType };
+      }
     }
   }
   return null;
@@ -166,7 +185,7 @@ export function calculateNBTIFromAnswers(basic: BasicAnswers, personal: Personal
       },
       basicInfo: {
         lifeStage: lifeStageLetter === 'P' ? 'puppy' : lifeStageLetter === 'S' ? 'senior' : 'adult',
-        bcsCategory: bcsLetter === 'U' ? 'underweight' : bcsLetter === 'I' ? 'ideal' : 'overweight',
+        bcsCategory: bcsLetter === 'U' ? 'underweight' : bcsLetter === 'I' ? 'ideal' : bcsLetter === 'W' ? 'overweight' : 'obese',
         activityLevel: basic.activityLevel,
         activityPattern: actPatternLetter === 'A' ? 'social' : 'independent',
         eatingPattern: eatLetter === 'E' ? 'enthusiastic' : 'cautious',
@@ -206,7 +225,7 @@ export function calculateNBTIFromAnswers(basic: BasicAnswers, personal: Personal
     },
     basicInfo: {
       lifeStage: lifeStageLetter === 'P' ? 'puppy' : lifeStageLetter === 'S' ? 'senior' : 'adult',
-      bcsCategory: bcsLetter === 'U' ? 'underweight' : bcsLetter === 'I' ? 'ideal' : 'overweight',
+      bcsCategory: bcsLetter === 'U' ? 'underweight' : bcsLetter === 'I' ? 'ideal' : bcsLetter === 'W' ? 'overweight' : 'obese',
       activityLevel: basic.activityLevel,
       activityPattern: actPatternLetter === 'A' ? 'social' : 'independent',
       eatingPattern: eatLetter === 'E' ? 'enthusiastic' : 'cautious',
@@ -244,13 +263,38 @@ export function getArchetypeImagePath(typeCode: string): string {
   const lifeStage = displayPrefix.endsWith('P') ? 'puppy' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
 
   const imageMap = nbtiData.images[lifeStage];
-  const imagePath = (imageMap as Record<string, string>)[typeCode];
+  let imagePath = (imageMap as Record<string, string>)[typeCode];
 
   if (imagePath) return imagePath;
 
+  // 폴백: W→O (전환 중 호환)
+  if (typeCode[0] === 'W') {
+    const legacy = 'O' + typeCode.slice(1);
+    imagePath = (imageMap as Record<string, string>)[legacy];
+    if (imagePath) return imagePath;
+  }
+  // 폴백: O→W (데이터가 이미 이행된 경우)
+  if (typeCode[0] === 'O') {
+    const migrated = 'W' + typeCode.slice(1);
+    imagePath = (imageMap as Record<string, string>)[migrated];
+    if (imagePath) return imagePath;
+  }
+
   // 폴백: displayPrefix로 시도
-  const fallbackPath = (imageMap as Record<string, string>)[displayPrefix];
+  let fallbackPath = (imageMap as Record<string, string>)[displayPrefix];
   if (fallbackPath) return fallbackPath;
+
+  // displayPrefix 폴백도 W/O 상호 변환 시도
+  if (displayPrefix[0] === 'W') {
+    const legacyPrefix = 'O' + displayPrefix.slice(1);
+    fallbackPath = (imageMap as Record<string, string>)[legacyPrefix];
+    if (fallbackPath) return fallbackPath;
+  }
+  if (displayPrefix[0] === 'O') {
+    const migratedPrefix = 'W' + displayPrefix.slice(1);
+    fallbackPath = (imageMap as Record<string, string>)[migratedPrefix];
+    if (fallbackPath) return fallbackPath;
+  }
 
   // 최종 폴백: adult 기본 이미지
   return nbtiData.images.adult.ILA;
@@ -319,7 +363,10 @@ export function getPersonaTypesByCode(typeCode: string) {
 
 // ===== Compact Code → Result (for short URLs) =====
 export function buildResultFromCode(code: string, dogName: string): NBTIResult | null {
-  if (!code || !/^[UIO][LMH][PAS]-[EC][AI]$/.test(code)) return null;
+  // 허용 패턴: U/I/W/O + L/M/H + P/A/S - (E/C)(A/I)
+  if (!code || !/^[UIWO][LMH][PAS]-[EC][AI]$/.test(code)) {
+    return null;
+  }
   const [displayPrefix, pair] = code.split('-') as [string, 'EA' | 'EI' | 'CA' | 'CI'];
   const typeCode = code;
 
@@ -330,7 +377,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
     const { persona, type } = personaData;
 
     const lifeStage = displayPrefix.endsWith('P') ? 'puppy' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
-    const bcsCategory = displayPrefix[0] === 'U' ? 'underweight' : displayPrefix[0] === 'I' ? 'ideal' : 'overweight';
+    const bcsCategory = displayPrefix[0] === 'U' ? 'underweight' : displayPrefix[0] === 'I' ? 'ideal' : displayPrefix[0] === 'W' ? 'overweight' : 'obese';
     const activityLevel = displayPrefix[1] === 'L' ? 'low' : displayPrefix[1] === 'H' ? 'high' : 'medium';
 
     return {
@@ -361,7 +408,7 @@ export function buildResultFromCode(code: string, dogName: string): NBTIResult |
   const detail = archetypeInfo.description || `${behaviorData.detailStart}! ${behaviorData.detailSecondSentence}`;
 
   const lifeStage = displayPrefix.endsWith('P') ? 'puppy' : displayPrefix.endsWith('S') ? 'senior' : 'adult';
-  const bcsCategory = displayPrefix[0] === 'U' ? 'underweight' : displayPrefix[0] === 'I' ? 'ideal' : 'overweight';
+  const bcsCategory = displayPrefix[0] === 'U' ? 'underweight' : displayPrefix[0] === 'I' ? 'ideal' : displayPrefix[0] === 'W' ? 'overweight' : 'obese';
   const activityLevel = displayPrefix[1] === 'L' ? 'low' : displayPrefix[1] === 'H' ? 'high' : 'medium';
 
   const allTips = archetypeInfo.healthTips.length > 0

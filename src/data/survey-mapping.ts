@@ -7,7 +7,7 @@
 export const BCS_MAPPING = {
   "저체중": "U",
   "이상적": "I",
-  "과체중": "O",
+  "과체중": "W",
   "비만": "O"
 } as const;
 
@@ -74,7 +74,8 @@ export const CODE_TO_LABEL_MAPPING = {
   BCS: {
     "U": "저체중",
     "I": "이상적",
-    "O": "과체중"
+    "W": "과체중",
+    "O": "비만"
   },
 
   // 활동수준 코드 → 라벨

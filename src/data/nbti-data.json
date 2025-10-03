@@ -149,7 +149,7 @@
         "에너지 소비가 많으니 하루 2-3회 나눠 급여하세요."
       ]
     },
-    "OLA": {
+    "WLA": {
       "name": "여유로운 휘게족",
       "lifeStage": "adult",
       "bcs": "overweight",
@@ -160,7 +160,7 @@
         "포만감을 주는 고섬유질 사료를 고려하세요."
       ]
     },
-    "OMA": {
+    "WMA": {
       "name": "행복한 미식가",
       "lifeStage": "adult",
       "bcs": "overweight",
@@ -171,7 +171,7 @@
         "간식을 줄이고 건강한 간식으로 대체하세요."
       ]
     },
-    "OHA": {
+    "WHA": {
       "name": "중량급 보디빌더",
       "lifeStage": "adult",
       "bcs": "overweight",
@@ -215,7 +215,7 @@
         "회복을 돕기 위해 오메가-3, 글루코사민 등을 고려하세요."
       ]
     },
-    "OLS": {
+    "WLS": {
       "name": "펫페어 큰손",
       "lifeStage": "senior",
       "bcs": "overweight",
@@ -226,7 +226,7 @@
         "무리하지 않는 선에서 가벼운 산책을 늘려보세요."
       ]
     },
-    "OMS": {
+    "WMS": {
       "name": "노련한 놀이꾼",
       "lifeStage": "senior",
       "bcs": "overweight",
@@ -237,7 +237,7 @@
         "저지방 고단백 시니어 사료를 고려하세요."
       ]
     },
-    "OHS": {
+    "WHS": {
       "name": "황혼의 개그맨",
       "lifeStage": "senior",
       "bcs": "overweight",
@@ -311,7 +311,7 @@
           "reason": "운동 vs 식탐 우선순위 충돌"
         }
       },
-      "OLA": {
+      "WLA": {
         "best": {
           "title": "눕방 꿈나무",
           "reason": "과체중+저활동+여유로운 성향"
@@ -321,7 +321,7 @@
           "reason": "여유 vs 폭발적 에너지 상극"
         }
       },
-      "OMA": {
+      "WMA": {
         "best": {
           "title": "꼬마 먹방러",
           "reason": "과체중+먹는 즐거움 공유"
@@ -331,7 +331,7 @@
           "reason": "식탐 vs 절제된 식사 충돌"
         }
       },
-      "OHA": {
+      "WHA": {
         "best": {
           "title": "꼬마 먹방러",
           "reason": "과체중+고활동 체질 유사"
@@ -373,7 +373,7 @@
           "reason": "운동 정신 vs 식탐 우선순위"
         }
       },
-      "OLS": {
+      "WLS": {
         "best": {
           "title": "눕방 꿈나무",
           "reason": "과체중+저활동+안락함 추구"
@@ -383,7 +383,7 @@
           "reason": "여유 vs 에너지 폭발 상극"
         }
       },
-      "OMS": {
+      "WMS": {
         "best": {
           "title": "꼬마 먹방러",
           "reason": "과체중+활동적+놀이 정신"
@@ -393,7 +393,7 @@
           "reason": "동심 vs 조숙함 차이"
         }
       },
-      "OHS": {
+      "WHS": {
         "best": {
           "title": "꼬마 먹방러",
           "reason": "과체중+활동적+놀이 정신"
@@ -413,9 +413,9 @@
       "ULA": "/img/nbti-dog/adult/dog-model.png",
       "UMA": "/img/nbti-dog/adult/swift-cheetah.png",
       "UHA": "/img/nbti-dog/adult/ultra-runner.png",
-      "OLA": "/img/nbti-dog/adult/treat-king.png",
-      "OMA": "/img/nbti-dog/adult/happy-gourmet.png",
-      "OHA": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
+      "WLA": "/img/nbti-dog/adult/treat-king.png",
+      "WMA": "/img/nbti-dog/adult/happy-gourmet.png",
+      "WHA": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
       "ILA-EA": "/img/nbti-dog/adult/perfect-roommate.png",
       "ILA-EI": "/img/nbti-dog/adult/perfect-roommate.png",
       "ILA-CA": "/img/nbti-dog/adult/perfect-roommate.png",
@@ -440,26 +440,26 @@
       "UHA-EI": "/img/nbti-dog/adult/ultra-runner.png",
       "UHA-CA": "/img/nbti-dog/adult/ultra-runner.png",
       "UHA-CI": "/img/nbti-dog/adult/ultra-runner.png",
-      "OLA-EA": "/img/nbti-dog/adult/treat-king.png",
-      "OLA-EI": "/img/nbti-dog/adult/treat-king.png",
-      "OLA-CA": "/img/nbti-dog/adult/treat-king.png",
-      "OLA-CI": "/img/nbti-dog/adult/treat-king.png",
-      "OMA-EA": "/img/nbti-dog/adult/happy-gourmet.png",
-      "OMA-EI": "/img/nbti-dog/adult/happy-gourmet.png",
-      "OMA-CA": "/img/nbti-dog/adult/happy-gourmet.png",
-      "OMA-CI": "/img/nbti-dog/adult/happy-gourmet.png",
-      "OHA-EA": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
-      "OHA-EI": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
-      "OHA-CA": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
-      "OHA-CI": "/img/nbti-dog/adult/heavyweight-bodybuilder.png"
+      "WLA-EA": "/img/nbti-dog/adult/treat-king.png",
+      "WLA-EI": "/img/nbti-dog/adult/treat-king.png",
+      "WLA-CA": "/img/nbti-dog/adult/treat-king.png",
+      "WLA-CI": "/img/nbti-dog/adult/treat-king.png",
+      "WMA-EA": "/img/nbti-dog/adult/happy-gourmet.png",
+      "WMA-EI": "/img/nbti-dog/adult/happy-gourmet.png",
+      "WMA-CA": "/img/nbti-dog/adult/happy-gourmet.png",
+      "WMA-CI": "/img/nbti-dog/adult/happy-gourmet.png",
+      "WHA-EA": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
+      "WHA-EI": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
+      "WHA-CA": "/img/nbti-dog/adult/heavyweight-bodybuilder.png",
+      "WHA-CI": "/img/nbti-dog/adult/heavyweight-bodybuilder.png"
     },
     "senior": {
       "ULS": "/img/nbti-dog/senior/gentle-guardian.png",
       "UMS": "/img/nbti-dog/senior/willful-fighter.png",
       "UHS": "/img/nbti-dog/senior/legendary-runner.png",
-      "OLS": "/img/nbti-dog/senior/petfair-vip.png",
-      "OMS": "/img/nbti-dog/senior/seasoned-player.png",
-      "OHS": "/img/nbti-dog/senior/dusk-comedian.png",
+      "WLS": "/img/nbti-dog/senior/petfair-vip.png",
+      "WMS": "/img/nbti-dog/senior/seasoned-player.png",
+      "WHS": "/img/nbti-dog/senior/dusk-comedian.png",
       "ULS-EA": "/img/nbti-dog/senior/gentle-guardian.png",
       "ULS-EI": "/img/nbti-dog/senior/gentle-guardian.png",
       "ULS-CA": "/img/nbti-dog/senior/gentle-guardian.png",
@@ -472,18 +472,23 @@
       "UHS-EI": "/img/nbti-dog/senior/legendary-runner.png",
       "UHS-CA": "/img/nbti-dog/senior/legendary-runner.png",
       "UHS-CI": "/img/nbti-dog/senior/legendary-runner.png",
-      "OLS-EA": "/img/nbti-dog/senior/petfair-vip.png",
-      "OLS-EI": "/img/nbti-dog/senior/petfair-vip.png",
-      "OLS-CA": "/img/nbti-dog/senior/petfair-vip.png",
-      "OLS-CI": "/img/nbti-dog/senior/petfair-vip.png",
-      "OMS-EA": "/img/nbti-dog/senior/seasoned-player.png",
-      "OMS-EI": "/img/nbti-dog/senior/seasoned-player.png",
-      "OMS-CA": "/img/nbti-dog/senior/seasoned-player.png",
-      "OMS-CI": "/img/nbti-dog/senior/seasoned-player.png",
-      "OHS-EA": "/img/nbti-dog/senior/dusk-comedian.png",
-      "OHS-EI": "/img/nbti-dog/senior/dusk-comedian.png",
-      "OHS-CA": "/img/nbti-dog/senior/dusk-comedian.png",
-      "OHS-CI": "/img/nbti-dog/senior/dusk-comedian.png"
+      "IHS": "/img/nbti-dog/senior/legend-champion.png",
+      "IHS-EA": "/img/nbti-dog/senior/legend-champion.png",
+      "IHS-EI": "/img/nbti-dog/senior/legend-champion.png",
+      "IHS-CA": "/img/nbti-dog/senior/legend-champion.png",
+      "IHS-CI": "/img/nbti-dog/senior/legend-champion.png",
+      "WLS-EA": "/img/nbti-dog/senior/petfair-vip.png",
+      "WLS-EI": "/img/nbti-dog/senior/petfair-vip.png",
+      "WLS-CA": "/img/nbti-dog/senior/petfair-vip.png",
+      "WLS-CI": "/img/nbti-dog/senior/petfair-vip.png",
+      "WMS-EA": "/img/nbti-dog/senior/seasoned-player.png",
+      "WMS-EI": "/img/nbti-dog/senior/seasoned-player.png",
+      "WMS-CA": "/img/nbti-dog/senior/seasoned-player.png",
+      "WMS-CI": "/img/nbti-dog/senior/seasoned-player.png",
+      "WHS-EA": "/img/nbti-dog/senior/dusk-comedian.png",
+      "WHS-EI": "/img/nbti-dog/senior/dusk-comedian.png",
+      "WHS-CA": "/img/nbti-dog/senior/dusk-comedian.png",
+      "WHS-CI": "/img/nbti-dog/senior/dusk-comedian.png"
     },
     "puppy": {
       "IHP-EA": "/img/nbti-dog/puppy/dream-explorer.png",
@@ -510,18 +515,18 @@
       "UMP-EI": "/img/nbti-dog/puppy/little-entertainer.png",
       "UMP-CA": "/img/nbti-dog/puppy/little-entertainer.png",
       "UMP-CI": "/img/nbti-dog/puppy/little-entertainer.png",
-      "OHP-EA": "/img/nbti-dog/puppy/little-big-eater.png",
-      "OHP-EI": "/img/nbti-dog/puppy/little-big-eater.png",
-      "OHP-CA": "/img/nbti-dog/puppy/little-big-eater.png",
-      "OHP-CI": "/img/nbti-dog/puppy/little-big-eater.png",
-      "OLP-EA": "/img/nbti-dog/puppy/couch-kid.png",
-      "OLP-EI": "/img/nbti-dog/puppy/couch-kid.png",
-      "OLP-CA": "/img/nbti-dog/puppy/couch-kid.png",
-      "OLP-CI": "/img/nbti-dog/puppy/couch-kid.png",
-      "OMP-EA": "/img/nbti-dog/puppy/little-foodie.png",
-      "OMP-EI": "/img/nbti-dog/puppy/little-foodie.png",
-      "OMP-CA": "/img/nbti-dog/puppy/little-foodie.png",
-      "OMP-CI": "/img/nbti-dog/puppy/little-foodie.png"
+      "WHP-EA": "/img/nbti-dog/puppy/little-big-eater.png",
+      "WHP-EI": "/img/nbti-dog/puppy/little-big-eater.png",
+      "WHP-CA": "/img/nbti-dog/puppy/little-big-eater.png",
+      "WHP-CI": "/img/nbti-dog/puppy/little-big-eater.png",
+      "WLP-EA": "/img/nbti-dog/puppy/couch-kid.png",
+      "WLP-EI": "/img/nbti-dog/puppy/couch-kid.png",
+      "WLP-CA": "/img/nbti-dog/puppy/couch-kid.png",
+      "WLP-CI": "/img/nbti-dog/puppy/couch-kid.png",
+      "WMP-EA": "/img/nbti-dog/puppy/little-foodie.png",
+      "WMP-EI": "/img/nbti-dog/puppy/little-foodie.png",
+      "WMP-CA": "/img/nbti-dog/puppy/little-foodie.png",
+      "WMP-CI": "/img/nbti-dog/puppy/little-foodie.png"
     }
   }
 }
