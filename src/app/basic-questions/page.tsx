@@ -141,8 +141,8 @@ export default function BasicQuestionsPage() {
               <div
                 className="grid gap-[12px]"
                 style={{
-                  gridTemplateColumns: '127px 127px',
-                  gridTemplateRows: '127px 127px'
+                  gridTemplateColumns: '140px 140px',
+                  gridTemplateRows: '140px 140px'
                 }}
               >
                 <button
@@ -155,9 +155,9 @@ export default function BasicQuestionsPage() {
                   <Image
                     src="/img/basic-questions/skinny.png"
                     alt="저체중 (Skinny)"
-                    width={127}
-                    height={127}
-                    className="w-[127px] h-[127px] object-contain mx-auto"
+                    width={140}
+                    height={140}
+                    className="w-[140px] h-[140px] object-contain mx-auto"
                   />
                   {formData.bcs === 'skinny' && (
                     <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
@@ -176,9 +176,9 @@ export default function BasicQuestionsPage() {
                   <Image
                     src="/img/basic-questions/just-right.png"
                     alt="적정 체중 (Just Right)"
-                    width={127}
-                    height={127}
-                    className="w-[127px] h-[127px] object-contain mx-auto"
+                    width={140}
+                    height={140}
+                    className="w-[140px] h-[140px] object-contain mx-auto"
                   />
                   {formData.bcs === 'just-right' && (
                     <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
@@ -197,9 +197,9 @@ export default function BasicQuestionsPage() {
                   <Image
                     src="/img/basic-questions/husky.png"
                     alt="과체중 (Husky)"
-                    width={127}
-                    height={127}
-                    className="w-[127px] h-[127px] object-contain mx-auto"
+                    width={140}
+                    height={140}
+                    className="w-[140px] h-[140px] object-contain mx-auto"
                   />
                   {formData.bcs === 'husky' && (
                     <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
@@ -218,9 +218,9 @@ export default function BasicQuestionsPage() {
                   <Image
                     src="/img/basic-questions/chubby.png"
                     alt="비만 (Chubby)"
-                    width={127}
-                    height={127}
-                    className="w-[127px] h-[127px] object-contain mx-auto"
+                    width={140}
+                    height={140}
+                    className="w-[140px] h-[140px] object-contain mx-auto"
                   />
                   {formData.bcs === 'chubby' && (
                     <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
