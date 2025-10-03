@@ -266,7 +266,7 @@ export default function BasicQuestionsPage() {
         </div>
 
         {/* 다음 버튼 */}
-        <div className="mt-8 text-center">
+        <div className="mt-8 mb-14 text-center">
           <Button
             onClick={handleNext}
             disabled={!isFormValid}
