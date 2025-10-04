@@ -476,7 +476,7 @@ export default function SharePage() {
                   <h3 className="font-medium text-[20px] leading-tight m-0 font-gumi text-[#212121] w-full">{result.nbti.name}</h3>
                 </div>
                 <p className="font-normal text-[13px] leading-none my-[5px] text-[#8B8B8B]">{result.nbti.id} ({result.nbti.type})</p>
-                <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: 'calc(100% - 82px)' }}></div>
+                <div className="h-px bg-[#E3E3E3] mt-[5px] mx-auto" style={{ width: '200px' }}></div>
               </div>
 
               <div className="text-center mt-[13px] mb-[10px]">
@@ -485,7 +485,7 @@ export default function SharePage() {
                 </p>
               </div>
 
-              <div className="text-center text-[#000000] font-normal text-[13px] leading-[18px] px-[50px] mb-[15px]">
+              <div className="text-center text-[#000000] font-normal text-[13px] leading-[18px] mb-[15px]">
                 {Array.isArray(result.nbti.description)
                   ? result.nbti.description.map((desc, index) => (
                     <p key={index} className="break-keep mb-2 last:mb-0">{desc}</p>
