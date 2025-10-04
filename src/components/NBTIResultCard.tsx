@@ -15,7 +15,7 @@ export function NBTIResultCard({
 }: NBTIResultCardProps) {
   return (
     <div
-      className="bg-[#003DA5] px-[31px] py-[28px] relative overflow-hidden rounded-[30px]"
+      className="bg-[#003DA5] px-[30px] py-[28px] relative overflow-hidden rounded-[30px]"
       data-testid="nbti-result-card"
     >
       {/* FIX: 공유 카드에서는 폰트 적용이 안 되는 문제 해결 */}
