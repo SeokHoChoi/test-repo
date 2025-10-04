@@ -24,7 +24,7 @@ export function MatchingCard({
 
   return (
     <div
-      className="bg-white p-6 rounded-[20px] flex-1"
+      className="bg-white px-3 py-[15px] rounded-[20px] flex-1"
       style={{
         boxShadow: '10px 5px 10px 0px rgba(0, 0, 0, 0.15)'
       }}
@@ -39,13 +39,13 @@ export function MatchingCard({
         >
           {badgeText}
         </div>
-        <div className="mb-[5px] min-h-[100px] flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <Image
             src={imageSrc}
             alt={imageAlt}
-            width={80}
-            height={70}
-            className="w-20 h-[70px] object-contain"
+            width={130}
+            height={130}
+            className="object-contain"
           />
         </div>
         <h3 className="text-[#212121] font-gumi text-[13px] mb-[2px] flex items-center justify-center gap-[4px]">
