@@ -420,7 +420,7 @@ export default function SharePage() {
           customStyle={{
             boxShadow: '5px 2.5px 5px 0px rgba(0, 0, 0, 0.1)'
           }}
-          customPadding="px-[18.5px] py-[17px]"
+          customPadding="px-[10px] py-[17px]"
           noMargin
           className="mb-[37px]"
         >
@@ -480,7 +480,7 @@ export default function SharePage() {
               </div>
 
               <div className="text-center mt-[13px] mb-[10px]">
-                <p className="text-[#003DA5] font-semibold text-[13px]">
+                <p className="text-[#003DA5] font-semibold text-[13px] whitespace-nowrap">
                   &ldquo;{result.nbti.definition}&rdquo;
                 </p>
               </div>
