@@ -95,9 +95,11 @@ export default function LandingPage() {
             <h3 className="font-aggro font-semibold text-[20px] text-[#003DA5] leading-tight">NBTI란?</h3>
             <p className="font-normal text-[15px] text-[#003DA5] mb-3">(Nutritional Body & Type Index)</p>
             <p className="text-[#343434] text-[13px] font-normal leading-relaxed mb-4">
-              반려견의 건강 상태를 32가지 유형으로 나누고<br />
-              어떻게 하면 영양학적으로 더 건강하게 지낼 수<br />
-              있을지 알려주는 지표에요.
+              반려견의 가장 기본적인 정보를 <br />
+              32가지 유형으로 분류하는 시스템입니다.<br />
+              캐릭터는 각 유형을 이해하기 쉽게 일반화하여<br />
+              표현한 것이고, 건강 관리 팁은 우리 아이에게<br />
+              실제로 도움이 되는 맞춤 정보를 제공합니다.
             </p>
             <div className="flex justify-center">
               <Button
