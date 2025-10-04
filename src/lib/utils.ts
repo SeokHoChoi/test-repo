@@ -911,14 +911,33 @@ export async function renderNBTIImageDataUrl(): Promise<string | null> {
 }
 
 // ===== 내부 유틸: 캡처 안정화 도우미 =====
-async function waitForAssets(root: HTMLElement, timeoutMs: number = 6000): Promise<void> {
+async function waitForAssets(root: HTMLElement, timeoutMs: number = 8000): Promise<void> {
   const promises: Promise<void>[] = [];
 
-  // 폰트 로드
+  // 폰트 로드 - 더 강화된 대기
   const fonts = (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts;
   if (fonts?.ready && typeof fonts.ready.then === 'function') {
     promises.push(fonts.ready.then(() => undefined).catch(() => undefined));
   }
+
+  // 특정 폰트들이 로드되었는지 확인
+  const fontFamilies = ['Pretendard', 'SB-AggroOTF', 'Gumi-Romance'];
+  fontFamilies.forEach(fontFamily => {
+    promises.push(new Promise<void>((resolve) => {
+      if (document.fonts && document.fonts.check) {
+        const checkFont = () => {
+          if (document.fonts.check(`16px "${fontFamily}"`)) {
+            resolve();
+          } else {
+            setTimeout(checkFont, 100);
+          }
+        };
+        checkFont();
+      } else {
+        resolve();
+      }
+    }));
+  });
 
   // 이미지 로드
   const images = Array.from(root.querySelectorAll('img')) as HTMLImageElement[];
@@ -935,7 +954,7 @@ async function waitForAssets(root: HTMLElement, timeoutMs: number = 6000): Promi
     }));
   });
 
-  // 타임아웃 보장
+  // 타임아웃 보장 (아이맥을 위해 더 긴 대기시간)
   const timeout = new Promise<void>((resolve) => setTimeout(resolve, timeoutMs));
   await Promise.race([Promise.all(promises), timeout]);
 }
@@ -950,6 +969,26 @@ function injectCaptureSafeStyles(): () => void {
 .share-card .text-gray-700 { color: #374151 !important; }
 .share-card .text-white { color: #FFFFFF !important; }
 .share-card .bg-white { background-color: #FFFFFF !important; }
+
+/* 아이맥 캡쳐 시 폰트 강제 적용 */
+.share-card * {
+  font-family: var(--font-pretendard), 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif !important;
+}
+
+.share-card .font-aggro {
+  font-family: var(--font-aggro), 'SB-AggroOTF', sans-serif !important;
+}
+
+.share-card .font-gumi {
+  font-family: 'Gumi-Romance', cursive !important;
+}
+
+/* 폰트 렌더링 최적화 */
+.share-card {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
 `;
   document.head.appendChild(style);
   return () => {
