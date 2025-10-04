@@ -26,9 +26,9 @@ export function NBTIResultCard({
         <p className="text-[#FFFFFF] font-medium text-[15px] mt-2">@젤리대학교</p>
       </div>
 
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center">
         {/* 고정 크기 컨테이너로 래핑하여 왜곡 방지 */}
-        <div className="relative z-10" style={{ width: 200, height: 200 }}>
+        <div className="relative z-10" style={{ width: 200, height: 200, marginBottom: '36px' }}>
           <img
             src={dogImage}
             alt={`${dogName} 강아지`}
