@@ -282,7 +282,10 @@ export default function ResultsPage() {
 
         {/* 푸터 로고 */}
         <footer className="pt-[30px] pb-[15px] text-center">
-          <div className="w-16 h-16 mx-auto mb-2">
+          <div
+            className="w-16 h-16 mx-auto mb-2 cursor-pointer hover:opacity-80 transition-opacity"
+            onClick={() => router.push('/landing')}
+          >
             <Image
               src="/img/jellyu-logo.png"
               alt="Jelly Univ Logo"

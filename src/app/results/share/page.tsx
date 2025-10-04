@@ -606,7 +606,10 @@ export default function SharePage() {
       </div>
 
       <footer className="pt-0 pb-[15px] text-center">
-        <div className="w-16 h-16 mx-auto mb-2">
+        <div
+          className="w-16 h-16 mx-auto mb-2 cursor-pointer hover:opacity-80 transition-opacity"
+          onClick={() => router.push('/landing')}
+        >
           <Image
             src="/img/jellyu-logo.png"
             alt="Jelly Univ Logo"
