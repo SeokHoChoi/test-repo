@@ -513,7 +513,17 @@
       "WHS-EA": "/img/nbti-dog/senior/dusk-comedian.png",
       "WHS-EI": "/img/nbti-dog/senior/dusk-comedian.png",
       "WHS-CA": "/img/nbti-dog/senior/dusk-comedian.png",
-      "WHS-CI": "/img/nbti-dog/senior/dusk-comedian.png"
+      "WHS-CI": "/img/nbti-dog/senior/dusk-comedian.png",
+      "ULS": "/img/nbti-dog/senior/gentle-guardian.png",
+      "UMS": "/img/nbti-dog/senior/willful-fighter.png",
+      "UHS": "/img/nbti-dog/senior/legendary-runner.png",
+      "ILS": "/img/nbti-dog/senior/veteran-partner.png",
+      "IMS": "/img/nbti-dog/senior/pro-walker.png",
+      "IHS": "/img/nbti-dog/senior/legend-champion.png",
+      "WLS": "/img/nbti-dog/senior/petfair-vip.png",
+      "WMS": "/img/nbti-dog/senior/seasoned-player.png",
+      "OLS": "/img/nbti-dog/senior/twilight-eater.png",
+      "OHS": "/img/nbti-dog/senior/dusk-comedian.png"
     },
     "puppy": {
       "IHP-EA": "/img/nbti-dog/puppy/dream-explorer.png",

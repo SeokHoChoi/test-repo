@@ -1010,6 +1010,7 @@
       "name": "👗 도그 모델",
       "definition": "타고난 슬림한 몸매가 자랑인 톱모델",
       "category": "성견",
+      "image_file": "dog-model.png",
       "compatibility": {
         "best": {
           "title": "🎭 성견의 탈을 쓴 쪼꼬미",
@@ -1098,6 +1099,7 @@
       "name": "🐆 날렵한 치타",
       "definition": "속도가 곧 무기인 육상 선수",
       "category": "성견",
+      "image_file": "swift-cheetah.png",
       "compatibility": {
         "best": {
           "title": "🎤 꼬마 엔터테이너",
@@ -1186,6 +1188,7 @@
       "name": "🏃‍♂️ 울트라 러너",
       "definition": "지구력이 곧 생명인 우리집 마라토너",
       "category": "성견",
+      "image_file": "ultra-runner.png",
       "compatibility": {
         "best": {
           "title": "🚀 꼬마 로켓",
@@ -1274,6 +1277,7 @@
       "name": "🏠 완벽한 룸메이트",
       "definition": "보호자 맞춤형으로 살아가는 완벽 파트너",
       "category": "성견",
+      "image_file": "perfect-roommate.png",
       "compatibility": {
         "best": {
           "title": "🧚 꿈꾸는 작은 요정",
@@ -1362,6 +1366,7 @@
       "name": "🎾 활력충전 파트너",
       "definition": "노는게 제일 좋은 개구장이",
       "category": "성견",
+      "image_file": "energy-partner.png",
       "compatibility": {
         "best": {
           "title": "🏆 엄친견",
@@ -1450,6 +1455,7 @@
       "name": "🏆 철인삼종 챔피언",
       "definition": "체력이 곧 자존심인 우리집 올림픽 선수",
       "category": "성견",
+      "image_file": "triathlon-champion.png",
       "compatibility": {
         "best": {
           "title": "🔭 꿈 많은 탐험가",
@@ -2070,6 +2076,7 @@
       "name": "🕊️ 온화한 수호자",
       "definition": "세월이 만들어낸 우아함을 간직한 동반자",
       "category": "시니어",
+      "image_file": "gentle-guardian.png",
       "compatibility": {
         "best": {
           "title": "🎭 성견의 탈을 쓴 쪼꼬미",
