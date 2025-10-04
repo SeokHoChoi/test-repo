@@ -177,7 +177,7 @@ export default function PersonalQuestionsPage() {
         </div>
 
         {/* 결과 보기 버튼 */}
-        <div className="mt-8 text-center">
+        <div className="mt-8 mb-14 text-center">
           <Button
             onClick={handleSubmit}
             disabled={!isFormValid}

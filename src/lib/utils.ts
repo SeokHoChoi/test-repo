@@ -577,8 +577,8 @@ export function shareToKakao(_result: NBTIResult, _shareUrl: string): void {
       Kakao.Share?.sendDefault?.({
         objectType: 'feed',
         content: {
-          title: `🐶 ${_result.dogName}의 NBTI는 ${_result.nbti.name}!`,
-          description: `${_result.nbti.id} (${_result.nbti.type})\n"${_result.nbti.definition}"`,
+          title: `🐶 우리 아이 건강 MBTI 테스트`,
+          description: `너의 갱얼쥐 NBTI가 뭐야? 🐾`,
           imageUrl: resultImageUrl, // 1:1 결과 이미지
           link: {
             mobileWebUrl: _shareUrl,
