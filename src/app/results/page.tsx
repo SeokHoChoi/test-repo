@@ -66,8 +66,7 @@ export default function ResultsPage() {
   };
 
   const handleCheckFood = () => {
-    // window.open('https://www.jellyu-univ.com', '_blank');
-    router.push('/promo');
+    window.location.href = 'https://www.jellyuniversity.com/product-analysis';
   };
 
   if (loading) {
