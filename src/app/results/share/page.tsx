@@ -330,8 +330,7 @@ export default function SharePage() {
 
   // TODO: 이동 경로 검토
   const handleOtherTests = () => {
-    // window.open('https://www.jellyu-univ.com', '_blank');
-    router.push('/promo');
+    window.location.href = 'https://www.jellyuniversity.com/product-analysis';
   };
 
   // 공유 기능들

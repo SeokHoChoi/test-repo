@@ -669,7 +669,7 @@ export function shareKakaoTest(): void {
   (async () => {
     try {
       const Kakao = await loadSdk();
-      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://nbti.jellyuniversity.com')) || 'https://nbti.jellyuniversity.com';
+      const origin = (process.env.NEXT_PUBLIC_BASE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://nbti.jellyuniversity.com')) || 'https://nbti.niversity.com';
 
       // 2:1 이미지 (테스트 홍보용)
       const testImageUrl = `${origin}/img/kakao-share/kakao-test-share-800x400.png`;
