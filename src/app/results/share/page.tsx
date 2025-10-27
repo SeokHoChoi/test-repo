@@ -20,6 +20,7 @@ import {
 } from '@/lib/utils';
 import Image from 'next/image';
 import { getArchetypeImagePath } from '@/lib/nbti';
+import { MVPModal } from '@/components/MVPModal';
 
 
 export default function SharePage() {
@@ -28,10 +29,17 @@ export default function SharePage() {
   const [loading, setLoading] = useState(true);
   const [renderedImageUrl, setRenderedImageUrl] = useState<string | null>(null);
   const [toast, setToast] = useState<string>('');
+  const [showMVPModal, setShowMVPModal] = useState(false);
+  const [isSharedLink, setIsSharedLink] = useState(false);
 
   useEffect(() => {
     const loadResult = async () => {
       try {
+        // URL 파라미터에서 공유 링크 여부 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const isShared = urlParams.get('shared') === 'true';
+        setIsSharedLink(isShared);
+
         // 1. 기존 결과 데이터가 있는지 확인
         const resultData = getResultFromUrlOrStorage();
         if (resultData) {
@@ -65,6 +73,28 @@ export default function SharePage() {
 
     loadResult();
   }, []);
+
+  // 공유 페이지에서 모달 표시 로직
+  useEffect(() => {
+    if (!loading && result) {
+      // 공유 링크로 직접 유입된 경우 모달 표시 안 함
+      if (isSharedLink) {
+        setShowMVPModal(false);
+        return;
+      }
+
+      // 결과 페이지에서 이동한 경우 3초 후 모달 표시
+      const modalClosed = sessionStorage.getItem('mvpModalClosed');
+      if (!modalClosed) {
+        // 3초 후에 모달 표시
+        const timer = setTimeout(() => {
+          setShowMVPModal(true);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [loading, result, isSharedLink]);
 
   useEffect(() => {
     if (result) {
@@ -330,6 +360,20 @@ export default function SharePage() {
 
   // TODO: 이동 경로 검토
   const handleOtherTests = () => {
+    window.location.href = 'https://www.jellyuniversity.com/product-analysis';
+  };
+
+  // 모달 핸들러 함수들
+  const handleCloseMVPModal = () => {
+    setShowMVPModal(false);
+    // 사용자가 모달을 닫았다는 것을 sessionStorage에 저장
+    sessionStorage.setItem('mvpModalClosed', 'true');
+  };
+
+  const handleStartMVPTest = () => {
+    setShowMVPModal(false);
+    // 모달을 닫았다는 것을 저장하고 MVP 테스트로 이동
+    sessionStorage.setItem('mvpModalClosed', 'true');
     window.location.href = 'https://www.jellyuniversity.com/product-analysis';
   };
 
@@ -648,6 +692,13 @@ export default function SharePage() {
           to { opacity: 0; }
         }
       `}</style>
+
+      {/* MVP 전환 모달 */}
+      <MVPModal
+        isOpen={showMVPModal}
+        onClose={handleCloseMVPModal}
+        onStart={handleStartMVPTest}
+      />
     </div>
   );
 }

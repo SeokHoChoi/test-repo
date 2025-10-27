@@ -8,15 +8,18 @@ import { NBTIResultCard } from '@/components/NBTIResultCard';
 import { InfoCard } from '@/components/InfoCard';
 import { MatchingCard } from '@/components/MatchingCard';
 import { InfoDisplayCard } from '@/components/InfoDisplayCard';
-import { generateShareUrl, type NBTIResult, type SurveyAnswers, generateNBTIResultFromSurvey } from '@/lib/utils';
+import { generateShareUrl, generateSharePageUrl, type NBTIResult, type SurveyAnswers, generateNBTIResultFromSurvey } from '@/lib/utils';
 import { getPuppyImagePathByTitle, getPersonaImagePathByTypeCode } from '@/lib/nbti';
 import { Upload } from 'lucide-react';
 import Image from 'next/image';
+import { MVPModal } from '@/components/MVPModal';
 
 export default function ResultsPage() {
   const router = useRouter();
   const [result, setResult] = useState<NBTIResult | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showMVPModal, setShowMVPModal] = useState(false);
+  const [hasUserClosedModal, setHasUserClosedModal] = useState(false);
 
   useEffect(() => {
     const loadResult = async () => {
@@ -57,15 +60,46 @@ export default function ResultsPage() {
     loadResult();
   }, [router]);
 
+  // 3초 후 모달 표시 로직
+  useEffect(() => {
+    if (!loading && result && !hasUserClosedModal) {
+      // 사용자가 이미 모달을 닫았는지 확인
+      const modalClosed = sessionStorage.getItem('mvpModalClosed');
+      if (!modalClosed) {
+        const timer = setTimeout(() => {
+          setShowMVPModal(true);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [loading, result, hasUserClosedModal]);
+
   const handleShare = () => {
-    // URL에 결과 데이터를 담아서 공유 페이지로 이동
+    // URL에 결과 데이터를 담아서 공유 페이지로 이동 (내부 이동용)
     if (result) {
-      const shareUrl = generateShareUrl(result);
+      const shareUrl = generateSharePageUrl(result);
       router.push(shareUrl);
     }
   };
 
   const handleCheckFood = () => {
+    window.location.href = 'https://www.jellyuniversity.com/product-analysis';
+  };
+
+  // 모달 핸들러 함수들
+  const handleCloseMVPModal = () => {
+    setShowMVPModal(false);
+    setHasUserClosedModal(true);
+    // 사용자가 모달을 닫았다는 것을 sessionStorage에 저장
+    sessionStorage.setItem('mvpModalClosed', 'true');
+  };
+
+  const handleStartMVPTest = () => {
+    setShowMVPModal(false);
+    setHasUserClosedModal(true);
+    // 모달을 닫았다는 것을 저장하고 MVP 테스트로 이동
+    sessionStorage.setItem('mvpModalClosed', 'true');
     window.location.href = 'https://www.jellyuniversity.com/product-analysis';
   };
 
@@ -295,6 +329,13 @@ export default function ResultsPage() {
           </div>
         </footer>
       </div>
+
+      {/* MVP 전환 모달 */}
+      <MVPModal
+        isOpen={showMVPModal}
+        onClose={handleCloseMVPModal}
+        onStart={handleStartMVPTest}
+      />
     </div>
   );
 }

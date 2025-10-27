@@ -415,9 +415,20 @@ export function testSurveyMapping(answers: SurveyAnswers): {
 }
 
 /**
- * 공유 URL 생성 (결과 데이터 포함)
+ * 공유 URL 생성 (결과 데이터 포함) - 외부 공유용 (shared=true 포함)
  */
 export function generateShareUrl(result: NBTIResult, baseUrl?: string): string {
+  const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '');
+  // Compact code로 단축: IHA-EA 형태 + 개 명만 포함
+  const compact = `${result.nbti.id}|${result.dogName}`;
+  const encoded = encodeURIComponent(compact);
+  return `${origin}/results/share?code=${encoded}&shared=true`;
+}
+
+/**
+ * 공유 페이지 이동용 URL 생성 (내부 이동용) - shared 파라미터 없음
+ */
+export function generateSharePageUrl(result: NBTIResult, baseUrl?: string): string {
   const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '');
   // Compact code로 단축: IHA-EA 형태 + 개 명만 포함
   const compact = `${result.nbti.id}|${result.dogName}`;
